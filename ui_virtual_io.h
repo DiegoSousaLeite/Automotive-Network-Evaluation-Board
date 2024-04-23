@@ -8,6 +8,9 @@
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
+#include <QLabel>
+#include <QPixmap>
+
 #ifndef UI_VIRTUAL_IO_H
 #define UI_VIRTUAL_IO_H
 
@@ -45,27 +48,38 @@ public:
     QTextBrowser *textBrowser_4;
 
     //QPushButton
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton_4;
-    QPushButton *pushButton_5;
-    QPushButton *pushButton_6;
-    QPushButton *pushButton_7;
-    QPushButton *pushButton_8;
-    QPushButton *pushButton_9;
-    QPushButton *pushButton_10;
-    QPushButton *pushButton_11;
-    QPushButton *pushButton_12;
-    QPushButton *pushButton_13;
-    QPushButton *pushButton_14;
-    QPushButton *pushButton_15;
+    QPushButton *ecu1Button;
+    QPushButton *ecu2Button;
+    QPushButton *ecu3Button;
+    QPushButton *ecu4Button;
+    QPushButton *sendAllButton;
+    QPushButton *din1Button;
+    QPushButton *din2Button;
+    QPushButton *din4Button;
+    QPushButton *din3Button;
+    QPushButton *ain1Button;
+    QPushButton *ain2Button;
+    QPushButton *ain3Button;
+    QPushButton *ain4Button;
+    QPushButton *ecuConectButton;
+    QPushButton *virtualInputButton;
 
     //QSlider
     QSlider *horizontalSlider;
     QSlider *horizontalSlider_2;
     QSlider *horizontalSlider_3;
     QSlider *horizontalSlider_4;
+
+    //QLabel
+    QLabel *imagePlaca;
+    QLabel *imageDin1;
+    QLabel *imageDin2;
+    QLabel *imageDin3;
+    QLabel *imageDin4;
+    QLabel *imageAin1;
+    QLabel *imageAin2;
+    QLabel *imageAin3;
+    QLabel *imageAin4;
 
 
     // Function to setup the UI inside a given QWidget container
@@ -123,6 +137,61 @@ public:
         line_10->setGeometry(QRect(575, 450, 485, 3));
         line_10->setFrameShape(QFrame::HLine);
         line_10->setFrameShadow(QFrame::Sunken);
+
+        imagePlaca = new QLabel(Virtual_IO);
+        QPixmap pixmap("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/placa_remove_bg.png");
+        imagePlaca->setPixmap(pixmap);
+        imagePlaca->setGeometry(300, 85, 250, 250);
+        imagePlaca->setScaledContents(true);
+
+        imageDin1 = new QLabel(Virtual_IO);
+        QPixmap pixmap1("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/botao.png");
+        imageDin1->setPixmap(pixmap1);
+        imageDin1->setGeometry(30, 80, 60, 60);
+        imageDin1->setScaledContents(true);
+
+        imageDin2 = new QLabel(Virtual_IO);
+        QPixmap pixmap2("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/botao.png");
+        imageDin2->setPixmap(pixmap2);
+        imageDin2->setGeometry(100, 80, 60, 60);
+        imageDin2->setScaledContents(true);
+
+        imageDin3 = new QLabel(Virtual_IO);
+        QPixmap pixmap3("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/botao.png");
+        imageDin3->setPixmap(pixmap3);
+        imageDin3->setGeometry(170, 80, 60, 60);
+        imageDin3->setScaledContents(true);
+
+        imageDin4 = new QLabel(Virtual_IO);
+        QPixmap pixmap4("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/botao.png");
+        imageDin4->setPixmap(pixmap4);
+        imageDin4->setGeometry(240, 80, 60, 60);
+        imageDin4->setScaledContents(true);
+
+        imageAin1 = new QLabel(Virtual_IO);
+        QPixmap pixmap5("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/potentiometer.png");
+        imageAin1->setPixmap(pixmap5);
+        imageAin1->setGeometry(30, 200, 60, 60);
+        imageAin1->setScaledContents(true);
+
+        imageAin2 = new QLabel(Virtual_IO);
+        QPixmap pixmap6("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/potentiometer.png");
+        imageAin2->setPixmap(pixmap6);
+        imageAin2->setGeometry(100, 200, 60, 60);
+        imageAin2->setScaledContents(true);
+
+        imageAin3 = new QLabel(Virtual_IO);
+        QPixmap pixmap7("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/potentiometer.png");
+        imageAin3->setPixmap(pixmap7);
+        imageAin3->setGeometry(170, 200, 60, 60);
+        imageAin3->setScaledContents(true);
+
+        imageAin4 = new QLabel(Virtual_IO);
+        QPixmap pixmap8("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/potentiometer.png");
+        imageAin4->setPixmap(pixmap8);
+        imageAin4->setGeometry(240, 200, 60, 60);
+        imageAin4->setScaledContents(true);
+
 
         // Configuration of QTextBrowsers for displaying static texts
         textBrowser_5 = new QTextBrowser(Virtual_IO);
@@ -215,33 +284,65 @@ public:
 
 
         // Configuration of QPushButtons for various user interactions
-        pushButton = new QPushButton(Virtual_IO);
-        pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(870, 330, 100, 21));
-        pushButton_2 = new QPushButton(Virtual_IO);
-        pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setGeometry(QRect(870, 360, 100, 21));
-        pushButton_3 = new QPushButton(Virtual_IO);
-        pushButton_3->setObjectName("pushButton_3");
-        pushButton_3->setGeometry(QRect(870, 390, 100, 21));
-        pushButton_4 = new QPushButton(Virtual_IO);
-        pushButton_4->setObjectName("pushButton_4");
-        pushButton_4->setGeometry(QRect(870, 420, 100, 21));
-        pushButton_5 = new QPushButton(Virtual_IO);
-        pushButton_5->setObjectName("pushButton_5");
-        pushButton_5->setGeometry(QRect(980, 330, 71, 111));
-        pushButton_6 = new QPushButton(Virtual_IO);
-        pushButton_6->setObjectName("pushButton_6");
-        pushButton_6->setGeometry(QRect(30, 120, 50, 32));
-        pushButton_7 = new QPushButton(Virtual_IO);
-        pushButton_7->setObjectName("pushButton_7");
-        pushButton_7->setGeometry(QRect(90, 120, 50, 32));
-        pushButton_8 = new QPushButton(Virtual_IO);
-        pushButton_8->setObjectName("pushButton_8");
-        pushButton_8->setGeometry(QRect(210, 120, 50, 32));
-        pushButton_9 = new QPushButton(Virtual_IO);
-        pushButton_9->setObjectName("pushButton_9");
-        pushButton_9->setGeometry(QRect(150, 120, 50, 32));
+        ecu1Button = new QPushButton(Virtual_IO);
+        ecu1Button->setObjectName("ecu1Button");
+        ecu1Button->setGeometry(QRect(870, 330, 100, 21));
+
+        ecu2Button = new QPushButton(Virtual_IO);
+        ecu2Button->setObjectName("ecu2Button");
+        ecu2Button->setGeometry(QRect(870, 360, 100, 21));
+
+        ecu3Button = new QPushButton(Virtual_IO);
+        ecu3Button->setObjectName("ecu3Button");
+        ecu3Button->setGeometry(QRect(870, 390, 100, 21));
+
+        ecu4Button = new QPushButton(Virtual_IO);
+        ecu4Button->setObjectName("ecu4Button");
+        ecu4Button->setGeometry(QRect(870, 420, 100, 21));
+
+        sendAllButton = new QPushButton(Virtual_IO);
+        sendAllButton->setObjectName("sendAllButton");
+        sendAllButton->setGeometry(QRect(980, 330, 71, 111));
+
+        din1Button = new QPushButton(Virtual_IO);
+        din1Button->setObjectName("din1Button");
+        din1Button->setGeometry(QRect(30, 130, 60, 32));
+
+        din2Button = new QPushButton(Virtual_IO);
+        din2Button->setObjectName("din2Button");
+        din2Button->setGeometry(QRect(100, 130, 60, 32));
+
+        din3Button = new QPushButton(Virtual_IO);
+        din3Button->setObjectName("din3Button");
+        din3Button->setGeometry(QRect(170, 130, 60, 32));
+
+        din4Button = new QPushButton(Virtual_IO);
+        din4Button->setObjectName("din4Button");
+        din4Button->setGeometry(QRect(240, 130, 60, 32));
+
+        ain1Button = new QPushButton(Virtual_IO);
+        ain1Button->setObjectName("ain1Button");
+        ain1Button->setGeometry(QRect(260, 280, 51, 32));
+
+        ain2Button = new QPushButton(Virtual_IO);
+        ain2Button->setObjectName("ain2Button");
+        ain2Button->setGeometry(QRect(260, 360, 51, 32));
+
+        ain3Button = new QPushButton(Virtual_IO);
+        ain3Button->setObjectName("ain3Button");
+        ain3Button->setGeometry(QRect(260, 320, 51, 32));
+
+        ain4Button = new QPushButton(Virtual_IO);
+        ain4Button->setObjectName("ain4Button");
+        ain4Button->setGeometry(QRect(260, 400, 51, 32));
+
+        ecuConectButton = new QPushButton(Virtual_IO);
+        ecuConectButton->setObjectName("ecuConectButton");
+        ecuConectButton->setGeometry(QRect(340, 330, 170, 32));
+
+        virtualInputButton = new QPushButton(Virtual_IO);
+        virtualInputButton->setObjectName("virtualInputButton");
+        virtualInputButton->setGeometry(QRect(340, 370, 170, 32));
 
         // Configuration of QSliders for user-adjustable settings
         horizontalSlider = new QSlider(Virtual_IO);
@@ -264,24 +365,7 @@ public:
         horizontalSlider_4->setGeometry(QRect(50, 400, 200, 25));
         horizontalSlider_4->setOrientation(Qt::Horizontal);
 
-        pushButton_10 = new QPushButton(Virtual_IO);
-        pushButton_10->setObjectName("pushButton_10");
-        pushButton_10->setGeometry(QRect(260, 280, 51, 32));
-        pushButton_11 = new QPushButton(Virtual_IO);
-        pushButton_11->setObjectName("pushButton_11");
-        pushButton_11->setGeometry(QRect(260, 360, 51, 32));
-        pushButton_12 = new QPushButton(Virtual_IO);
-        pushButton_12->setObjectName("pushButton_12");
-        pushButton_12->setGeometry(QRect(260, 320, 51, 32));
-        pushButton_13 = new QPushButton(Virtual_IO);
-        pushButton_13->setObjectName("pushButton_13");
-        pushButton_13->setGeometry(QRect(260, 400, 51, 32));
-        pushButton_14 = new QPushButton(Virtual_IO);
-        pushButton_14->setObjectName("pushButton_14");
-        pushButton_14->setGeometry(QRect(360, 330, 171, 32));
-        pushButton_15 = new QPushButton(Virtual_IO);
-        pushButton_15->setObjectName("pushButton_15");
-        pushButton_15->setGeometry(QRect(360, 370, 171, 32));
+
 
         retranslateUi(Virtual_IO);
 
@@ -355,21 +439,21 @@ public:
         ___qtablewidgetitem12->setText(QCoreApplication::translate("Virtual_IO", "ECU#4", nullptr));
 
         // Update push buttons with translated text
-        pushButton->setText(QCoreApplication::translate("Virtual_IO", "ECU#1 Send", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("Virtual_IO", "ECU#2 Send", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("Virtual_IO", "ECU#3 Send", nullptr));
-        pushButton_4->setText(QCoreApplication::translate("Virtual_IO", "ECU#4 Send", nullptr));
-        pushButton_5->setText(QCoreApplication::translate("Virtual_IO", "Send All", nullptr));
-        pushButton_6->setText(QCoreApplication::translate("Virtual_IO", "DIN#1", nullptr));
-        pushButton_7->setText(QCoreApplication::translate("Virtual_IO", "DIN#2", nullptr));
-        pushButton_8->setText(QCoreApplication::translate("Virtual_IO", "DIN#4", nullptr));
-        pushButton_9->setText(QCoreApplication::translate("Virtual_IO", "DIN#3", nullptr));
-        pushButton_10->setText(QCoreApplication::translate("Virtual_IO", "AIN#1", nullptr));
-        pushButton_11->setText(QCoreApplication::translate("Virtual_IO", "AIN#3", nullptr));
-        pushButton_12->setText(QCoreApplication::translate("Virtual_IO", "AIN#2", nullptr));
-        pushButton_13->setText(QCoreApplication::translate("Virtual_IO", "AIN#4", nullptr));
-        pushButton_14->setText(QCoreApplication::translate("Virtual_IO", "ECUs Connection", nullptr));
-        pushButton_15->setText(QCoreApplication::translate("Virtual_IO", "Virtual Input (Default Test)", nullptr));
+        ecu1Button->setText(QCoreApplication::translate("Virtual_IO", "ECU#1 Send", nullptr));
+        ecu2Button->setText(QCoreApplication::translate("Virtual_IO", "ECU#2 Send", nullptr));
+        ecu3Button->setText(QCoreApplication::translate("Virtual_IO", "ECU#3 Send", nullptr));
+        ecu4Button->setText(QCoreApplication::translate("Virtual_IO", "ECU#4 Send", nullptr));
+        sendAllButton->setText(QCoreApplication::translate("Virtual_IO", "Send All", nullptr));
+        din1Button->setText(QCoreApplication::translate("Virtual_IO", "DIN#1", nullptr));
+        din2Button->setText(QCoreApplication::translate("Virtual_IO", "DIN#2", nullptr));
+        din3Button->setText(QCoreApplication::translate("Virtual_IO", "DIN#3", nullptr));
+        din4Button->setText(QCoreApplication::translate("Virtual_IO", "DIN#4", nullptr));
+        ain1Button->setText(QCoreApplication::translate("Virtual_IO", "AIN#1", nullptr));
+        ain2Button->setText(QCoreApplication::translate("Virtual_IO", "AIN#3", nullptr));
+        ain3Button->setText(QCoreApplication::translate("Virtual_IO", "AIN#2", nullptr));
+        ain4Button->setText(QCoreApplication::translate("Virtual_IO", "AIN#4", nullptr));
+        ecuConectButton->setText(QCoreApplication::translate("Virtual_IO", "ECUs Connection", nullptr));
+        virtualInputButton->setText(QCoreApplication::translate("Virtual_IO", "Virtual Input (Default Test)", nullptr));
     } // retranslateUi
 
 };
