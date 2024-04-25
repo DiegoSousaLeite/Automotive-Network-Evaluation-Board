@@ -67,7 +67,6 @@ void MainWindow::showVirtualIO() {
     virtualIOWidget->show(); // Show the Virtual_IO widget
 }
 
-
 // Simplified navigation functions to show respective pages (not used in the current setup but available)
 void MainWindow::pageFirmware() {
     ui->stackedWidget->setCurrentWidget(ui->pageFirmware);

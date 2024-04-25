@@ -10,7 +10,6 @@
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 #include <QIcon>
-#include "mainwindow.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -44,22 +43,12 @@ public:
     QWidget *pageDashboard;
     QWidget *pageSerialConsole;
 
-    QPushButton *createButton(QWidget *parent, const QString &objectName, const QIcon &icon, const QRect &geometry, const QSize &iconSize, const QString &styleSheet)
-    {
-        QPushButton *button = new QPushButton(parent);
-        button->setObjectName(objectName);
-        button->setIcon(icon);
-        button->setGeometry(geometry);
-        button->setIconSize(iconSize);
-        button->setStyleSheet(styleSheet);
-        return button;
-    }
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
-            MainWindow->setObjectName("ANEB 2.0");
-        MainWindow->resize(1071, 600);
+            MainWindow->setObjectName("MainWindow");
+        MainWindow->resize(1060, 600);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
 
@@ -134,32 +123,61 @@ public:
         comboBox->setGeometry(QRect(180, 20, 611, 32));
 
         // Firmware Uptade Button configuration
-        firmwareUpdateButton = createButton(pageFirmware, "firmwareUpdateButton", QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/update.png"),
-                                            QRect(10, 70, 141, 32),QSize(20,30),"QPushButton { text-align: left; padding-left: 5px; }");
+        firmwareUpdateButton = new QPushButton(pageFirmware);
+        firmwareUpdateButton->setObjectName("firmwareUpdateButton");
+        firmwareUpdateButton->setIcon(QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/update.png"));
+        firmwareUpdateButton->setGeometry(QRect(10, 70, 140, 32));
+        firmwareUpdateButton->setIconSize(QSize(20,30));
+        firmwareUpdateButton->setStyleSheet("QPushButton { text-align: left; padding-left: 5px; }");
 
         // Master Reset Button configuration
-        masterResetButton = createButton(pageFirmware,"masterResetButton",QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/reset.png"),
-                                         QRect(161, 70, 141, 32),QSize(20,30),"QPushButton { text-align: left; padding-left: 5px; }");
+        masterResetButton = new QPushButton(pageFirmware);
+        masterResetButton->setObjectName("masterResetButton");
+        masterResetButton->setIcon(QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/reset.png"));
+        masterResetButton->setGeometry(QRect(160, 70, 140, 32));
+        masterResetButton->setIconSize(QSize(20,30));
+        masterResetButton->setStyleSheet("QPushButton { text-align: left; padding-left: 5px; }");
 
         // ECU3 Button configuration
-        ecu3Button = createButton(pageFirmware,"ecu3Button",QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/ecu.png"),
-                                  QRect(312, 70, 151, 32),QSize(20,30),"QPushButton { text-align: left; padding-left: 5px; }");
+        ecu3Button = new QPushButton(pageFirmware);
+        ecu3Button->setObjectName("ecu3Button");
+        ecu3Button->setIcon(QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/ecu.png"));
+        ecu3Button->setGeometry(QRect(310, 70, 140, 32));
+        ecu3Button->setIconSize(QSize(20,30));
+        ecu3Button->setStyleSheet("QPushButton { text-align: left; padding-left: 5px; }");
 
         // ECU4 Button configuration
-        ecu4Button = createButton(pageFirmware,"ecu4Button",QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/ecu.png"),
-                                  QRect(473, 70, 151, 32),QSize(20,30),"QPushButton { text-align: left; padding-left: 5px; }");
+        ecu4Button = new QPushButton(pageFirmware);
+        ecu4Button->setObjectName("ecu4Button");
+        ecu4Button->setIcon(QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/ecu.png"));
+        ecu4Button->setGeometry(QRect(460, 70, 140, 32));
+        ecu4Button->setIconSize(QSize(20,30));
+        ecu4Button->setStyleSheet("QPushButton { text-align: left; padding-left: 5px; }");
 
         // Clean Console Button configuration
-        cleanConsoleButton = createButton(pageFirmware,"cleanConsoleButton",QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/clean.png"),
-                                          QRect(634, 70, 141, 32),QSize(20,30),"QPushButton { text-align: left; padding-left: 5px; }");
+        cleanConsoleButton = new QPushButton(pageFirmware);
+        cleanConsoleButton->setObjectName("cleanConsoleButton");
+        cleanConsoleButton->setIcon(QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/clean.png"));
+        cleanConsoleButton->setGeometry(QRect(610, 70, 140, 32));
+        cleanConsoleButton->setIconSize(QSize(20,30));
+        cleanConsoleButton->setStyleSheet("QPushButton { text-align: left; padding-left: 5px; }");
 
         // Camera Button configuration
-        cameraButton = createButton(pageFirmware,"cameraButton",QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/camera.png"),
-                                    QRect(785, 70, 133, 32),QSize(20,30),"QPushButton { text-align: left; padding-left: 5px; }");
+        cameraButton = new QPushButton(pageFirmware);
+        cameraButton->setObjectName("cameraButton");
+        cameraButton->setIcon(QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/camera.png"));
+        cameraButton->setGeometry(QRect(760, 70, 140, 32));
+        cameraButton->setIconSize(QSize(20,30));
+        cameraButton->setStyleSheet("QPushButton { text-align: left; padding-left: 5px; }");
 
         // Load Button configuration
-        loadButton = createButton(pageFirmware,"laodButton",QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/load.png"),
-                                    QRect(928, 70, 133, 32),QSize(20,30),"QPushButton { text-align: left; padding-left: 5px; }");
+        loadButton = new QPushButton(pageFirmware);
+        loadButton->setObjectName("loadButton");
+        loadButton->setIcon(QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/load.png"));
+        loadButton->setGeometry(QRect(910, 70, 140, 32));
+        loadButton->setIconSize(QSize(20,30));
+        loadButton->setStyleSheet("QPushButton { text-align: left; padding-left: 5px; }");
+
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
@@ -178,7 +196,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "ANEB 2.0", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         firmwareButton->setText(QCoreApplication::translate("MainWindow", "Firmware", nullptr));
         virtualButton->setText(QCoreApplication::translate("MainWindow", "Virtual I/O", nullptr));
         dashboardButton->setText(QCoreApplication::translate("MainWindow", "Dashboard", nullptr));

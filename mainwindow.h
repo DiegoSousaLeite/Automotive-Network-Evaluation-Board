@@ -13,7 +13,6 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-
 private:
     Ui::MainWindow *ui;
     Virtual_IO *virtualIOWidget;  // Instância da interface de I/O Virtual
@@ -21,6 +20,8 @@ private:
     void setupButtonStyles();  // Método para configurar os estilos dos botões
     void resetButtonStyles(const QString &defaultStyle);  // Método para resetar os estilos dos botões
     void showVirtualIO();
+
+
 public slots:
     void pageFirmware();
     void pageVirtual();
