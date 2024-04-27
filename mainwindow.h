@@ -16,12 +16,16 @@ public:
 private:
     Ui::MainWindow *ui;
     Virtual_IO *virtualIOWidget;  // Instância da interface de I/O Virtual
+    static QTextBrowser *staticConsole;  // Referência estática ao console
 
     void setupButtonStyles();  // Método para configurar os estilos dos botões
     void resetButtonStyles(const QString &defaultStyle);  // Método para resetar os estilos dos botões
     void showVirtualIO();
+    void onFirmwareUpdateButtonClicked();
+    static void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg); // Método para configurar o console
 
 
+    void onCleanConsoleButtonClicked();
 public slots:
     void pageFirmware();
     void pageVirtual();

@@ -1,11 +1,17 @@
 #include "mainwindow.h"
 #include <QStackedWidget>
 #include "virtual_io.h"
+#include <QFileDialog>
+#include <QTextBrowser>
+#include <QMessageBox>
+
 
 // Constructor for MainWindow class
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this); // Setup the UI elements based on the design from Qt Designer
+    staticConsole = ui->console;  // Inicializa o console estático
     setupButtonStyles(); // Function call to centralize the style configuration and page switching setup
+    qInstallMessageHandler(myMessageOutput);  // Instala o manipulador de log personalizado
 
     // Create the Virtual_IO widget, set its parent to ui->pageVirtual for proper hierarchy
     virtualIOWidget = new Virtual_IO(ui->pageVirtual);
@@ -14,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // Connect the 'virtualButton' click to the function that shows the Virtual_IO page
     connect(ui->virtualButton, &QPushButton::clicked, this, &MainWindow::showVirtualIO);
+
+    connect(ui->firmwareUpdateButton, &QPushButton::clicked, this, &MainWindow::onFirmwareUpdateButtonClicked);
+    connect(ui->cleanConsoleButton, &QPushButton::clicked,this,&MainWindow::onCleanConsoleButtonClicked);
 
     // Apply an active style to the firmware button, as it's the main/start page
     QString activeButtonStyle = "QPushButton { "
@@ -24,9 +33,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->stackedWidget->setCurrentWidget(ui->pageFirmware); // Set the initial visible page to firmware
 
 }
+QTextBrowser* MainWindow::staticConsole = nullptr;
 
 // Destructor for MainWindow class
 MainWindow::~MainWindow() {
+    staticConsole = nullptr;
     delete ui; // Clean up the Ui::MainWindow object when the MainWindow object is destroyed
 }
 
@@ -65,6 +76,7 @@ void MainWindow::resetButtonStyles(const QString &defaultStyle) {
 void MainWindow::showVirtualIO() {
     ui->stackedWidget->setCurrentWidget(ui->pageVirtual);
     virtualIOWidget->show(); // Show the Virtual_IO widget
+
 }
 
 // Simplified navigation functions to show respective pages (not used in the current setup but available)
@@ -74,4 +86,55 @@ void MainWindow::pageFirmware() {
 
 void MainWindow::pageVirtual() {
     ui->stackedWidget->setCurrentWidget(ui->pageVirtual);
+}
+
+void MainWindow::onFirmwareUpdateButtonClicked() {
+    QString fileName = QFileDialog::getOpenFileName(this,
+                                                    tr("Open Firmware File"), "",
+                                                    tr("Firmware Files (*.hex)"));
+    if (!fileName.isEmpty()) {
+        QFile file(fileName);
+        if (!file.open(QIODevice::ReadOnly)) {
+            QMessageBox::warning(this, tr("Error"), tr("Cannot open the file."));
+            return;
+        }
+        qDebug() << "Arquivo selecionado:" << fileName;
+        // Adicione mais lógica conforme necessário
+    }
+}
+void MainWindow::onCleanConsoleButtonClicked(){
+    if (staticConsole) {
+        staticConsole->clear();
+    }
+}
+
+void MainWindow::myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    Q_UNUSED(context);
+
+    // Formata a mensagem de acordo com o tipo
+    QString formattedMessage;
+    switch (type) {
+    case QtDebugMsg:
+        formattedMessage = QString("<b>Debug:</b> %1").arg(msg);
+        break;
+    case QtInfoMsg:
+        formattedMessage = QString("<b>Info:</b> %1").arg(msg);
+        break;
+    case QtWarningMsg:
+        formattedMessage = QString("<b>Warning:</b> %1").arg(msg);
+        break;
+    case QtCriticalMsg:
+        formattedMessage = QString("<b>Critical:</b> %1").arg(msg);
+        break;
+    case QtFatalMsg:
+        formattedMessage = QString("<b>Fatal:</b> %1").arg(msg);
+        abort();  // Fecha o programa
+    }
+
+    // Acesso direto via ui
+    if (staticConsole) {
+        staticConsole->append(formattedMessage);
+    }
+
 }

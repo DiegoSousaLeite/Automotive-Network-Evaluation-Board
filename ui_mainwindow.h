@@ -44,6 +44,8 @@ public:
     QWidget *pageDashboard;
     QWidget *pageSerialConsole;
 
+    QTextBrowser *console;
+
     QPushButton *createButton(QWidget *parent, const QString &objectName, const QIcon &icon, const QRect &geometry, const QSize &iconSize, const QString &styleSheet)
     {
         QPushButton *button = new QPushButton(parent);
@@ -132,6 +134,10 @@ public:
         comboBox = new QComboBox(pageFirmware);
         comboBox->setObjectName("comboBox");
         comboBox->setGeometry(QRect(180, 20, 611, 32));
+
+        console = new QTextBrowser(pageFirmware);
+        console->setObjectName("console");
+        console->setGeometry(QRect(10,110,1051,450));
 
         // Firmware Uptade Button configuration
         firmwareUpdateButton = createButton(pageFirmware, "firmwareUpdateButton", QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/update.png"),
