@@ -87,7 +87,7 @@ public:
     {
         if (Virtual_IO->objectName().isEmpty())
             Virtual_IO->setObjectName("Virtual_IO");
-        Virtual_IO->resize(1082, 600);
+
 
         // Configuration for vertical and horizontal lines to structure the layout
         line_11 = new QFrame(Virtual_IO);

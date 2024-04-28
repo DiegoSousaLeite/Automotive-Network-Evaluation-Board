@@ -8,6 +8,7 @@
 
 // Constructor for MainWindow class
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
+    setFixedSize(1071, 600);
     ui->setupUi(this); // Setup the UI elements based on the design from Qt Designer
     staticConsole = ui->console;  // Inicializa o console estático
     setupButtonStyles(); // Function call to centralize the style configuration and page switching setup

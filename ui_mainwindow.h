@@ -10,6 +10,7 @@
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 #include <QIcon>
+#include <QLabel>
 #include "mainwindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -61,7 +62,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("ANEB 2.0");
-        MainWindow->resize(1071, 600);
+
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
 
