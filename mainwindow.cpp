@@ -4,6 +4,8 @@
 #include <QFileDialog>
 #include <QTextBrowser>
 #include <QMessageBox>
+#include <QList>
+#include <QSerialPortInfo>
 
 
 // Constructor for MainWindow class
@@ -13,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     staticConsole = ui->console;  // Inicializa o console estático
     setupButtonStyles(); // Function call to centralize the style configuration and page switching setup
     qInstallMessageHandler(myMessageOutput);  // Instala o manipulador de log personalizado
+    updateComboBoxCommPortList(); // Atualiza a lista de portas seriais na inicialização
 
     // Create the Virtual_IO widget, set its parent to ui->pageVirtual for proper hierarchy
     virtualIOWidget = new Virtual_IO(ui->pageVirtual);
@@ -24,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     connect(ui->firmwareUpdateButton, &QPushButton::clicked, this, &MainWindow::onFirmwareUpdateButtonClicked);
     connect(ui->cleanConsoleButton, &QPushButton::clicked,this,&MainWindow::onCleanConsoleButtonClicked);
+    connect(ui->refreshButton, &QPushButton::clicked, this, &MainWindow::updateComboBoxCommPortList);
+
 
     // Apply an active style to the firmware button, as it's the main/start page
     QString activeButtonStyle = "QPushButton { "
@@ -89,6 +94,26 @@ void MainWindow::pageVirtual() {
     ui->stackedWidget->setCurrentWidget(ui->pageVirtual);
 }
 
+void MainWindow::updateComboBoxCommPortList() {
+    ui->comboBox->clear(); // Limpa o comboBox para remover itens antigos
+
+    QList<QSerialPortInfo> ports = QSerialPortInfo::availablePorts();
+    // Adiciona portas atualizadas ao comboBox
+    for (const QSerialPortInfo &port : ports) {
+        QString portDescription = QString("[%1] %2: %3 : %4")
+                                      .arg(QString::number(ui->comboBox->count()))
+                                      .arg(port.portName())
+                                      .arg(port.description())
+                                      .arg(port.serialNumber());
+
+
+        ui->comboBox->addItem(portDescription);
+
+    }
+    qDebug() << "ECU Serial Port atualizadas";
+}
+
+
 void MainWindow::onFirmwareUpdateButtonClicked() {
     QString fileName = QFileDialog::getOpenFileName(this,
                                                     tr("Open Firmware File"), "",
@@ -100,7 +125,6 @@ void MainWindow::onFirmwareUpdateButtonClicked() {
             return;
         }
         qDebug() << "Arquivo selecionado:" << fileName;
-        // Adicione mais lógica conforme necessário
     }
 }
 void MainWindow::onCleanConsoleButtonClicked(){
@@ -139,3 +163,4 @@ void MainWindow::myMessageOutput(QtMsgType type, const QMessageLogContext &conte
     }
 
 }
+

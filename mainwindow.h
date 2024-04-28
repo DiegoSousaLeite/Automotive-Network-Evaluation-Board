@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSerialPort>
 #include "ui_mainwindow.h"
 #include "virtual_io.h"
 
@@ -26,9 +27,11 @@ private:
 
 
     void onCleanConsoleButtonClicked();
+
 public slots:
     void pageFirmware();
     void pageVirtual();
+    void updateComboBoxCommPortList();
 };
 
 

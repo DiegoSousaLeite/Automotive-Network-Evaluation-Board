@@ -35,6 +35,7 @@ public:
     QPushButton *cleanConsoleButton;
     QPushButton *cameraButton;
     QPushButton *loadButton;
+    QPushButton *refreshButton;
     QFrame *line_3;
     QFrame *line_4;
     QMenuBar *menubar;
@@ -46,6 +47,8 @@ public:
     QWidget *pageSerialConsole;
 
     QTextBrowser *console;
+
+
 
     QPushButton *createButton(QWidget *parent, const QString &objectName, const QIcon &icon, const QRect &geometry, const QSize &iconSize, const QString &styleSheet)
     {
@@ -135,6 +138,10 @@ public:
         comboBox = new QComboBox(pageFirmware);
         comboBox->setObjectName("comboBox");
         comboBox->setGeometry(QRect(180, 20, 611, 32));
+
+        //Refresh Button Configuration
+        refreshButton = createButton(pageFirmware,"refreshButton",QIcon("/Users/sousadiego/Documents/ws-Qt/ANEB_2/icons/refresh.png"),
+                                     QRect(780,5,50,60),QSize(40,50),"background-color: transparent;");
 
         console = new QTextBrowser(pageFirmware);
         console->setObjectName("console");
