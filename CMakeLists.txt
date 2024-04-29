@@ -34,6 +34,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         CmdMessageConstants.h
         JigaTestInterface.h
         SystemProperties.h
+        individualtest.h individualtest.cpp
     )
 
 set(CONSTANTS_HEADERS
