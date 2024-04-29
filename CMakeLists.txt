@@ -36,6 +36,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         SystemProperties.h
         individualtest.h individualtest.cpp
         testreportmodel.h testreportmodel.cpp
+        generictest.h generictest.cpp
+        firmwareupload.h firmwareupload.cpp
     )
 
 set(CONSTANTS_HEADERS

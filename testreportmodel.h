@@ -32,6 +32,8 @@ public:
     void setIndividualTestResult(int testId, int testResult);
     int getIndividualTestResult(int testId) const;
 
+    QString getFirstMessageAndRemove();
+
 signals:
     void propertyChanged(const QString &property, const QVariant &oldValue, const QVariant &newValue);
 

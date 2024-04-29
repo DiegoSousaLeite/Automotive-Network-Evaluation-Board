@@ -94,3 +94,10 @@ int TestReportModel::getIndividualTestResult(int testId) const {
     }
     return -1;  // Indica um erro ou valor não encontrado.
 }
+
+QString TestReportModel::getFirstMessageAndRemove() {
+    if (!reportMsg.isEmpty()) {
+        return reportMsg.takeFirst();  // Remove e retorna o primeiro elemento da lista
+    }
+    return QString();  // Retorna uma QString vazia se não houver mensagens
+}
