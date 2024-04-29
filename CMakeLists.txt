@@ -32,7 +32,19 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ui_virtual_io.h
         AtCommandConstants.h
         CmdMessageConstants.h
+        JigaTestInterface.h
     )
+
+set(CONSTANTS_HEADERS
+   CmdMessageConstants.h
+   AtCommandConstants.h
+   JigaTestInterface.h
+
+)
+
+source_group("Constants" FILES ${CONSTANTS_HEADERS})
+
+
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ANEB_2 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
