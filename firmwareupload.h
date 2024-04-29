@@ -2,7 +2,6 @@
 #define FIRMWAREUPLOAD_H
 
 #include "generictest.h"
-#include "JigaTestInterface.h"
 
 class FirmwareUpload : public GenericTest {
 public:

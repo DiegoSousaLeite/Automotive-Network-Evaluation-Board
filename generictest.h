@@ -30,9 +30,10 @@ public:
     QString getBoardDescription(int boardId) const;
 
     void resetTestModel();
+    QList<TestReportModel*> testReportModels;
 
 private:
-    QList<TestReportModel*> testReportModels;
+
 };
 
 #endif // GENERICTEST_H
