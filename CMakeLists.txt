@@ -35,6 +35,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         JigaTestInterface.h
         SystemProperties.h
         individualtest.h individualtest.cpp
+        testreportmodel.h testreportmodel.cpp
     )
 
 set(CONSTANTS_HEADERS
