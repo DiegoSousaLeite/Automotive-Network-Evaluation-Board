@@ -33,12 +33,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         AtCommandConstants.h
         CmdMessageConstants.h
         JigaTestInterface.h
+        SystemProperties.h
     )
 
 set(CONSTANTS_HEADERS
    CmdMessageConstants.h
    AtCommandConstants.h
    JigaTestInterface.h
+   SystemProperties.h
 
 )
 
