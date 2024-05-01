@@ -4,7 +4,6 @@
 #include "GenericTest.h"
 #include "TestReportModel.h"
 #include "JigaTestInterface.h"
-#include <vector>
 
 class LinNetworkTest : public GenericTest {
 private:
