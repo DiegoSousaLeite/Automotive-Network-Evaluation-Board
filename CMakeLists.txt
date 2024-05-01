@@ -60,6 +60,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         LinNetworkTest.h
         LoopbackCanTest.h
         MCUInterfaceTest.h
+        ReportControllerInterface.h
     )
 
 set(BUILD
@@ -104,8 +105,9 @@ set(CONTROLLER
 
 set(INTERFACE
     EcuBusinessInterface.h
-
+    ReportControllerInterface.h
 )
+
 
 set(MODEL.BOARD
     Board.h
