@@ -38,6 +38,17 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         testreportmodel.h testreportmodel.cpp
         generictest.h generictest.cpp
         firmwareupload.h firmwareupload.cpp
+        #ecuframecontroller.h ecuframecontroller.cpp
+        serialcommport.h serialcommport.cpp
+        EcuBusinessInterface.h
+        Board.h
+        Ecu1Board.h
+        Environment.h
+        Ecu2Board.h
+        Ecu3Board.h
+        Ecu4Board.h
+        Mcu1Board.h
+        ErrorCodeInterface.h
     )
 
 set(CONSTANTS_HEADERS
@@ -45,11 +56,47 @@ set(CONSTANTS_HEADERS
    AtCommandConstants.h
    JigaTestInterface.h
    SystemProperties.h
+   ErrorCodeInterface.h
 
 )
 
-source_group("Constants" FILES ${CONSTANTS_HEADERS})
+set(MODEL
+    testreportmodel.h testreportmodel.cpp
+    serialcommport.h serialcommport.cpp
 
+)
+
+set(MODEL.TEST
+    individualtest.h individualtest.cpp
+    generictest.h generictest.cpp
+    firmwareupload.h firmwareupload.cpp
+)
+
+set(CONTROLLER
+    ecuframecontroller.h ecuframecontroller.cpp
+
+)
+
+set(INTERFACE
+    EcuBusinessInterface.h
+
+)
+
+set(MODEL.BOARD
+    Board.h
+    Ecu1Board.h
+    Ecu2Board.h
+    Ecu3Board.h
+    Ecu4Board.h
+    Mcu1Board.h
+)
+
+source_group("Constants" FILES ${CONSTANTS_HEADERS})
+source_group("Model" FILES ${MODEL})
+source_group("Model.test" FILES ${MODEL.TEST})
+source_group("Controller" FILES ${CONTROLLER})
+source_group("Interface" FILES ${INTERFACE})
+source_group("Model.board" FILES ${MODEL.BOARD})
 
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ANEB_2 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

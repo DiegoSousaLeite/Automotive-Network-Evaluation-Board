@@ -1,7 +1,8 @@
 #include "individualtest.h"
+#include "JigaTestInterface.h"
 
 IndividualTest::IndividualTest(int testID)
-    : testId(testID), testResult(ERROR_TO_EXECUTE_TEST) {
+    : testId(testID), testResult(JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
     // Constructor initialization
 }
 
@@ -22,5 +23,5 @@ void IndividualTest::setTestResult(int testResult) {
 }
 
 void IndividualTest::resetTestResult() {
-    this->testResult = ERROR_TO_EXECUTE_TEST;
+    this->testResult = JigaTestConstants::ERROR_TO_EXECUTE_TEST;
 }
