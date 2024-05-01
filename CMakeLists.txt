@@ -54,6 +54,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         CAN1NetworkTest.h
         CAN2NetworkTest.h
         CANInitTest.h
+        CommunicationTest.h
     )
 
 set(CONSTANTS_HEADERS
@@ -80,6 +81,7 @@ set(MODEL.TEST
     CAN1NetworkTest.h
     CAN2NetworkTest.h
     CANInitTest.h
+    CommunicationTest.h
 )
 
 set(CONTROLLER
