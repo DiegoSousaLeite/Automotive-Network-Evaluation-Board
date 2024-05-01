@@ -57,6 +57,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         CommunicationTest.h
         DigitalInputTest.h
         SystemDefinition.h
+        LinNetworkTest.h
+        LoopbackCanTest.h
     )
 
 set(BUILD
@@ -89,6 +91,8 @@ set(MODEL.TEST
     CANInitTest.h
     CommunicationTest.h
     DigitalInputTest.h
+    LinNetworkTest.h
+    LoopbackCanTest.h
 )
 
 set(CONTROLLER
