@@ -49,6 +49,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         Ecu4Board.h
         Mcu1Board.h
         ErrorCodeInterface.h
+        AnalogInputTest.h
     )
 
 set(CONSTANTS_HEADERS
@@ -70,6 +71,7 @@ set(MODEL.TEST
     individualtest.h individualtest.cpp
     generictest.h generictest.cpp
     firmwareupload.h firmwareupload.cpp
+    AnalogInputTest.h
 )
 
 set(CONTROLLER
