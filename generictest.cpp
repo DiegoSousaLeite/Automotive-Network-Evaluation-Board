@@ -4,11 +4,11 @@ GenericTest::GenericTest(QObject *parent) : QObject(parent) {
 }
 
 QList<TestReportModel*> GenericTest::getTestReports() const {
-    return testReportModels;
+    return testReportModel;
 }
 
 TestReportModel* GenericTest::getTestReport(int boardId) const {
-    for (TestReportModel* model : testReportModels) {
+    for (TestReportModel* model : testReportModel) {
         if (model->getBoardID() == boardId) {
             return model;
         }
@@ -17,7 +17,7 @@ TestReportModel* GenericTest::getTestReport(int boardId) const {
 }
 
 int GenericTest::getSize() const {
-    return testReportModels.size();
+    return testReportModel.size();
 }
 
 void GenericTest::setTestResult(int boardId, int testResult) {
@@ -35,7 +35,7 @@ void GenericTest::addTestMessage(int boardId, const QString &message) {
 }
 
 void GenericTest::addTestMessage(const QString &message) {
-    for (TestReportModel* model : testReportModels) {
+    for (TestReportModel* model : testReportModel) {
         model->addMessage(message);
     }
 }
@@ -81,7 +81,7 @@ QString GenericTest::getBoardDescription(int boardId) const {
 
 
 void GenericTest::resetTestModel() {
-    for (TestReportModel* model : testReportModels) {
+    for (TestReportModel* model : testReportModel) {
         model->resetReportModel();
     }
 }

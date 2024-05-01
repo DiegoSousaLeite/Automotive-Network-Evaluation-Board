@@ -51,6 +51,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ErrorCodeInterface.h
         AnalogInputTest.h
         AnalogOutputTest.h
+        CAN1NetworkTest.h
     )
 
 set(CONSTANTS_HEADERS
@@ -74,6 +75,7 @@ set(MODEL.TEST
     firmwareupload.h firmwareupload.cpp
     AnalogInputTest.h
     AnalogOutputTest.h
+    CAN1NetworkTest.h
 )
 
 set(CONTROLLER

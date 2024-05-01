@@ -30,7 +30,7 @@ public:
     QString getBoardDescription(int boardId) const;
 
     void resetTestModel();
-    QList<TestReportModel*> testReportModels;
+    QList<TestReportModel*> testReportModel;
 
 private:
 
