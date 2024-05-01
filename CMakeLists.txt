@@ -59,6 +59,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         SystemDefinition.h
         LinNetworkTest.h
         LoopbackCanTest.h
+        MCUInterfaceTest.h
     )
 
 set(BUILD
@@ -93,6 +94,7 @@ set(MODEL.TEST
     DigitalInputTest.h
     LinNetworkTest.h
     LoopbackCanTest.h
+    MCUInterfaceTest.h
 )
 
 set(CONTROLLER
