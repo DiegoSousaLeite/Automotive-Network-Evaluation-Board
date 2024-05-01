@@ -56,7 +56,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         CANInitTest.h
         CommunicationTest.h
         DigitalInputTest.h
+        SystemDefinition.h
     )
+
+set(BUILD
+    SystemDefinition.h
+)
 
 set(CONSTANTS_HEADERS
    CmdMessageConstants.h
@@ -111,6 +116,7 @@ source_group("Model.test" FILES ${MODEL.TEST})
 source_group("Controller" FILES ${CONTROLLER})
 source_group("Interface" FILES ${INTERFACE})
 source_group("Model.board" FILES ${MODEL.BOARD})
+source_group("Build" FILES ${BUILD})
 
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ANEB_2 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
