@@ -52,6 +52,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         AnalogInputTest.h
         AnalogOutputTest.h
         CAN1NetworkTest.h
+        CAN2NetworkTest.h
     )
 
 set(CONSTANTS_HEADERS
@@ -76,6 +77,7 @@ set(MODEL.TEST
     AnalogInputTest.h
     AnalogOutputTest.h
     CAN1NetworkTest.h
+    CAN2NetworkTest.h
 )
 
 set(CONTROLLER
