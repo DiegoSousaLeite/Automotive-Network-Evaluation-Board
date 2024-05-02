@@ -7,58 +7,18 @@
 
 class CAN1NetworkTest : public GenericTest {
 private:
-    static CAN1NetworkTest* instance;
+    static CAN1NetworkTest* instance;  // Declaração da instância singleton
 
-    CAN1NetworkTest() {
-        TestReportModel* tModel;
-
-        // Test model for ECU1
-        tModel = new TestReportModel(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ECU1_BOARD_ID);
-        tModel->addIndividualTest(JigaTestConstants::CAN1_ECU2_ITEST);
-        tModel->addIndividualTest(JigaTestConstants::CAN1_ECU3_ITEST);
-        tModel->addIndividualTest(JigaTestConstants::CAN1_ECU4_ITEST);
-        testReportModel.push_back(tModel);
-
-        // Test report for ECU2
-        tModel = new TestReportModel(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ECU2_BOARD_ID);
-        tModel->addIndividualTest(JigaTestConstants::CAN1_ECU1_ITEST);
-        tModel->addIndividualTest(JigaTestConstants::CAN1_ECU3_ITEST);
-        tModel->addIndividualTest(JigaTestConstants::CAN1_ECU4_ITEST);
-        testReportModel.push_back(tModel);
-
-        // Test report for ECU3
-        tModel = new TestReportModel(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ECU3_BOARD_ID);
-        tModel->addIndividualTest(JigaTestConstants::CAN1_ECU1_ITEST);
-        tModel->addIndividualTest(JigaTestConstants::CAN1_ECU2_ITEST);
-        tModel->addIndividualTest(JigaTestConstants::CAN1_ECU4_ITEST);
-        testReportModel.push_back(tModel);
-
-        // Test report for ECU4
-        tModel = new TestReportModel(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ECU4_BOARD_ID);
-        tModel->addIndividualTest(JigaTestConstants::CAN1_ECU1_ITEST);
-        tModel->addIndividualTest(JigaTestConstants::CAN1_ECU2_ITEST);
-        tModel->addIndividualTest(JigaTestConstants::CAN1_ECU3_ITEST);
-        testReportModel.push_back(tModel);
-
-        // Test report for ALL
-        tModel = new TestReportModel(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ALL_BOARDS_ID);
-        testReportModel.push_back(tModel);
-    }
+    CAN1NetworkTest();  // Construtor privado
 
 public:
-    static CAN1NetworkTest* getInstance() {
-        if (!instance) {
-            instance = new CAN1NetworkTest();
-        }
-        return instance;
-    }
+    static CAN1NetworkTest* getInstance();  // Método de acesso ao singleton
 
-    virtual ~CAN1NetworkTest() {}
+    virtual ~CAN1NetworkTest();  // Destruidor
 
+    // Impedir cópia e atribuição
     CAN1NetworkTest(const CAN1NetworkTest&) = delete;
     CAN1NetworkTest& operator=(const CAN1NetworkTest&) = delete;
 };
-
-CAN1NetworkTest* CAN1NetworkTest::instance = nullptr;
 
 #endif // CAN1NETWORKTEST_H

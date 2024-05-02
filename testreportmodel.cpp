@@ -1,4 +1,4 @@
-#include "testreportmodel.h"
+#include "TestReportModel.h"
 #include "JigaTestInterface.h"
 
 TestReportModel::TestReportModel(QObject *parent)

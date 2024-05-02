@@ -37,7 +37,7 @@ public:
     static constexpr int CAN1_NETWORK_TEST     = 8;
     static constexpr int CAN2_NETWORK_TEST     = 9;
     static constexpr int LIN_NETWORK_TEST      = 10;
-    static constexpr int MCU_INTERRFACE_TEST   = 11;
+    static constexpr int MCU_INTERFACE_TEST   = 11;
     static constexpr int MCU_RST_ACT_TEST      = 12;
     static constexpr int MCU_RST_DAC_TEST      = 13;
     static constexpr int MCU_IDENT_PORT_TEST   = 14;

@@ -34,10 +34,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         CmdMessageConstants.h
         JigaTestInterface.h
         SystemProperties.h
-        individualtest.h individualtest.cpp
-        testreportmodel.h testreportmodel.cpp
-        generictest.h generictest.cpp
-        firmwareupload.h firmwareupload.cpp
+        IndividualTest.h IndividualTest.cpp
+        TestReportModel.h TestReportModel.cpp
+        GenericTest.h GenericTest.cpp
+        FirmwareUpload.h FirmwareUpload.cpp
         #ecuframecontroller.h ecuframecontroller.cpp
         serialcommport.h serialcommport.cpp
         EcuBusinessInterface.h
@@ -49,18 +49,20 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         Ecu4Board.h
         Mcu1Board.h
         ErrorCodeInterface.h
-        AnalogInputTest.h
-        AnalogOutputTest.h
-        CAN1NetworkTest.h
-        CAN2NetworkTest.h
-        CANInitTest.h
-        CommunicationTest.h
-        DigitalInputTest.h
+        AnalogInputTest.h AnalogInputTest.cpp
+        AnalogOutputTest.h AnalogOutputTest.cpp
+        CAN1NetworkTest.h CAN1NetworkTest.cpp
+        CAN2NetworkTest.h CAN2NetworkTest.cpp
+        CANInitTest.h CANInitTest.cpp
+        CommunicationTest.h CommunicationTest.cpp
+        DigitalInputTest.h DigitalInputTest.cpp
         SystemDefinition.h
-        LinNetworkTest.h
-        LoopbackCanTest.h
-        MCUInterfaceTest.h
+        LinNetworkTest.h  LinNetworkTest.cpp
+        LoopbackCanTest.h LoopbackCanTest.cpp
+        MCUInterfaceTest.h  MCUInterfaceTest.cpp
         ReportControllerInterface.h
+        FrameController.h FrameController.cpp
+
     )
 
 set(BUILD
@@ -77,29 +79,30 @@ set(CONSTANTS_HEADERS
 )
 
 set(MODEL
-    testreportmodel.h testreportmodel.cpp
+    TestReportModel.h TestReportModel.cpp
     serialcommport.h serialcommport.cpp
 
 )
 
 set(MODEL.TEST
-    individualtest.h individualtest.cpp
-    generictest.h generictest.cpp
-    firmwareupload.h firmwareupload.cpp
-    AnalogInputTest.h
-    AnalogOutputTest.h
-    CAN1NetworkTest.h
-    CAN2NetworkTest.h
-    CANInitTest.h
-    CommunicationTest.h
-    DigitalInputTest.h
-    LinNetworkTest.h
-    LoopbackCanTest.h
-    MCUInterfaceTest.h
+    IndividualTest.h IndividualTest.cpp
+    GenericTest.h GenericTest.cpp
+    FirmwareUpload.h FirmwareUpload.cpp
+    AnalogInputTest.h AnalogInputTest.cpp
+    AnalogOutputTest.h AnalogOutputTest.cpp
+    CAN1NetworkTest.h CAN1NetworkTest.cpp
+    CAN2NetworkTest.h CAN2NetworkTest.cpp
+    CANInitTest.h CANInitTest.cpp
+    CommunicationTest.h  CommunicationTest.cpp
+    DigitalInputTest.h DigitalInputTest.cpp
+    LinNetworkTest.h LinNetworkTest.cpp
+    LoopbackCanTest.h LoopbackCanTest.cpp
+    MCUInterfaceTest.h  MCUInterfaceTest.cpp
 )
 
 set(CONTROLLER
     ecuframecontroller.h ecuframecontroller.cpp
+    FrameController.h FrameController.cpp
 
 )
 

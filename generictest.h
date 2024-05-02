@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QList>
-#include "testreportmodel.h"
+#include "TestReportModel.h"
 #include "JigaTestInterface.h"
 
 

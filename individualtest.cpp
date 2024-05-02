@@ -1,4 +1,4 @@
-#include "individualtest.h"
+#include "IndividualTest.h"
 #include "JigaTestInterface.h"
 
 IndividualTest::IndividualTest(int testID)

@@ -1,4 +1,4 @@
-#include "generictest.h"
+#include "GenericTest.h"
 
 GenericTest::GenericTest(QObject *parent) : QObject(parent) {
 }

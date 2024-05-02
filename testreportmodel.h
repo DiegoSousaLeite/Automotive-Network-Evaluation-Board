@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QList>
-#include "individualtest.h"
+#include "IndividualTest.h"
 #include <QVariant>
 
 

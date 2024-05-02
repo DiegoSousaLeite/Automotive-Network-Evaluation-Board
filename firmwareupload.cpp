@@ -1,5 +1,5 @@
-#include "firmwareupload.h"
-#include "testreportmodel.h"
+#include "FirmwareUpload.h"
+#include "TestReportModel.h"
 #include "JigaTestInterface.h"
 
 FirmwareUpload* FirmwareUpload::instance = nullptr;

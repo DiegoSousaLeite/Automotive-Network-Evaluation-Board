@@ -1,7 +1,7 @@
 #ifndef FIRMWAREUPLOAD_H
 #define FIRMWAREUPLOAD_H
 
-#include "generictest.h"
+#include "GenericTest.h"
 
 class FirmwareUpload : public GenericTest {
 public:
