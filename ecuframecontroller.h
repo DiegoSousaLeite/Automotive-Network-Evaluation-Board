@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QVector>
 #include "FrameController.h"
 #include "CmdMessageConstants.h"
 #include "ErrorCodeInterface.h"
@@ -33,11 +34,10 @@ public:
     void executeFirmwareUpload(int board_id);
     void executeFirmwareUpload(int port_id, const QString &pathToHexFile);
     void setEcuBusinessController(EcuBusinessInterface bsInterface);
+    SerialCommPort* getSerialCommPortsInfo();
 
 signals:
-    void testStarted(int test_id, int board_id, const QString &message);
     void testFinished(int test_id, int board_id, const QString &message);
-    void errorOccurred(int test_id, int board_id, const QString &error);
 
 private slots:
     void handleTimeout(); // Handles what happens when a test timeout occurs
@@ -46,12 +46,9 @@ private:
     EcuBusinessInterface* bsController;
 
     void setupModels();
-    void resetTestModel(int test_id);
-    void addHeaderTestMessage(int test_id, int board_id, const QString &testMessage);
     void waitReportTestTimeOut(int test_id, int offset, int board_id);
 
-    // Example of member variables if needed
-    QTimer timer;
+      QTimer timer;
 };
 
 #endif // ECUFRAMECONTROLLER_H
