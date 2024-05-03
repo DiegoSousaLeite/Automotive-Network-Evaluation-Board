@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QTimer>
 #include "JigaTestInterface.h"
 #include "CmdMessageConstants.h"
 #include "ReportControllerInterface.h"
@@ -37,11 +38,7 @@ public:
     FirmwareUpload *fwUpdateModel;
     MCUInterfaceTest *mcu1TestModel;
 
-public slots:
-
-
 protected:
-
     void resetTestModel(int test_id);
     void addHeaderTestMessage(int test_id, int board_id, const QString &testMessage);
     void waitReportTestTimeout(int test_id, int offset);
@@ -50,6 +47,7 @@ protected:
     void setReportController(ReportControllerInterface *rpController);
     ReportControllerInterface *rpController;
     //RCFrame *jigaFrame;
+    void handleTimeout();
 
 signals:
     void propertyChanged(const QString &property);

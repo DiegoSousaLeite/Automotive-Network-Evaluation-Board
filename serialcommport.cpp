@@ -1,4 +1,4 @@
-#include "serialcommport.h"
+#include "SerialCommPort.h"
 #include <QDebug>
 
 SerialCommPort::SerialCommPort(QObject *parent)

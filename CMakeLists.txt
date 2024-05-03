@@ -38,8 +38,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         TestReportModel.h TestReportModel.cpp
         GenericTest.h GenericTest.cpp
         FirmwareUpload.h FirmwareUpload.cpp
-        #ecuframecontroller.h ecuframecontroller.cpp
-        serialcommport.h serialcommport.cpp
+        EcuFrameController.h EcuFrameController.cpp
+        SerialCommPort.h SerialCommPort.cpp
         EcuBusinessInterface.h
         Board.h
         Ecu1Board.h
@@ -80,7 +80,7 @@ set(CONSTANTS_HEADERS
 
 set(MODEL
     TestReportModel.h TestReportModel.cpp
-    serialcommport.h serialcommport.cpp
+    SerialCommPort.h SerialCommPort.cpp
 
 )
 
@@ -101,7 +101,7 @@ set(MODEL.TEST
 )
 
 set(CONTROLLER
-    ecuframecontroller.h ecuframecontroller.cpp
+    EcuFrameController.h EcuFrameController.cpp
     FrameController.h FrameController.cpp
 
 )

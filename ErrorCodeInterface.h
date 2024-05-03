@@ -1,7 +1,7 @@
 #ifndef ERRORCODEINTERFACE_H
 #define ERRORCODEINTERFACE_H
 
-class ErroCodeInterface {
+class ErrorCodeInterface {
 public:
     static constexpr int SUCCESS              = 0;
     static constexpr int ERR_PORT_NOT_FOUND   = 1;

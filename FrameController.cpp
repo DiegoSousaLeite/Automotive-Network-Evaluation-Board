@@ -133,7 +133,50 @@ void FrameController::addHeaderTestMessage(int test_id, int board_id, const QStr
 
 
 void FrameController::waitReportTestTimeout(int test_id, int offset) {
-    // Implementação usando QTimer
+    int timeOut = 0;
+
+    if (test_id == JigaTestConstants::COMMUNICATION_TEST || test_id == JigaTestConstants::CAN_INIT_TEST) {
+        return;
+    }
+
+    switch(test_id) {
+    case JigaTestConstants::DIGITAL_INPUT_TEST:
+        timeOut = JigaTestConstants::DIGITAL_INPUT_TEST_TIMEOUT + offset;
+        break;
+    case JigaTestConstants::ANALOG_INPUT_TEST:
+        timeOut = JigaTestConstants::ANALOG_INPUT_TEST_TIMEOUT + offset;
+        break;
+    case JigaTestConstants::ANALOG_OUTPUT_TEST:
+        timeOut = JigaTestConstants::ANALOG_OUTPUT_TEST_TIMEOUT + offset;
+        break;
+    case JigaTestConstants::LOOPBACK_CAN_TEST:
+        timeOut = JigaTestConstants::CAN_NETWORK_TEST_TIMEOUT + offset;
+        break;
+    case JigaTestConstants::CAN1_NETWORK_TEST:
+        timeOut = JigaTestConstants::CAN_NETWORK_TEST_TIMEOUT + offset;
+        break;
+    case JigaTestConstants::CAN2_NETWORK_TEST:
+        timeOut = JigaTestConstants::CAN_NETWORK_TEST_TIMEOUT + offset;
+        break;
+    case JigaTestConstants::LIN_NETWORK_TEST:
+        timeOut = JigaTestConstants::LIN_NETWORK_TEST_TIMEOUT + offset;
+        break;
+    case JigaTestConstants::MCU_GET_CANBUS_TEST:
+        timeOut = JigaTestConstants::MCU_CANBUS_TEST_TIMEOUT + offset;
+        break;
+    default:
+        qDebug() << "Unknown test ID:" << test_id;
+        return;
+    }
+
+    if (timeOut > 0) {
+        QTimer::singleShot(timeOut * 1000, this, SLOT(handleTimeout()));
+    }
+}
+
+void FrameController::handleTimeout()
+{
+    qDebug() << "Timeout occurred";
 }
 
 /*
@@ -144,5 +187,6 @@ void FrameController::addFrameView(RCFrame *jigaFrame) {
 void FrameController::setReportController(ReportControllerInterface *rpController) {
     this->rpController = rpController;
 }
+
 
 // Mais definições de métodos conforme necessário
