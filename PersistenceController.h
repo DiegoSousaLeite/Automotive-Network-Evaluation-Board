@@ -29,7 +29,6 @@ public:
     void setCommPortFound(int index, int commPortId);
     int getCommPortFound(int index) const;
     bool loadUsbProgrammer();
-
     bool openConnection(int portId, int baudRate);
     bool openBoardConnection(int boardId,int baudRate);
     void closeConnection(const QString &portName);
@@ -47,7 +46,9 @@ private:
     static PersistenceController* instance;
     libusb_context *usbContext = nullptr;
 
-   libusb_device* findUsbDevice(libusb_device** devices, uint16_t vid, uint16_t pid);
+    libusb_device* findUsbDevice(libusb_device** devices, uint16_t vid, uint16_t pid);
+
+
 
     QList<Board*> boardList;
     FirmwareUpload* fwUpdateModel;
@@ -60,6 +61,7 @@ private:
 signals:
     void deviceFound();
     void deviceNotFound();
+
 };
 
 #endif // PERSISTENCECONTROLLER_H

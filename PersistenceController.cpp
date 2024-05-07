@@ -21,7 +21,9 @@ PersistenceController::PersistenceController(QObject *parent) : QObject(parent),
     boardList.append(Ecu3Board::getInstance());
     boardList.append(Ecu4Board::getInstance());
     boardList.append(Mcu1Board::getInstance());
+
 }
+
 
 PersistenceController::~PersistenceController() {
     libusb_exit(usbContext); // Libera o contexto USB
@@ -168,8 +170,8 @@ bool PersistenceController::loadUsbProgrammer()
     }
 
     // Converta VID e PID de strings ou configuração para números
-    uint16_t vid = static_cast<uint16_t>(UtilsConversion::hexToShort(QString::fromStdString(getenv(SystemProperties::MCU_PROG_VID))));
-    uint16_t pid = static_cast<uint16_t>(UtilsConversion::hexToShort(QString::fromStdString(getenv(SystemProperties::MCU_PROG_PID))));
+    uint16_t vid = UtilsConversion::hexToShort(QString::fromStdString(getenv(SystemProperties::MCU_PROG_VID)));
+    uint16_t pid = UtilsConversion::hexToShort(QString::fromStdString(getenv(SystemProperties::MCU_PROG_PID)));
 
     // Tente encontrar o dispositivo
     found = findUsbDevice(devs, vid, pid);
@@ -186,4 +188,38 @@ bool PersistenceController::loadUsbProgrammer()
         qCDebug(usb) << "Device Not Found";
         return false;
     }
+}
+
+
+bool PersistenceController::openConnection(int portId, int baudRate) {
+    // Verifica se o índice da porta é válido
+    if (portId < 0 || portId >= serialComm.size()) {
+        qDebug() << "Port ID is out of range.";
+        return false;
+    }
+
+    QSerialPort* port = serialComm[portId];
+
+    // Se a porta não estiver aberta, tenta abrir
+    if (!port->isOpen()) {
+        port->setPortName(port->portName()); // Garanta que o nome da porta está definido corretamente
+        port->setBaudRate(baudRate);
+        port->setDataBits(QSerialPort::Data8);
+        port->setParity(QSerialPort::NoParity);
+        port->setStopBits(QSerialPort::OneStop);
+        port->setFlowControl(QSerialPort::NoFlowControl);
+
+        if (!port->open(QIODevice::ReadWrite)) {
+            qDebug() << "Failed to open port" << port->portName() << "with error:" << port->errorString();
+            return false;
+        }
+    } else {
+        // A porta já está aberta, apenas reconfigure se necessário
+        port->setBaudRate(baudRate);
+    }
+
+    // A porta foi aberta com sucesso e configurada
+    qDebug() << "Port" << port->portName() << "opened successfully with baud rate" << baudRate;
+    return true;
+
 }
