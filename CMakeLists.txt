@@ -66,6 +66,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         McuFrameController.h McuFrameController.cpp
         McuBusinessInterface.h
         PersistenceController.h PersistenceController.cpp
+        UtilsConversion.h
 
 
 

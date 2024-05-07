@@ -15,6 +15,7 @@
 #include "Mcu1Board.h"
 #include <libusb.h>
 #include "SystemProperties.h"
+#include "UtilsConversion.h"
 
 class PersistenceController : public QObject {
     Q_OBJECT
@@ -27,14 +28,14 @@ public:
     QVector<SerialCommPort*> getSerialCommPortInfo();
     void setCommPortFound(int index, int commPortId);
     int getCommPortFound(int index) const;
-
+    bool loadUsbProgrammer();
 
     bool openConnection(int portId, int baudRate);
     bool openBoardConnection(int boardId,int baudRate);
     void closeConnection(const QString &portName);
     void closeBoardConnection(int boardId);
 
-    bool loadUsbProgrammer();
+
     QString readFromSerial(const QString &portName);
     void writeToSerial(const QString &portName, const QString &data, bool endOfLine);
     int writeFirmware(const QString &cmdStr);
@@ -50,6 +51,8 @@ private:
 
     QList<Board*> boardList;
     FirmwareUpload* fwUpdateModel;
+
+    libusb_device* usbDevice; // USB device member
 
     std::vector<QSerialPort*> serialComm;
     QVector<int> foundCommPorts; // Armazena os índices das portas encontradas

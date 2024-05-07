@@ -5,10 +5,15 @@
 #include <QDebug>
 #include <libusb.h>
 #include <vector>
+#include <QLoggingCategory>
+
+// Defina a categoria de log para o controlador de persistência
+Q_DECLARE_LOGGING_CATEGORY(usb)
+Q_LOGGING_CATEGORY(usb, "usb.persistence")
 
 PersistenceController* PersistenceController::instance = nullptr;
 
-PersistenceController::PersistenceController(QObject *parent) : QObject(parent) {
+PersistenceController::PersistenceController(QObject *parent) : QObject(parent),usbDevice(nullptr) {
     libusb_init(&usbContext); // Inicializa o contexto USB
 
     boardList.append(Ecu1Board::getInstance());
@@ -137,4 +142,48 @@ int PersistenceController::getCommPortFound(int index) const
         return foundCommPorts[index];
     }
     return -1;  // Retorne um valor inválido se o índice for fora do intervalo
+}
+
+bool PersistenceController::loadUsbProgrammer()
+{
+    libusb_device **devs;
+    libusb_device *found = nullptr;
+    libusb_context *ctx = nullptr;
+    int r; // Para resultados das chamadas de função
+    ssize_t cnt; // Número de dispositivos na lista
+
+    // Inicialize o contexto da libusb
+    r = libusb_init(&ctx);
+    if (r < 0) {
+        qCWarning(usb) << "Init Error" << r;
+        return false;
+    }
+
+    // Obtenha a lista de dispositivos
+    cnt = libusb_get_device_list(ctx, &devs);
+    if (cnt < 0) {
+        qCWarning(usb) << "Get Device List Error";
+        libusb_exit(ctx);
+        return false;
+    }
+
+    // Converta VID e PID de strings ou configuração para números
+    uint16_t vid = static_cast<uint16_t>(UtilsConversion::hexToShort(QString::fromStdString(getenv(SystemProperties::MCU_PROG_VID))));
+    uint16_t pid = static_cast<uint16_t>(UtilsConversion::hexToShort(QString::fromStdString(getenv(SystemProperties::MCU_PROG_PID))));
+
+    // Tente encontrar o dispositivo
+    found = findUsbDevice(devs, vid, pid);
+
+    // Libere a lista de dispositivos
+    libusb_free_device_list(devs, 1);
+    libusb_exit(ctx);
+
+    if (found) {
+        usbDevice = found; // Armazene o dispositivo encontrado globalmente ou como membro da classe
+        qCDebug(usb) << "Device Found";
+        return true;
+    } else {
+        qCDebug(usb) << "Device Not Found";
+        return false;
+    }
 }
