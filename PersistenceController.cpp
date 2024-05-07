@@ -22,6 +22,14 @@ PersistenceController::~PersistenceController() {
     libusb_exit(usbContext); // Libera o contexto USB
 }
 
+PersistenceController* PersistenceController::getInstance() {
+    if (!instance) {
+        instance = new PersistenceController(qApp);
+    }
+    return instance;
+}
+
+
 libusb_device* PersistenceController::findUsbDevice(libusb_device** devices, uint16_t vid, uint16_t pid) {
     for (int i = 0; devices[i] != nullptr; i++) {
         libusb_device* device = devices[i];
@@ -95,9 +103,38 @@ int PersistenceController::findSerialCommPorts() {
     return portFounds;
 }
 
-PersistenceController* PersistenceController::getInstance() {
-    if (!instance) {
-        instance = new PersistenceController(qApp);
+QVector<SerialCommPort*> PersistenceController::getSerialCommPortInfo() {
+    QVector<QSerialPortInfo> availablePorts = QSerialPortInfo::availablePorts();
+    QVector<SerialCommPort*> serialCommPorts;
+
+    for (int i = 0; i < availablePorts.size(); ++i) {
+        const QSerialPortInfo &info = availablePorts[i];
+        SerialCommPort* port = new SerialCommPort(this);
+        port->setCommPortId(i);  // Passa o índice como identificador
+        port->setDescriptivePortName(info.description());
+        port->setPortDescription(info.manufacturer());
+        port->setSystemPortName(info.portName());
+        serialCommPorts.append(port);
     }
-    return instance;
+
+    return serialCommPorts;
+}
+
+void PersistenceController::setCommPortFound(int index, int commPortId)
+{
+    // Certifique-se de que o índice é válido
+    if (index >= 0 && index < foundCommPorts.size()) {
+        foundCommPorts[index] = commPortId;
+    } else if (index == foundCommPorts.size()) {
+        // Se o índice é igual ao tamanho do vetor, adicione um novo elemento
+        foundCommPorts.append(commPortId);
+    }
+}
+
+int PersistenceController::getCommPortFound(int index) const
+{
+    if (index >= 0 && index < foundCommPorts.size()) {
+        return foundCommPorts[index];
+    }
+    return -1;  // Retorne um valor inválido se o índice for fora do intervalo
 }

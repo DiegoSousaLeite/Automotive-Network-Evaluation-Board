@@ -24,7 +24,11 @@ public:
     virtual ~PersistenceController();
 
     int findSerialCommPorts();
-    QList<QSerialPortInfo> getSerialCommPortInfo();
+    QVector<SerialCommPort*> getSerialCommPortInfo();
+    void setCommPortFound(int index, int commPortId);
+    int getCommPortFound(int index) const;
+
+
     bool openConnection(int portId, int baudRate);
     bool openBoardConnection(int boardId,int baudRate);
     void closeConnection(const QString &portName);
