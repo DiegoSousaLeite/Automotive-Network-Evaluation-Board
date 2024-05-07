@@ -85,3 +85,18 @@ void GenericTest::resetTestModel() {
         model->resetReportModel();
     }
 }
+/*
+void GenericTest::addChangeListeners(FrameController frameController)
+{
+    for (TestReportModel* model : testReportModel) {
+        connect(model, &TestReportModel::reportUpdated, frameController, &FrameController::onReportUpdated);
+    }
+}
+
+void GenericTest::removeChangeListeners(FrameController frameController)
+{
+    for (TestReportModel* model : testReportModel) {
+        connect(model, &TestReportModel::reportRemoved, frameController, &FrameController::onReportUpdated);
+    }
+}
+*/

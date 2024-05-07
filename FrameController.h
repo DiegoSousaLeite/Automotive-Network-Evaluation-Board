@@ -7,17 +7,20 @@
 #include "JigaTestInterface.h"
 #include "CmdMessageConstants.h"
 #include "ReportControllerInterface.h"
+#include "TestReportModel.h"
 #include "AnalogInputTest.h"
 #include "AnalogOutputTest.h"
 #include "CAN1NetworkTest.h"
 #include "CAN2NetworkTest.h"
-#include "CANInitTest.h"
 #include "CommunicationTest.h"
 #include "DigitalInputTest.h"
 #include "FirmwareUpload.h"
 #include "LinNetworkTest.h"
 #include "LoopbackCanTest.h"
 #include "MCUInterfaceTest.h"
+#include "CANInitTest.h"
+
+
 
 class FrameController : public QObject {
     Q_OBJECT
@@ -49,8 +52,13 @@ protected:
     //RCFrame *jigaFrame;
     void handleTimeout();
 
+    void addTestReportModels(const QList<TestReportModel*>& models);
+
 signals:
     void propertyChanged(const QString &property);
+
+public slots:
+    void onReportUpdated(const QString &message);
 
 protected slots:
     virtual void propertyChange() = 0;

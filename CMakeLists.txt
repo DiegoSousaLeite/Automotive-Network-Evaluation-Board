@@ -14,6 +14,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(Qt6 COMPONENTS SerialPort REQUIRED)
 
 
+
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
@@ -42,12 +43,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         SerialCommPort.h SerialCommPort.cpp
         EcuBusinessInterface.h
         Board.h
-        Ecu1Board.h
+        Ecu1Board.h Ecu1Board.cpp
         Environment.h
-        Ecu2Board.h
-        Ecu3Board.h
-        Ecu4Board.h
-        Mcu1Board.h
+        Ecu2Board.h Ecu2Board.cpp
+        Ecu3Board.h Ecu3Board.cpp
+        Ecu4Board.h Ecu4Board.cpp
+        Mcu1Board.h Mcu1Board.cpp
         ErrorCodeInterface.h
         AnalogInputTest.h AnalogInputTest.cpp
         AnalogOutputTest.h AnalogOutputTest.cpp
@@ -62,6 +63,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MCUInterfaceTest.h  MCUInterfaceTest.cpp
         ReportControllerInterface.h
         FrameController.h FrameController.cpp
+        McuFrameController.h McuFrameController.cpp
+        McuBusinessInterface.h
+        PersistenceController.h PersistenceController.cpp
+
+
+
+
+
 
     )
 
@@ -84,7 +93,7 @@ set(MODEL
 
 )
 
-set(MODEL.TEST
+set(MODEL_TEST
     IndividualTest.h IndividualTest.cpp
     GenericTest.h GenericTest.cpp
     FirmwareUpload.h FirmwareUpload.cpp
@@ -103,30 +112,37 @@ set(MODEL.TEST
 set(CONTROLLER
     EcuFrameController.h EcuFrameController.cpp
     FrameController.h FrameController.cpp
+    McuFrameController.h McuFrameController.cpp
 
+)
+
+set(CONTROLLER_PERSISTENCE
+    PersistenceController.h PersistenceController.cpp
 )
 
 set(INTERFACE
     EcuBusinessInterface.h
     ReportControllerInterface.h
+    McuBusinessInterface.h
 )
 
 
-set(MODEL.BOARD
+set(MODEL_BOARD
     Board.h
-    Ecu1Board.h
-    Ecu2Board.h
-    Ecu3Board.h
-    Ecu4Board.h
-    Mcu1Board.h
+    Ecu1Board.h Ecu1Board.cpp
+    Ecu2Board.h Ecu2Board.cpp
+    Ecu3Board.h Ecu3Board.cpp
+    Ecu4Board.h Ecu4Board.cpp
+    Mcu1Board.h Mcu1Board.cpp
 )
 
 source_group("Constants" FILES ${CONSTANTS_HEADERS})
 source_group("Model" FILES ${MODEL})
-source_group("Model.test" FILES ${MODEL.TEST})
+source_group("Model_test" FILES ${MODEL_TEST})
 source_group("Controller" FILES ${CONTROLLER})
+source_group("Controller_persistence" FILES ${CONTROLLER_PERSISTENCE})
 source_group("Interface" FILES ${INTERFACE})
-source_group("Model.board" FILES ${MODEL.BOARD})
+source_group("Model_board" FILES ${MODEL_BOARD})
 source_group("Build" FILES ${BUILD})
 
 # Define target properties for Android with Qt 6 as:
@@ -147,8 +163,14 @@ else()
     endif()
 endif()
 
-target_link_libraries(ANEB_2 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-target_link_libraries(ANEB_2 PRIVATE Qt6::SerialPort)
+# Primeiro, encontrando a biblioteca libusb
+find_library(LIBUSB_LIBRARY NAMES usb-1.0 libusb-1.0 PATHS /opt/homebrew/opt/libusb/lib REQUIRED)
+
+# Incluindo diretórios da libusb
+include_directories(SYSTEM /opt/homebrew/opt/libusb/include/libusb-1.0)
+
+# Linkando as bibliotecas ao executável
+target_link_libraries(ANEB_2 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt6::SerialPort ${LIBUSB_LIBRARY})
 
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

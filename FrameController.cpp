@@ -188,5 +188,12 @@ void FrameController::setReportController(ReportControllerInterface *rpControlle
     this->rpController = rpController;
 }
 
+void FrameController::addTestReportModels(const QList<TestReportModel*>& models) {
+    for (TestReportModel* model : models) {
+        connect(model, &TestReportModel::reportUpdated, this, &FrameController::onReportUpdated);
+    }
+}
 
-// Mais definições de métodos conforme necessário
+void FrameController::onReportUpdated(const QString &message) {
+    qDebug() << "Received update from TestReportModel:" << message;
+}

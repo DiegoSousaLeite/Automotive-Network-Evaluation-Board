@@ -23,6 +23,8 @@ public:
 
     QString getLastMessage() const;
     void addMessage(const QString &message);
+    QString getLastMessageAndRemove();
+    QString getFirstMessageAndRemove();
 
     QString getBoardDescription() const;
     void resetReportModel();
@@ -32,16 +34,21 @@ public:
     void setIndividualTestResult(int testId, int testResult);
     int getIndividualTestResult(int testId) const;
 
-    QString getFirstMessageAndRemove();
+    TestReportModel* getTestReportModel();
 
 signals:
     void propertyChanged(const QString &property, const QVariant &oldValue, const QVariant &newValue);
+
+    void reportUpdated(const QString &message); // Sinal emitido quando um relatório é atualizado
+    void reportRemoved(const QString &message); // Sinal emitido quando um relatório é removido
 
 private:
     int testId;
     int boardId;
     QList<QString> reportMsg;
     QList<IndividualTest> individuaTest;
+
+    void notifyPropertyChange(const QString &property, const QVariant &oldValue, const QVariant &newValue);
 };
 
 #endif // TESTREPORTMODEL_H

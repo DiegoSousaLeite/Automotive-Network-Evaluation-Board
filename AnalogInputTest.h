@@ -5,6 +5,7 @@
 #include "TestReportModel.h"
 #include "JigaTestInterface.h"
 
+
 class AnalogInputTest : public GenericTest {
 private:
     static AnalogInputTest* instance;  // Singleton instance

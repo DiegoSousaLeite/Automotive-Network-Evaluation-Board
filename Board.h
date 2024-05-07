@@ -2,7 +2,9 @@
 #define BOARD_H
 
 #include <QString>
+#include <QDebug>
 #include "SerialCommPort.h"
+#include "JigaTestInterface.h"
 
 class Board {
 private:
@@ -15,7 +17,7 @@ private:
 
 public:
     // Constructor
-    Board() : board_id(-1), commPort_id(-1), canbus(-1), baudrate(9600) {
+    Board() : board_id(-1), commPort_id(-1), canbus(-1), baudrate(115200) {
     }
 
     void setBoardIdentification(int board_id) {
@@ -51,12 +53,9 @@ public:
     }
 
     void setCanbus(int canbus) {
-        // Assuming these constants are defined elsewhere in your project
-        const int ECU_CANBUS_1 = 1;
-        const int ECU_CANBUS_2 = 2;
 
-        if (board_id == ECU1_BOARD_ID || board_id == ECU2_BOARD_ID) {
-            this->canbus = (board_id == ECU1_BOARD_ID) ? ECU_CANBUS_1 : ECU_CANBUS_2;
+        if (board_id == JigaTestConstants::ECU1_BOARD_ID || board_id == JigaTestConstants::ECU2_BOARD_ID) {
+            this->canbus = (board_id == JigaTestConstants::ECU1_BOARD_ID) ? JigaTestConstants::ECU_CANBUS_1 : JigaTestConstants::ECU_CANBUS_2;
         } else {
             this->canbus = canbus;
         }
@@ -67,8 +66,8 @@ public:
     }
 
     void toggleCanBus() {
-        if (board_id == ECU3_BOARD_ID || board_id == ECU4_BOARD_ID) {
-            canbus = (canbus == ECU_CANBUS_1) ? ECU_CANBUS_2 : ECU_CANBUS_1;
+        if (board_id == JigaTestConstants::ECU3_BOARD_ID || board_id == JigaTestConstants::ECU4_BOARD_ID) {
+            canbus = (canbus == JigaTestConstants::ECU_CANBUS_1) ? JigaTestConstants::ECU_CANBUS_2 : JigaTestConstants::ECU_CANBUS_1;
         }
     }
 

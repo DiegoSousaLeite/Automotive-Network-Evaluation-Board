@@ -1,3 +1,7 @@
+#ifndef ENVIRONMENT_H
+#define ENVIRONMENT_H
+
+
 #include <cstdlib>  // Para getenv e strtol
 #include <iostream> // Para std::cerr
 
@@ -17,3 +21,5 @@ public:
         return defaultValue; // Retorna o valor padrão se a variável não estiver definida
     }
 };
+
+#endif // ENVIRONMENT_H

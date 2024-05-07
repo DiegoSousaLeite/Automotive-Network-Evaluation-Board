@@ -5,7 +5,9 @@
 #include <QList>
 #include "TestReportModel.h"
 #include "JigaTestInterface.h"
+//#include "FrameController.h"
 
+//class FrameController;
 
 class GenericTest : public QObject {
     Q_OBJECT
@@ -31,6 +33,9 @@ public:
 
     void resetTestModel();
     QList<TestReportModel*> testReportModel;
+
+   // void addChangeListeners(FrameController frameController);
+   // void removeChangeListeners(FrameController frameController);
 
 private:
 

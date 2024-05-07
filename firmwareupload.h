@@ -6,8 +6,6 @@
 class FirmwareUpload : public GenericTest {
 public:
     static FirmwareUpload* getInstance();
-
-protected:
     FirmwareUpload();
 
 private:

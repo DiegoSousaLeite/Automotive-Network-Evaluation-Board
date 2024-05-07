@@ -33,7 +33,7 @@ public:
     virtual int loadBoard(int test_id, int board_id) = 0;
     virtual int loadAllBoards(int test_id) = 0;
     virtual bool loadSerialCommPort(int board_id) = 0;
-    //virtual SerialCommPort* getSerialCommPortsInfo() = 0;
+    virtual SerialCommPort* getSerialCommPortsInfo() = 0;
     virtual int loadAllSerialCommPorts() = 0;
     virtual int uploadFirmware(int board_id) = 0;
     virtual int uploadFirmware(int port_id, const QString &pathToFile) = 0;

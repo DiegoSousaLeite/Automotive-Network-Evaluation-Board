@@ -10,6 +10,10 @@
 #include "EcuBusinessInterface.h"
 #include "SerialCommPort.h"
 #include "ReportControllerInterface.h"
+#include "CommunicationTest.h"
+#include "CAN1NetworkTest.h"
+#include "CAN2NetworkTest.h"
+#include "DigitalInputTest.h"
 
 class EcuFrameController : public FrameController {
     Q_OBJECT
@@ -48,7 +52,7 @@ private:
     void setupModels();
     void waitReportTestTimeOut(int test_id, int offset, int board_id);
 
-      QTimer timer;
+    QTimer timer;
 };
 
 #endif // ECUFRAMECONTROLLER_H

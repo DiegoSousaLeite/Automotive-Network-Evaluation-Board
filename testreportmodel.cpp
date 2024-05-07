@@ -41,6 +41,23 @@ void TestReportModel::addMessage(const QString &message) {
     emit propertyChanged("message", oldMessage, message);
 }
 
+QString TestReportModel::getLastMessageAndRemove()
+{
+    if (!reportMsg.isEmpty()) {
+        QString msg = reportMsg.last();
+        reportMsg.removeLast();
+        return msg;
+    }
+    return QString();
+}
+
+QString TestReportModel::getFirstMessageAndRemove() {
+    if (!reportMsg.isEmpty()) {
+        return reportMsg.takeFirst();  // Remove e retorna o primeiro elemento da lista
+    }
+    return QString();  // Retorna uma QString vazia se não houver mensagens
+}
+
 QString TestReportModel::getBoardDescription() const {
 
     switch (boardId) {
@@ -95,9 +112,11 @@ int TestReportModel::getIndividualTestResult(int testId) const {
     return -1;  // Indica um erro ou valor não encontrado.
 }
 
-QString TestReportModel::getFirstMessageAndRemove() {
-    if (!reportMsg.isEmpty()) {
-        return reportMsg.takeFirst();  // Remove e retorna o primeiro elemento da lista
-    }
-    return QString();  // Retorna uma QString vazia se não houver mensagens
+TestReportModel* TestReportModel::getTestReportModel() {
+    return this;
 }
+
+void TestReportModel::notifyPropertyChange(const QString &property, const QVariant &oldValue, const QVariant &newValue) {
+    emit propertyChanged(property, oldValue, newValue);
+}
+
