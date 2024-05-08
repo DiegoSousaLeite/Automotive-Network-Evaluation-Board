@@ -369,6 +369,23 @@ void PersistenceController::serialBoardWrite(int boardId, const QString &atCmd, 
     }
 }
 
+void PersistenceController::closeConnection(int portId)
+{
+    if (portId < 0 || portId >= serialComm.size()) {
+        qDebug() << "Port ID is out of range.";
+        return;
+    }
+
+
+    QSerialPort* port = serialComm[portId];
+    if (port && port->isOpen()) {
+        port->close();
+        qDebug() << "Port" << port->portName() << "closed successfully.";
+    } else {
+        qDebug() << "Port is not open or does not exist.";
+    }
+}
+
 
 
 

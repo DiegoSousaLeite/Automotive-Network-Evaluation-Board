@@ -40,9 +40,10 @@ public:
     QString getBoardDescription(int boardId);
     int getTotalNumberOfPorts();
 
+
     void serialWrite(int portId,const QString& atCmd, bool endOfLine);
     void serialBoardWrite(int boardId,const QString& atCmd,bool endOfLine);
-
+    void closeConnection(int portId);
 
 
 private:
