@@ -37,6 +37,7 @@ public:
     QString getDescriptivePortName(int index);
     QString getBoardCommPort(int boardId);
     QString getBoardDescription(int boardId);
+    int getTotalNumberOfPorts();
 
 
     void closeConnection(const QString &portName);

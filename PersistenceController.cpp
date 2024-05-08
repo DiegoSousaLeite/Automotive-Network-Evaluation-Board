@@ -307,6 +307,14 @@ QString PersistenceController::getBoardDescription(int boardId)
     return QString();
 }
 
+int PersistenceController::getTotalNumberOfPorts()
+{
+    // Usa QSerialPortInfo para obter uma lista de informações sobre portas seriais disponíveis
+    QList<QSerialPortInfo> availablePorts = QSerialPortInfo::availablePorts();
+
+    // Retorna o tamanho da lista, que representa o número de portas seriais disponíveis
+    return availablePorts.size();
+}
 
 
 
