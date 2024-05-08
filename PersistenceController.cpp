@@ -264,4 +264,28 @@ QString PersistenceController::getSystemPortDescription(int index)
     return port->portName();  // 'portName()' retorna o identificador da porta, similar ao 'systemLocation()' usado em QSerialPortInfo
 }
 
+QString PersistenceController::getPortDescription(int index) {
+    if (index < 0 || index >= serialComm.size()) {
+        qDebug() << "Index is out of range in getPortDescription.";
+        return QString();  // Retorna uma QString vazia se o índice não for válido
+    }
+
+    QSerialPort* port = serialComm[index];
+    QSerialPortInfo portInfo(*port);
+    return portInfo.description();  // Retorna a descrição humana da porta
+}
+
+QString PersistenceController::getDescriptivePortName(int index) {
+    if (index < 0 || index >= serialComm.size()) {
+        qDebug() << "Index is out of range in getDescriptivePortName.";
+        return QString();  // Retorna uma QString vazia se o índice não for válido
+    }
+
+    QSerialPort* port = serialComm[index];
+    QSerialPortInfo portInfo(*port);
+    return portInfo.portName();  // Retorna o nome descritivo da porta, geralmente o mesmo que o nome do sistema
+}
+
+
+
 
