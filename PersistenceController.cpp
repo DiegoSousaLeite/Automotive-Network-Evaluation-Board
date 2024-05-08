@@ -399,6 +399,43 @@ void PersistenceController::closeBoardConnection(int boardId)
     qDebug() << "Board ID" << boardId << "not found.";
 }
 
+QString PersistenceController::serialRead(int portId) {
+    // Cria um objeto QRegularExpression estático para ser reutilizado.
+    // Isso evita a recompilação da expressão regular em cada chamada da função.
+    static QRegularExpression newLineRegex("[\\r\\n]");
+
+    // Verifica se o ID da porta está dentro do intervalo válido.
+    if (portId < 0 || portId >= serialComm.size()) {
+        qDebug() << "ID da porta está fora do intervalo.";
+            return QString();
+    }
+
+    QSerialPort* port = serialComm[portId];
+    // Verifica se a porta está aberta antes de tentar ler.
+    if (!port->isOpen()) {
+        qDebug() << "Porta não está aberta.";
+        return QString();
+    }
+
+    QByteArray newData;
+    QString recvStr;
+
+    // Espera até 100 milissegundos para que dados estejam prontos para serem lidos.
+    if (port->waitForReadyRead(100)) {
+        // Lê todos os dados disponíveis na porta serial.
+        newData = port->readAll();
+        // Converte os dados binários para uma string UTF-8.
+        recvStr = QString::fromUtf8(newData);
+        // Remove caracteres de nova linha usando a expressão regular pré-compilada.
+        recvStr.remove(newLineRegex);
+    } else {
+        qDebug() << "Timeout na leitura ou nenhum dado disponível.";
+    }
+
+    return recvStr;
+}
+
+
 
 
 

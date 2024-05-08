@@ -17,6 +17,7 @@
 #include "SystemProperties.h"
 #include "UtilsConversion.h"
 #include <QThread>
+#include <QRegularExpression>
 
 class PersistenceController : public QObject {
     Q_OBJECT
@@ -45,6 +46,7 @@ public:
     void serialBoardWrite(int boardId,const QString& atCmd,bool endOfLine);
     void closeConnection(int portId);
     void closeBoardConnection(int boardId);
+    QString serialRead (int portId);
 
 
 private:
