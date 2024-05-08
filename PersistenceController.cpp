@@ -435,6 +435,27 @@ QString PersistenceController::serialRead(int portId) {
     return recvStr;
 }
 
+QString PersistenceController::serialBoardRead(int boardId) {
+    int commPortID = -1;
+
+    // Identifica a placa e obtém o ID da porta de comunicação associada
+    for (Board* boardInfo : boardList) {
+        if (boardInfo->getBoardIdentification() == boardId) {
+            commPortID = boardInfo->getCommPortIdentification();
+            break;
+        }
+    }
+
+    // Verifica se um ID de porta válido foi encontrado
+    if (commPortID != -1) {
+        return serialRead(commPortID);
+    } else {
+        qDebug() << "Board ID" << boardId << "not found or no communication port ID associated with this board.";
+        return QString(); // Retorna uma QString vazia se nenhum ID válido foi encontrado
+    }
+}
+
+
 
 
 

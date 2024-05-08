@@ -47,6 +47,7 @@ public:
     void closeConnection(int portId);
     void closeBoardConnection(int boardId);
     QString serialRead (int portId);
+    QString serialBoardRead(int boardId);
 
 
 private:
