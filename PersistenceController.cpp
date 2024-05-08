@@ -286,6 +286,27 @@ QString PersistenceController::getDescriptivePortName(int index) {
     return portInfo.portName();  // Retorna o nome descritivo da porta, geralmente o mesmo que o nome do sistema
 }
 
+QString PersistenceController::getBoardCommPort(int boardId)
+{
+    for(Board* boardInfo : boardList){
+        if(boardInfo->getBoardIdentification() == boardId){
+            return boardInfo->getCommPortName();
+        }
+    }
+
+    return QString();
+}
+
+QString PersistenceController::getBoardDescription(int boardId)
+{
+    for(Board* boardInfo : boardList){
+        if(boardInfo->getBoardIdentification() == boardId){
+            return boardInfo->getBoardDescription();
+        }
+    }
+    return QString();
+}
+
 
 
 
