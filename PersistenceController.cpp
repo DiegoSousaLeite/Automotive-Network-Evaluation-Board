@@ -455,8 +455,99 @@ QString PersistenceController::serialBoardRead(int boardId) {
     }
 }
 
+int PersistenceController::writeFirmware(const QString& cmdStr) {
+    int exitCode = 1; // Código de saída padrão para erro
+    QString line;
+    QProcess process;
 
+    // Configurando o comando a ser executado
+    QStringList args;
+    args << "/c" << cmdStr;
+    process.start("cmd.exe", args);
 
+    if (!process.waitForStarted()) {
+        qDebug() << "Falha ao iniciar o processo.";
+        return exitCode;
+    }
 
+    qDebug() << "##########################################################################";
+    addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, "Iniciando o Programa AVRDUDE...", true);
 
+    // Espera o processo terminar
+    if (!process.waitForFinished(-1)) { // -1 para esperar indefinidamente
+        qDebug() << "Processo não finalizado corretamente.";
+            return exitCode;
+    }
+
+    // Lê a saída de erro padrão
+    QString stdError = process.readAllStandardError();
+    QStringList errorLines = stdError.split('\n');
+
+    for (const QString& errorLine : errorLines) {
+        if (!errorLine.isEmpty()) {
+            QString cleanedLine = errorLine.trimmed();
+            addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, cleanedLine, false);
+        }
+    }
+
+    exitCode = process.exitCode();
+    qDebug() << "##########################################################################";
+    qDebug() << "Exited with error code : " << exitCode ;
+    addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, "Finalizando o Programa AVRDUDE...", true);
+
+    if (exitCode == 0) {
+        line = "Atualização de firmware realizada com sucesso!";
+    } else {
+        line = "Erro na atualização de firmware!";
+    }
+
+    addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, line, true);
+    qDebug() << line;
+
+    return exitCode;
+}
+
+void PersistenceController::setBoardInformation(int index, int boardId) {
+    // Verifica se o índice da porta está dentro do intervalo válido.
+    if (index < 0 || index >= serialComm.size()) {
+        qDebug() << "Índice da porta está fora do intervalo.";
+        return;
+    }
+
+    // Itera sobre a lista de placas para encontrar a placa com o ID especificado.
+    for (Board* boardInfo : boardList) {
+        if (boardInfo->getBoardIdentification() == boardId) {
+            // Define a identificação da porta de comunicação para a placa encontrada.
+            boardInfo->setCommPortIdentification(index);
+
+            // Define o nome da porta de comunicação, que é obtido a partir da lista serialComm.
+            boardInfo->setCommPortName(serialComm[index]->portName());
+
+            qDebug() << "Informação da placa atualizada com sucesso.";
+            return;  // Finaliza a função após a atualização da placa.
+        }
+    }
+
+    // Se o loop terminar sem encontrar uma placa correspondente, loga uma mensagem de erro.
+    qDebug() << "ID da placa" << boardId << "não encontrado.";
+}
+
+void PersistenceController::addCmdTestMessage(int testId, int boardId, const QString& testMessage, bool header) {
+    QString strMessage;
+
+    // Usa um switch para lidar com diferentes tipos de mensagens de teste.
+    switch (testId) {
+    case JigaTestConstants::FIRMWARE_UPLOAD:
+        if (header) {
+            strMessage = QString(CmdMessageConstants::CMD_HDR_FIRM_UPLOAD) + " ";
+        }
+        strMessage += testMessage; // Concatena a mensagem de teste ao cabeçalho se necessário.
+        fwUpdateModel->addTestMessage(boardId, strMessage);
+        break;
+
+    default:
+        qDebug() << "Test ID not recognized:" << testId;
+        break;
+    }
+}
 

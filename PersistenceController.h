@@ -18,6 +18,8 @@
 #include "UtilsConversion.h"
 #include <QThread>
 #include <QRegularExpression>
+#include <QProcess>
+#include "CmdMessageConstants.h"
 
 class PersistenceController : public QObject {
     Q_OBJECT
@@ -48,6 +50,9 @@ public:
     void closeBoardConnection(int boardId);
     QString serialRead (int portId);
     QString serialBoardRead(int boardId);
+    int writeFirmware(const QString& cmdStr);
+    void setBoardInformation(int index, int boardId);
+    void addCmdTestMessage(int testId, int boardId, const QString& testMessage, bool header);
 
 
 private:
