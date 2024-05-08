@@ -22,6 +22,9 @@ PersistenceController::PersistenceController(QObject *parent) : QObject(parent),
     boardList.append(Ecu4Board::getInstance());
     boardList.append(Mcu1Board::getInstance());
 
+    //fwUpdateModel = FirmwareUpload.getInstance();
+    usbDevice = nullptr;
+
 }
 
 
@@ -549,5 +552,13 @@ void PersistenceController::addCmdTestMessage(int testId, int boardId, const QSt
         qDebug() << "Test ID not recognized:" << testId;
         break;
     }
+}
+
+void PersistenceController::setReportProperty(const QString &key, const QString &value) {
+    reportProperties[key] = value;  // Define a propriedade no QMap
+}
+
+QString PersistenceController::getReportProperty(const QString &key) const {
+    return reportProperties.value(key);  // Retorna o valor associado à chave
 }
 

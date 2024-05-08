@@ -53,6 +53,8 @@ public:
     int writeFirmware(const QString& cmdStr);
     void setBoardInformation(int index, int boardId);
     void addCmdTestMessage(int testId, int boardId, const QString& testMessage, bool header);
+    void setReportProperty(const QString &key, const QString &value);
+    QString getReportProperty(const QString &key) const;
 
 
 private:
@@ -71,6 +73,8 @@ private:
 
     std::vector<QSerialPort*> serialComm;
     QVector<int> foundCommPorts; // Armazena os índices das portas encontradas
+
+    QMap<QString, QString> reportProperties;
 
 signals:
     void deviceFound();

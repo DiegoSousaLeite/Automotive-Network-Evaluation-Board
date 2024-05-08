@@ -5,7 +5,8 @@
 #include <QSerialPort>
 #include "ui_mainwindow.h"
 #include "virtual_io.h"
-
+#include "SystemDefinition.h"
+#include "PersistenceController.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -13,6 +14,8 @@ class MainWindow : public QMainWindow {
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    void initializeDevice(); //Main do PersistenceController
 
 private:
     Ui::MainWindow *ui;

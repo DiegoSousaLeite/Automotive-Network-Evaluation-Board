@@ -47,6 +47,26 @@ MainWindow::~MainWindow() {
     delete ui; // Clean up the Ui::MainWindow object when the MainWindow object is destroyed
 }
 
+void MainWindow::initializeDevice()
+{
+    SystemDefinition sDefinition;  // Supondo que esta classe esteja definida
+    sDefinition.printSystemProperties();  // Supondo método de impressão
+
+    PersistenceController* psController = PersistenceController::getInstance();
+
+    bool deviceFound = psController->loadUsbProgrammer();
+    if (!deviceFound) {
+        qDebug() << "USBASC not found!";
+    } else {
+        qDebug() << "USBASC Found";
+        /*
+        qDebug() << "Serial Number =" << psController->getUsbDeviceSerialNumber();
+        qDebug() << "Product ID =" << psController->getUsbDeviceProductString();
+        qDebug() << "Manufacturer =" << psController->getUsbDeviceManufacturerString();
+        */
+    }
+}
+
 // Function to set up the styles and behaviors for navigation buttons
 void MainWindow::setupButtonStyles() {
     QString activeButtonStyle = "QPushButton { "
