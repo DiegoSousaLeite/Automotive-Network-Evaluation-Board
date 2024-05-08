@@ -31,6 +31,11 @@ public:
     bool loadUsbProgrammer();
     bool openConnection(int portId, int baudRate);
     bool openBoardConnection(int boardId,int baudRate);
+    bool openBoardConnection(int boardId);
+    QString getSystemPortDescription(int index);
+    QString getPortDescription(int index);
+    QString getDescriptivePortName(int index);
+
     void closeConnection(const QString &portName);
     void closeBoardConnection(int boardId);
 

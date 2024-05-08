@@ -223,3 +223,45 @@ bool PersistenceController::openConnection(int portId, int baudRate) {
     return true;
 
 }
+
+bool PersistenceController::openBoardConnection(int boardId, int baudRate)
+{
+    for(Board* boardInfo: boardList){
+        if(boardInfo->getBoardIdentification()==boardId){
+            return openConnection(boardInfo->getCommPortIdentification(),baudRate);
+        }
+    }
+    return false;
+}
+
+bool PersistenceController::openBoardConnection(int boardId)
+{
+    int baudrate;
+
+    for(Board* boardInfo: boardList){
+        if(boardInfo->getBoardIdentification()==boardId){
+            baudrate = boardInfo->getBoardBaudRate();
+            return openConnection(boardInfo->getCommPortIdentification(),baudrate);
+        }
+    }
+    return false;
+}
+
+QString PersistenceController::getSystemPortDescription(int index)
+{
+    if (index < 0 || index >= serialComm.size()) {
+        qDebug() << "Index out of range in getSystemPortDescription.";
+        return QString();  // Retorna uma QString vazia se o índice não for válido
+    }
+
+    QSerialPort* port = serialComm[index];
+    if (!port) {
+        qDebug() << "Serial port at index" << index << "is null.";
+        return QString();  // Retorna uma QString vazia se o objeto da porta serial for nulo
+    }
+
+    // Retorna o nome do sistema para a porta serial
+    return port->portName();  // 'portName()' retorna o identificador da porta, similar ao 'systemLocation()' usado em QSerialPortInfo
+}
+
+
