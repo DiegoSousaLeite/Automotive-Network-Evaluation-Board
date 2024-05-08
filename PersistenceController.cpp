@@ -349,6 +349,26 @@ void PersistenceController::serialWrite(int portId, const QString& atCmd, bool e
     QThread::msleep(50);
 }
 
+void PersistenceController::serialBoardWrite(int boardId, const QString &atCmd, bool endOfLine)
+{
+    int commPortID = -1;
+
+    // Identificar a placa e obter o ID da porta de comunicação associada
+    for (Board* boardInfo : boardList) {
+        if (boardInfo->getBoardIdentification() == boardId) {
+            commPortID = boardInfo->getCommPortIdentification();
+            break;
+        }
+    }
+
+    // Se um ID de porta válido foi encontrado, escreva para a porta serial
+    if (commPortID != -1) {
+        serialWrite(commPortID, atCmd, endOfLine);
+    } else {
+        qDebug() << "Board ID not found or no communication port ID associated with this board.";
+    }
+}
+
 
 
 
