@@ -316,5 +316,39 @@ int PersistenceController::getTotalNumberOfPorts()
     return availablePorts.size();
 }
 
+void PersistenceController::serialWrite(int portId, const QString& atCmd, bool endOfLine) {
+    // Verifica se o índice da porta é válido
+    if (portId < 0 || portId >= serialComm.size()) {
+        qDebug() << "Port ID is out of range.";
+        return;
+    }
+
+    QSerialPort* port = serialComm[portId];
+    if (!port->isOpen()) {
+        qDebug() << "Port is not open.";
+        return;
+    }
+
+    QString command = atCmd;
+    if (endOfLine) {
+        command.append("\n");  // Adiciona uma nova linha se endOfLine for verdadeiro
+    }
+
+    // Envia o comando para a porta serial
+    qint64 bytesWritten = port->write(command.toUtf8());
+
+    if (bytesWritten == -1) {
+        qDebug() << "Failed to write to the serial port:" << port->errorString();
+    } else if (bytesWritten < command.size()) {
+        qDebug() << "Not all data was written to the serial port.";
+    } else {
+        port->flush();  // Garante que todos os dados sejam enviados
+    }
+
+    // Espera um pequeno delay para garantir que os dados tenham tempo de ser enviados
+    QThread::msleep(50);
+}
+
+
 
 

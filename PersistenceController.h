@@ -16,6 +16,7 @@
 #include <libusb.h>
 #include "SystemProperties.h"
 #include "UtilsConversion.h"
+#include <QThread>
 
 class PersistenceController : public QObject {
     Q_OBJECT
@@ -39,14 +40,7 @@ public:
     QString getBoardDescription(int boardId);
     int getTotalNumberOfPorts();
 
-
-    void closeConnection(const QString &portName);
-    void closeBoardConnection(int boardId);
-
-
-    QString readFromSerial(const QString &portName);
-    void writeToSerial(const QString &portName, const QString &data, bool endOfLine);
-    int writeFirmware(const QString &cmdStr);
+    void serialWrite(int port_id,const QString& atCmd, bool endOfLine);
 
 
 
