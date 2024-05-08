@@ -386,6 +386,19 @@ void PersistenceController::closeConnection(int portId)
     }
 }
 
+void PersistenceController::closeBoardConnection(int boardId)
+{
+    for(Board* boardInfo: boardList){
+        //Board found
+        if(boardInfo->getBoardIdentification()==boardId){
+            closeConnection(boardInfo->getCommPortIdentification());
+            qDebug() << "Connection closed for board ID" << boardId;
+            return;
+        }
+    }
+    qDebug() << "Board ID" << boardId << "not found.";
+}
+
 
 
 

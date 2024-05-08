@@ -44,6 +44,7 @@ public:
     void serialWrite(int portId,const QString& atCmd, bool endOfLine);
     void serialBoardWrite(int boardId,const QString& atCmd,bool endOfLine);
     void closeConnection(int portId);
+    void closeBoardConnection(int boardId);
 
 
 private:
