@@ -67,6 +67,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         McuBusinessInterface.h
         PersistenceController.h PersistenceController.cpp
         UtilsConversion.h
+        BusinessController.h BusinessController.cpp
 
 
 
@@ -117,6 +118,10 @@ set(CONTROLLER
 
 )
 
+set(CONTROLLER_BUSINESS
+    BusinessController.h BusinessController.cpp
+)
+
 set(CONTROLLER_PERSISTENCE
     PersistenceController.h PersistenceController.cpp
 )
@@ -141,6 +146,7 @@ source_group("Constants" FILES ${CONSTANTS_HEADERS})
 source_group("Model" FILES ${MODEL})
 source_group("Model_test" FILES ${MODEL_TEST})
 source_group("Controller" FILES ${CONTROLLER})
+source_group("Controller_business" FILES ${CONTROLLER_BUSINESS})
 source_group("Controller_persistence" FILES ${CONTROLLER_PERSISTENCE})
 source_group("Interface" FILES ${INTERFACE})
 source_group("Model_board" FILES ${MODEL_BOARD})
