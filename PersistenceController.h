@@ -27,6 +27,7 @@ class PersistenceController : public QObject {
 public:
     static PersistenceController* getInstance();
     virtual ~PersistenceController();
+    explicit PersistenceController(QObject *parent = nullptr);
 
     int findSerialCommPorts();
     QVector<SerialCommPort*> getSerialCommPortInfo();
@@ -58,7 +59,7 @@ public:
 
 
 private:
-    explicit PersistenceController(QObject *parent = nullptr);
+
     static PersistenceController* instance;
     libusb_context *usbContext = nullptr;
 

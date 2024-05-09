@@ -68,6 +68,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         PersistenceController.h PersistenceController.cpp
         UtilsConversion.h
         BusinessController.h BusinessController.cpp
+        RepBusinessController.h RepBusinessController.cpp
+        TimeOutMonitor.h TimeOutMonitor.cpp
+        TimeOutListener.h
+        #EcuBusinessController.h EcuBusinessController.cpp
 
 
 
@@ -92,6 +96,7 @@ set(CONSTANTS_HEADERS
 set(MODEL
     TestReportModel.h TestReportModel.cpp
     SerialCommPort.h SerialCommPort.cpp
+    TimeOutMonitor.h TimeOutMonitor.cpp
 
 )
 
@@ -120,6 +125,8 @@ set(CONTROLLER
 
 set(CONTROLLER_BUSINESS
     BusinessController.h BusinessController.cpp
+    #EcuBusinessController.h EcuBusinessController.cpp
+    RepBusinessController.h RepBusinessController.cpp
 )
 
 set(CONTROLLER_PERSISTENCE
@@ -130,6 +137,7 @@ set(INTERFACE
     EcuBusinessInterface.h
     ReportControllerInterface.h
     McuBusinessInterface.h
+    TimeOutListener.h
 )
 
 
