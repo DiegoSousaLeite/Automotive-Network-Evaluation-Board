@@ -29,8 +29,6 @@ private:
     void checkLinNetworkReport(int boardId, const QString &recvStr);
     void checkMcuGetCanBusReport(const QString &recvStr);
 
-    PersistenceController *psController;
-    QMap<int, Board*> boardList;
 };
 
 #endif // REPBUSINESSCONTROLLER_H
