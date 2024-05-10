@@ -56,7 +56,7 @@ void RepBusinessController::getTestResult(int testId, int boardId) {
 
     switch (testId) {
     case JigaTestConstants::DIGITAL_INPUT_TEST:
-        //checkDigitalInputReport(boardId, recvStr);
+        checkDigitalInputReport(boardId, recvStr);
         break;
     case JigaTestConstants::ANALOG_INPUT_TEST:
         //checkAnalogInputReport(boardId, recvStr);
@@ -86,4 +86,71 @@ void RepBusinessController::getTestResult(int testId, int boardId) {
 
     psController->closeBoardConnection(boardId);
 }
+
+void RepBusinessController::checkDigitalInputReport(int boardId, const QString &recvStr)
+{
+    QVector<int> testResult;
+    int code = getTestReportCode(recvStr);
+    QString boardDesc = psController->getBoardDescription(boardId);
+    QString testMessage;
+
+    if(code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE){
+        qDebug() << "RepBusinessController: Board =" << boardDesc << " error to read report code!";
+        qDebug() << "Serial output:" << recvStr;
+        return;
+    }
+
+    //Checking code number
+    testResult = UtilsConversion::parseBinary(code);
+
+    for (int i = 0; i < testResult.size(); ++i) {
+        if(testResult[i] == 1){
+            testMessage = boardDesc + "->DIN#" + QString::number(i+1) + ": lida com sucesso!";
+            qDebug() << testMessage;
+            switch (boardId) {
+            case JigaTestConstants::ECU1_BOARD_ID:
+                diInputModel->setIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::DIN1_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                break;
+            case JigaTestConstants::ECU2_BOARD_ID:
+                diInputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::DIN2_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                break;
+            case JigaTestConstants::ECU3_BOARD_ID:
+                diInputModel->setIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::DIN3_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                break;
+            case JigaTestConstants::ECU4_BOARD_ID:
+                diInputModel->setIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::DIN4_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                break;
+            default:
+                qDebug() << "Unknown board ID:" << boardId;
+                break;
+            }
+        } else {
+            testMessage = boardDesc + "->DIN#" + QString::number(i+1) + ": erro de leitura!";
+            qDebug() << testMessage;
+            switch (boardId) {
+            case JigaTestConstants::ECU1_BOARD_ID:
+                diInputModel->setIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::DIN1_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+                break;
+            case JigaTestConstants::ECU2_BOARD_ID:
+                diInputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::DIN2_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+                break;
+            case JigaTestConstants::ECU3_BOARD_ID:
+                diInputModel->setIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::DIN3_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+                break;
+            case JigaTestConstants::ECU4_BOARD_ID:
+                diInputModel->setIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::DIN4_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+                break;
+            default:
+                qDebug() << "Unknown board ID:" << boardId;
+                break;
+            }
+        }
+    }
+
+    addCmdTestMessage(JigaTestConstants::DIGITAL_INPUT_TEST,boardId,testMessage,true);
+
+}
+
+
+
 

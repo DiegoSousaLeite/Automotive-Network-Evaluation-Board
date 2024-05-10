@@ -7,6 +7,7 @@
 #include "PersistenceController.h"
 #include "TimeOutListener.h"
 #include "TimeOutMonitor.h"
+#include "EcuBusinessInterface.h"
 
 class RepBusinessController : public BusinessController,public TimeOutListener  {
     Q_OBJECT

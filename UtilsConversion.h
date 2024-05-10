@@ -1,15 +1,25 @@
-// UtilsConversion.h
-#ifndef UTILSCONVERSION_H
-#define UTILSCONVERSION_H
-
 #include <QString>
+#include <QDir>
 
 class UtilsConversion {
 public:
-    static uint16_t hexToShort(const QString &hexString) {
+    static short hexToShort(const QString &hexStr) {
         bool ok;
-        return static_cast<uint16_t>(hexString.toUShort(&ok, 16));
+        return static_cast<short>(hexStr.toInt(&ok, 16));
+    }
+
+    static QVector<int> parseBinary(int num) {
+        QVector<int> binary(4, 0);
+        int index = 0;
+        while (num > 0 && index < binary.size()) {
+            binary[index++] = num % 2;
+            num /= 2;
+        }
+        return binary;
+    }
+
+    static bool isPathValid(const QString &path) {
+        QDir dir(path);
+        return dir.exists();
     }
 };
-
-#endif // UTILSCONVERSION_H
