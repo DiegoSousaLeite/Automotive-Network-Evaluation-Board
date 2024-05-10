@@ -59,13 +59,13 @@ void RepBusinessController::getTestResult(int testId, int boardId) {
         checkDigitalInputReport(boardId, recvStr);
         break;
     case JigaTestConstants::ANALOG_INPUT_TEST:
-        //checkAnalogInputReport(boardId, recvStr);
+        checkAnalogInputReport(boardId, recvStr);
         break;
     case JigaTestConstants::ANALOG_OUTPUT_TEST:
-        //checkAnalogOutputReport(boardId, recvStr);
+        checkAnalogOutputReport(boardId, recvStr);
         break;
     case JigaTestConstants::LOOPBACK_CAN_TEST:
-        //checkLBCanNetworkReport(boardId, recvStr);
+        checkLBCanNetworkReport(boardId, recvStr);
         break;
     case JigaTestConstants::CAN1_NETWORK_TEST:
         //checkC1CanNetworkReport(boardId, recvStr);
@@ -95,15 +95,13 @@ void RepBusinessController::checkDigitalInputReport(int boardId, const QString &
     QString testMessage;
 
     if(code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE){
-        qDebug() << "RepBusinessController: Board =" << boardDesc << " error to read report code!";
-        qDebug() << "Serial output:" << recvStr;
         return;
     }
 
     //Checking code number
     testResult = UtilsConversion::parseBinary(code);
 
-    for (int i = 0; i < testResult.size(); ++i) {
+    for (int i = 0; i < testResult.size(); i++) {
         if(testResult[i] == 1){
             testMessage = boardDesc + "->DIN#" + QString::number(i+1) + ": lida com sucesso!";
             qDebug() << testMessage;
@@ -148,6 +146,137 @@ void RepBusinessController::checkDigitalInputReport(int boardId, const QString &
     }
 
     addCmdTestMessage(JigaTestConstants::DIGITAL_INPUT_TEST,boardId,testMessage,true);
+
+}
+
+void RepBusinessController::checkAnalogInputReport(int boardId, const QString &recvStr)
+{
+    QVector<int> testResult;
+    int code = getTestReportCode(recvStr);
+    QString boardDesc = psController->getBoardDescription(boardId);
+    QString testMessage;
+
+    if (code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
+        return;
+    }
+
+    // Checking code number
+    testResult = UtilsConversion::parseBinary(code);
+
+    for (int i = 0; i < testResult.size(); i++) {
+        if (testResult[i] == 1) {
+            testMessage = boardDesc + "->AIN#" + QString::number(i+1) + ": lida com sucesso!";
+            qDebug() << testMessage;
+            switch (boardId) {
+            case JigaTestConstants::ECU1_BOARD_ID:
+                anInputModel->setIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::AIN1_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                break;
+            case JigaTestConstants::ECU2_BOARD_ID:
+                anInputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::AIN2_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                break;
+            case JigaTestConstants::ECU3_BOARD_ID:
+                anInputModel->setIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::AIN3_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                break;
+            case JigaTestConstants::ECU4_BOARD_ID:
+                anInputModel->setIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::AIN4_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                break;
+            default:
+                qDebug() << "Unknown board ID:" << boardId;
+                break;
+            }
+        } else {
+            testMessage = boardDesc + "->AIN#" + QString::number(i+1) + ": erro de leitura!";
+            qDebug() << testMessage;
+            switch (boardId) {
+            case JigaTestConstants::ECU1_BOARD_ID:
+                anInputModel->setIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::AIN1_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+                break;
+            case JigaTestConstants::ECU2_BOARD_ID:
+                anInputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::AIN2_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+                break;
+            case JigaTestConstants::ECU3_BOARD_ID:
+                anInputModel->setIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::AIN3_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+                break;
+            case JigaTestConstants::ECU4_BOARD_ID:
+                anInputModel->setIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::AIN4_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+                break;
+            default:
+                qDebug() << "Unknown board ID:" << boardId;
+                break;
+            }
+        }
+    }
+
+    addCmdTestMessage(JigaTestConstants::DIGITAL_INPUT_TEST,boardId, testMessage, true);
+}
+
+void RepBusinessController::checkAnalogOutputReport(int boardId, const QString &recvStr)
+{
+    QVector<int> testResult;
+    int code = getTestReportCode(recvStr);
+    QString boardDesc = psController->getBoardDescription(boardId);
+    QString testMessage;
+
+    if (code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
+        qDebug() << "Error to read report code!";
+        return;
+    }
+
+    // Checking code number
+    testResult = UtilsConversion::parseBinary(code);
+
+    if (testResult[0] == 1) {
+        testMessage = boardDesc + "->AOUT: lida com sucesso!";
+        //qDebug() << testMessage;
+        if (boardId == JigaTestConstants::ECU1_BOARD_ID) {
+            anOutputModel->setIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::AOUT1_LDR_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+        } else if (boardId == JigaTestConstants::ECU2_BOARD_ID) {
+            anOutputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::AOUT2_LOOP_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+        }
+    } else {
+        testMessage = boardDesc + "->AOUT: erro de leitura!";
+        //qDebug() << testMessage;
+        if (boardId == JigaTestConstants::ECU1_BOARD_ID) {
+            anOutputModel->setIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::AOUT1_LDR_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+        } else if (boardId == JigaTestConstants::ECU2_BOARD_ID) {
+            anOutputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::AOUT2_LOOP_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+        }
+    }
+
+    addCmdTestMessage(JigaTestConstants::ANALOG_OUTPUT_TEST, boardId, testMessage, true);
+}
+
+void RepBusinessController::checkLBCanNetworkReport(int boardId, const QString &recvStr)
+{
+    QVector<int> testResult;
+    int code = getTestReportCode(recvStr);
+    QString boardDesc = psController->getBoardDescription(boardId);
+    QString testMessage;
+
+    if (code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
+        qDebug() << "Error to read report code!";
+        return;
+    }
+
+    // Checking code number
+    testResult = UtilsConversion::parseBinary(code);
+
+    if (boardId == JigaTestConstants::ECU2_BOARD_ID) {
+        if (testResult[1] == 1) {
+            testMessage = boardDesc + "->CAN2 (Loopback): Teste executado com sucesso!";
+            anOutputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::AOUT1_LDR_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+        } else {
+            testMessage = boardDesc + "->CAN2 (Loopback): Erro de execução do teste!";
+        }
+        addCmdTestMessage(JigaTestConstants::LOOPBACK_CAN_TEST, boardId, testMessage, true);
+    }
+
+    if (testResult[0] == 1) {
+        testMessage = boardDesc + "->CAN1 (Loopback): Teste executado com sucesso!";
+    } else {
+        testMessage = boardDesc + "->CAN1 (Loopback): Erro de execução do teste!";
+    }
+    addCmdTestMessage(JigaTestConstants::LOOPBACK_CAN_TEST, boardId, testMessage, true);
 
 }
 
