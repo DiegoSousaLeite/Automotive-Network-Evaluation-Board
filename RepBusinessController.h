@@ -5,14 +5,16 @@
 #include <QMap>
 #include "Board.h"
 #include "PersistenceController.h"
+#include "TimeOutListener.h"
+#include "TimeOutMonitor.h"
 
-class RepBusinessController : public BusinessController {
+class RepBusinessController : public BusinessController,public TimeOutListener  {
     Q_OBJECT
 
 public:
     explicit RepBusinessController(QObject *parent = nullptr);
     void startTestResultMonitor(int testId, int boardId);
-    void getTestResult(int testId, int boardId);
+    void getTestResult(int testId, int boardId) override;
 
 private:
     void checkDigitalInputReport(int boardId, const QString &recvStr);
@@ -23,7 +25,6 @@ private:
     void checkC2CanNetworkReport(int boardId, const QString &recvStr);
     void checkLinNetworkReport(int boardId, const QString &recvStr);
     void checkMcuGetCanBusReport(const QString &recvStr);
-    void addCmdTestMessage(int testId, int boardId, const QString &testMessage, bool header);
 
     PersistenceController *psController;
     QMap<int, Board*> boardList;
