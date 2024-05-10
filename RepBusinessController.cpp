@@ -74,7 +74,7 @@ void RepBusinessController::getTestResult(int testId, int boardId) {
         checkC2CanNetworkReport(boardId, recvStr);
         break;
     case JigaTestConstants::LIN_NETWORK_TEST:
-        //checkLinNetworkReport(boardId, recvStr);
+        checkLinNetworkReport(boardId, recvStr);
         break;
     case JigaTestConstants::MCU_GET_CANBUS_TEST:
         //checkMcuGetCanBusReport(recvStr);
@@ -414,6 +414,41 @@ void RepBusinessController::checkC2CanNetworkReport(int boardId, const QString &
     default:
         qDebug() << "Unknown board ID:" << boardId;
     break;
+    }
+}
+
+void RepBusinessController::checkLinNetworkReport(int boardId, const QString &recvStr) {
+    QVector<int> testResult;
+    int code = getTestReportCode(recvStr);
+    QString boardDesc = psController->getBoardDescription(boardId);
+    QString testMessage;
+
+    if (code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
+    qDebug() << "Error to read report code!";
+    return;
+    }
+
+    // Verificando código numérico
+    testResult = UtilsConversion::parseBinary(code);
+
+    int lnSize = lnNetworkModel->getSize(); // Assegure-se que lnNetworkModel tem um método getSize()
+    for (int i = 0; i < (lnSize - 2); i++) {
+    if (testResult[i] == 1) {
+            testMessage = boardDesc + "->LIN: Mensagem lida com sucesso!";
+            if (boardId == JigaTestConstants::ECU3_BOARD_ID) {
+                lnNetworkModel->setIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::LIN1_ECU3_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+            } else if (boardId == JigaTestConstants::ECU4_BOARD_ID) {
+                lnNetworkModel->setIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::LIN1_ECU4_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+            }
+    } else {
+            testMessage = boardDesc + "->LIN: Erro na leitura da mensagem!";
+            if (boardId == JigaTestConstants::ECU3_BOARD_ID) {
+                lnNetworkModel->setIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::LIN1_ECU3_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+            } else if (boardId == JigaTestConstants::ECU4_BOARD_ID) {
+                lnNetworkModel->setIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::LIN1_ECU4_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+            }
+    }
+    addCmdTestMessage(JigaTestConstants::LIN_NETWORK_TEST, boardId, testMessage, true);
     }
 }
 
