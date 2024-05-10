@@ -77,7 +77,7 @@ void RepBusinessController::getTestResult(int testId, int boardId) {
         checkLinNetworkReport(boardId, recvStr);
         break;
     case JigaTestConstants::MCU_GET_CANBUS_TEST:
-        //checkMcuGetCanBusReport(recvStr);
+        checkMcuGetCanBusReport(recvStr);
         break;
     default:
         qDebug() << "Unknown test ID:" << testId;
@@ -461,7 +461,7 @@ void RepBusinessController::showCommTestReport() {
     if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
     reportMessage = psController->getReportProperty("com.ecu1.err");
     } else {
-    reportMessage = QString("%1 com a ECU1 realizado com sucesso!").arg(JigaTestConstants::CMD_MSG_COMMUNICATION);
+    reportMessage = QString("%1 com a ECU1 realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
     }
     addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::ECU1_BOARD_ID, reportMessage, true);
 
@@ -470,7 +470,7 @@ void RepBusinessController::showCommTestReport() {
     if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
     reportMessage = psController->getReportProperty("com.ecu2.err");
     } else {
-    reportMessage = QString("%1 com a ECU2 realizado com sucesso!").arg(JigaTestConstants::CMD_MSG_COMMUNICATION);
+    reportMessage = QString("%1 com a ECU2 realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
     }
     addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::ECU2_BOARD_ID, reportMessage, true);
 
@@ -479,7 +479,7 @@ void RepBusinessController::showCommTestReport() {
     if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
     reportMessage = psController->getReportProperty("com.ecu3.err");
     } else {
-    reportMessage = QString("%1 com a ECU3 realizado com sucesso!").arg(JigaTestConstants::CMD_MSG_COMMUNICATION);
+    reportMessage = QString("%1 com a ECU3 realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
     }
     addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::ECU3_BOARD_ID, reportMessage, true);
 
@@ -488,7 +488,7 @@ void RepBusinessController::showCommTestReport() {
     if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
     reportMessage = psController->getReportProperty("com.ecu4.err");
     } else {
-    reportMessage = QString("%1 com a ECU4 realizado com sucesso!").arg(JigaTestConstants::CMD_MSG_COMMUNICATION);
+    reportMessage = QString("%1 com a ECU4 realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
     }
     addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::ECU4_BOARD_ID, reportMessage, true);
 
@@ -497,7 +497,7 @@ void RepBusinessController::showCommTestReport() {
     if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
     reportMessage = psController->getReportProperty("com.prog.err");
     } else {
-    reportMessage = QString("%1 com o PROG realizado com sucesso!").arg(JigaTestConstants::CMD_MSG_COMMUNICATION);
+    reportMessage = QString("%1 com o PROG realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
     }
     addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::MCU1_BOARD_ID, reportMessage, true);
 
@@ -506,7 +506,44 @@ void RepBusinessController::showCommTestReport() {
     if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
     reportMessage = psController->getReportProperty("com.mcu1.err");
     } else {
-    reportMessage = QString("%1 com o PROG realizado com sucesso!").arg(JigaTestConstants::CMD_MSG_COMMUNICATION);
+    reportMessage = QString("%1 com o PROG realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
     }
     addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::MCU1_BOARD_ID, reportMessage, true);
+}
+
+void RepBusinessController::checkMcuGetCanBusReport(const QString &recvStr) {
+    QVector<int> testResult;
+    int code = getTestReportCode(recvStr);
+    QString boardDesc = psController->getBoardDescription(JigaTestConstants::MCU1_BOARD_ID);
+    QString testMessage;
+
+    if (code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
+    qDebug() << "RepBusinessController: Board =" << boardDesc << "error to read report code!";
+    qDebug() << "Serial output:" << recvStr;
+    return;
+    }
+
+    // Verificação do código numérico
+    testResult = UtilsConversion::parseBinary(code);
+
+    // ECU3 - CANBUS1
+    if (testResult[0] == 0) {
+    testMessage = boardDesc + "-> ECU3 conectada no CANBUS1!";
+    Ecu3Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_1);
+    } else {
+    testMessage = boardDesc + "-> ECU3 conectada no CANBUS2!";
+    Ecu3Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_2);
+    }
+    addCmdTestMessage(JigaTestConstants::MCU_GET_CANBUS_TEST, JigaTestConstants::MCU1_BOARD_ID, testMessage, true);
+
+    // ECU4 - CANBUS1 or CANBUS2
+    if (testResult[1] == 0) {
+    testMessage = boardDesc + "-> ECU4 conectada no CANBUS1!";
+    Ecu4Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_1);
+    } else {
+    testMessage = boardDesc + "-> ECU4 conectada no CANBUS2!";
+    Ecu4Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_2);
+    }
+    addCmdTestMessage(JigaTestConstants::MCU_GET_CANBUS_TEST, JigaTestConstants::MCU1_BOARD_ID, testMessage, true);
+    mcu1InterModel->setIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID, JigaTestConstants::MCU_GET_CANBUS_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
 }

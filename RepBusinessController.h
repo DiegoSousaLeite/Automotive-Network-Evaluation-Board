@@ -8,6 +8,7 @@
 #include "TimeOutListener.h"
 #include "TimeOutMonitor.h"
 #include "EcuBusinessInterface.h"
+#include "CmdMessageConstants.h"
 
 class RepBusinessController : public BusinessController,public TimeOutListener  {
     Q_OBJECT
