@@ -282,4 +282,79 @@ void RepBusinessController::checkLBCanNetworkReport(int boardId, const QString &
 
 
 
+void RepBusinessController::checkC1CanNetworkReport(int boardId, const QString &recvStr)
+{
+    QVector<int> testResult;
+    int code = getTestReportCode(recvStr);
+    QString boardDesc = psController->getBoardDescription(boardId);
+    QString testMessage;
+
+    if (code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
+        qDebug() << "Error to read report code!";
+        return;
+    }
+
+    // Checking code number
+    testResult = UtilsConversion::parseBinary(code);
+
+    switch (boardId) {
+    case JigaTestConstants::ECU1_BOARD_ID:
+        for (int i = 0; i < testResult.size() - 1; i++) {
+            if (testResult[i] == 1) {
+                testMessage = boardDesc + "->CAN1: recebida mensagem de ECU" + QString::number(i + 2);
+            } else {
+                testMessage = boardDesc + "->CAN1: erro de mensagem de ECU" + QString::number(i + 2);
+            }
+            addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, boardId, testMessage, true);
+        }
+        break;
+
+    case JigaTestConstants::ECU2_BOARD_ID: {
+        int offset = 1;
+        for (int i = 0; i < testResult.size() - 1; i++) {
+            if (testResult[i] == 1) {
+                testMessage = boardDesc + "->CAN1: recebida mensagem de ECU" + QString::number(i + offset);
+            } else {
+                testMessage = boardDesc + "->CAN1: erro de mensagem de ECU" + QString::number(i + offset);
+            }
+            if (i <= 0) {
+                offset = 2;
+            }
+            addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, boardId, testMessage, true);
+        }
+    } break;
+
+    case JigaTestConstants::ECU3_BOARD_ID: {
+        int offset = 1;
+        for (int i = 0; i < testResult.size() - 1; i++) {
+            if (testResult[i] == 1) {
+                testMessage = boardDesc + "->CAN1: recebida mensagem de ECU" + QString::number(i + offset);
+            } else {
+                testMessage = boardDesc + "->CAN1: erro de mensagem de ECU" + QString::number(i + offset);
+            }
+            if (i >= 1) {
+                offset = 2;
+            }
+            addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, boardId, testMessage, true);
+        }
+    } break;
+
+    case JigaTestConstants::ECU4_BOARD_ID:
+        for (int i = 0; i < testResult.size() - 1; i++) {
+            if (testResult[i] == 1) {
+                testMessage = boardDesc + "->CAN1: recebida mensagem de ECU" + QString::number(i + 1);
+            } else {
+                testMessage = boardDesc + "->CAN1: erro de mensagem de ECU" + QString::number(i + 1);
+            }
+            addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, boardId, testMessage, true);
+        }
+        break;
+
+    default:
+        qDebug() << "Unknown board ID:" << boardId;
+        break;
+    }
+}
+
+
 
