@@ -16,6 +16,7 @@ public:
     explicit RepBusinessController(QObject *parent = nullptr);
     void startTestResultMonitor(int testId, int boardId);
     void getTestResult(int testId, int boardId) override;
+    void showCommTestReport();
 
 private:
     void checkDigitalInputReport(int boardId, const QString &recvStr);

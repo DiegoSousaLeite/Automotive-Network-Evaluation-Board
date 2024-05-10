@@ -452,5 +452,61 @@ void RepBusinessController::checkLinNetworkReport(int boardId, const QString &re
     }
 }
 
+void RepBusinessController::showCommTestReport() {
+    int testResult;
+    QString reportMessage;
 
+    // Verificando Teste de Comunicação - ECU1
+    testResult = commTestModel->getIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::COMM_ECU1_ITEST);
+    if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
+    reportMessage = psController->getReportProperty("com.ecu1.err");
+    } else {
+    reportMessage = QString("%1 com a ECU1 realizado com sucesso!").arg(JigaTestConstants::CMD_MSG_COMMUNICATION);
+    }
+    addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::ECU1_BOARD_ID, reportMessage, true);
 
+    // Verificando Teste de Comunicação - ECU2
+    testResult = commTestModel->getIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::COMM_ECU2_ITEST);
+    if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
+    reportMessage = psController->getReportProperty("com.ecu2.err");
+    } else {
+    reportMessage = QString("%1 com a ECU2 realizado com sucesso!").arg(JigaTestConstants::CMD_MSG_COMMUNICATION);
+    }
+    addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::ECU2_BOARD_ID, reportMessage, true);
+
+    // Verificando Teste de Comunicação - ECU3
+    testResult = commTestModel->getIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::COMM_ECU3_ITEST);
+    if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
+    reportMessage = psController->getReportProperty("com.ecu3.err");
+    } else {
+    reportMessage = QString("%1 com a ECU3 realizado com sucesso!").arg(JigaTestConstants::CMD_MSG_COMMUNICATION);
+    }
+    addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::ECU3_BOARD_ID, reportMessage, true);
+
+    // Verificando Teste de Comunicação - ECU4
+    testResult = commTestModel->getIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::COMM_ECU4_ITEST);
+    if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
+    reportMessage = psController->getReportProperty("com.ecu4.err");
+    } else {
+    reportMessage = QString("%1 com a ECU4 realizado com sucesso!").arg(JigaTestConstants::CMD_MSG_COMMUNICATION);
+    }
+    addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::ECU4_BOARD_ID, reportMessage, true);
+
+    // Verificando Teste de Comunicação - PROG
+    testResult = commTestModel->getIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID, JigaTestConstants::COMM_PROG_ITEST);
+    if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
+    reportMessage = psController->getReportProperty("com.prog.err");
+    } else {
+    reportMessage = QString("%1 com o PROG realizado com sucesso!").arg(JigaTestConstants::CMD_MSG_COMMUNICATION);
+    }
+    addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::MCU1_BOARD_ID, reportMessage, true);
+
+    // Verificando Teste de Comunicação - MCU1
+    testResult = commTestModel->getIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID, JigaTestConstants::COMM_MCU1_ITEST);
+    if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
+    reportMessage = psController->getReportProperty("com.mcu1.err");
+    } else {
+    reportMessage = QString("%1 com o PROG realizado com sucesso!").arg(JigaTestConstants::CMD_MSG_COMMUNICATION);
+    }
+    addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::MCU1_BOARD_ID, reportMessage, true);
+}
