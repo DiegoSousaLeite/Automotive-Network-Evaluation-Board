@@ -360,3 +360,9 @@ int McuBusinessController::checkCanBus1Network(int testId) {
     return code;
 }
 
+bool McuBusinessController::setCanBus2Network() {
+    // Implementação ainda não suportada.
+    qWarning("setCanBus2Network not supported yet.");
+    throw std::runtime_error("setCanBus2Network not supported yet.");
+    return false;
+}

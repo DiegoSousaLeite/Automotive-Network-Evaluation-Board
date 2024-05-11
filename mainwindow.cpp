@@ -49,6 +49,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::initializeDevice()
 {
+    //Persistence Controller main
     SystemDefinition sDefinition;  // Supondo que esta classe esteja definida
     sDefinition.printSystemProperties();  // Supondo método de impressão
 
@@ -65,6 +66,26 @@ void MainWindow::initializeDevice()
         qDebug() << "Manufacturer =" << psController->getUsbDeviceManufacturerString();
         */
     }
+
+    //Mcu BusinessC ontroller main
+    McuBusinessController mcuBController;
+    //SystemDefinition sDefinition;
+    sDefinition.printSystemProperties();
+
+   // PersistenceController* psController = PersistenceController::getInstance();
+    mcuBController.setPersistenceController(psController);
+
+    bool progLoaded = mcuBController.loadProgrammer(JigaTestConstants::SERIAL_PROG_ID);
+    if (progLoaded) {
+        qDebug() << "Programmer is loaded!";
+        mcuBController.uploadFirmware(JigaTestConstants::SERIAL_PROG_ID);
+    } else {
+        qDebug() << "Programmer is not loaded!";
+    }
+
+    // Atraso para simular delay no fim do programa
+    QThread::sleep(3);  // Delay in seconds
+
 }
 
 // Function to set up the styles and behaviors for navigation buttons

@@ -14,6 +14,7 @@
 #include <QSettings>
 #include <QCoreApplication>
 #include "McuBusinessInterface.h"
+#include <stdexcept>
 
 class McuBusinessController : public BusinessController {
     Q_OBJECT

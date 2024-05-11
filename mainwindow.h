@@ -7,6 +7,7 @@
 #include "virtual_io.h"
 #include "SystemDefinition.h"
 #include "PersistenceController.h"
+#include "McuBusinessController.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
