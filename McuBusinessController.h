@@ -19,8 +19,11 @@ class McuBusinessController : public BusinessController {
 public:
     explicit McuBusinessController(QObject *parent = nullptr);
     bool loadProgrammer(int programmerId);
+    int getSerialProgrammerMode();
+    void setSerialProgrammerMode(int progMode);
     int uploadFirmware(int programmerId);
     bool setCanBus1Network();
+    bool setCanBus2Network();
 
 private:
     QSerialPort serialPort;
@@ -28,15 +31,10 @@ private:
 
     bool loadUsbProgrammer();
     bool loadSerialProgrammer();
-    int getSerialProgrammerMode();
-    void setSerialProgrammerMode(int progMode);
-    int checkCanBus1Network(int testId);
-    void sendAtCommand(int testId, int boardId, const QString &command);
-    bool acknowledgeAtCommand(int testId, int boardId);
 
-signals:
-    void errorOccurred(const QString &error);
-    void messageLogged(const QString &message);
+
+protected:
+    int checkCanBus1Network(int testId);
 
 };
 
