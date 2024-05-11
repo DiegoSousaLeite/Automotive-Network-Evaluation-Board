@@ -39,6 +39,10 @@ bool McuBusinessController::loadUsbProgrammer() {
 
 bool McuBusinessController::loadSerialProgrammer() {
     int serialPorts = psController->getTotalNumberOfPorts();
+    /*
+     * QSettings settings("path/to/config.ini", QSettings::IniFormat);
+     * int baudrate = settings.value(SystemProperties::MCU_PROG_BAUDRATE).toInt();
+    */
     int baudrate = QSettings().value(SystemProperties::MCU_PROG_BAUDRATE).toInt();
     qDebug() << "baudrate: " << baudrate;
 
@@ -92,6 +96,56 @@ bool McuBusinessController::loadSerialProgrammer() {
     }
     return false;
 }
+
+int McuBusinessController::getSerialProgrammerMode() {
+    QString recvStr;
+    bool retVal;
+    QString commPort;
+    QString testMessage;
+
+    // Abrindo conexão com a porta serial para o modo programador
+    retVal = psController->openBoardConnection(JigaTestConstants::PROG_BOARD_ID, 19200);
+    if (retVal) {
+        commPort = psController->getBoardCommPort(JigaTestConstants::PROG_BOARD_ID);
+        testMessage = commPort + ": " + tr(CmdMessageConstants::MSG_SUCCESS_OPEN_SERIAL_PORT);
+        addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::PROG_BOARD_ID, testMessage, false);
+
+        // Verificando o modo do programador
+        for (int i = 0; i < EcuBusinessInterface::MAX_NUMBER_ATTEMPTS; i++) {
+            testMessage = commPort + tr(CmdMessageConstants::MSG_SEPARATOR) + tr(CmdMessageConstants::MSG_SEND_AT_COMMAND);
+            addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::PROG_BOARD_ID, testMessage, false);
+            psController->serialBoardWrite(JigaTestConstants::PROG_BOARD_ID, AtCommandConstants::AT_CM_CMD, false);
+
+            testMessage = commPort + tr(CmdMessageConstants::MSG_SEPARATOR) + AtCommandConstants::AT_CM_CMD;
+            addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::PROG_BOARD_ID, testMessage, false);
+
+            QThread::msleep(500);
+
+            recvStr = psController->serialBoardRead(JigaTestConstants::PROG_BOARD_ID);
+
+            testMessage = commPort + ": " + recvStr;
+            addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::PROG_BOARD_ID, testMessage, false);
+
+            if (recvStr == AtCommandConstants::AT_PROG_SM) {
+                testMessage = commPort + ": " + tr(CmdMessageConstants::MSG_PROGRAMMER_MODE) + " serial!";
+                addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::PROG_BOARD_ID, testMessage, false);
+                psController->closeBoardConnection(JigaTestConstants::PROG_BOARD_ID);
+                return JigaTestConstants::PROG_SERIAL_MODE;
+            } else if (recvStr == AtCommandConstants::AT_PROG_PM) {
+                testMessage = commPort + ": " + tr(CmdMessageConstants::MSG_PROGRAMMER_MODE) + " de programação!";
+                addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::PROG_BOARD_ID, testMessage, false);
+                psController->closeBoardConnection(JigaTestConstants::PROG_BOARD_ID);
+                return JigaTestConstants::PROG_PROGRAMMER_MODE;
+            }
+        }
+        psController->closeBoardConnection(JigaTestConstants::PROG_BOARD_ID);
+        testMessage = commPort + ": " + tr(CmdMessageConstants::MSG_SUCCESS_CLOSE_SERIAL_PORT);
+        addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::PROG_BOARD_ID, testMessage, false);
+    }
+
+    return JigaTestConstants::PROG_UNKNOWN_MODE;
+}
+
 
 
 
