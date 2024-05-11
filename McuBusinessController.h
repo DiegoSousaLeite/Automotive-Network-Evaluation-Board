@@ -12,6 +12,7 @@
 #include "atCommandConstants.h"
 #include "BusinessController.h"
 #include <QSettings>
+#include <QCoreApplication>
 
 class McuBusinessController : public BusinessController {
     Q_OBJECT

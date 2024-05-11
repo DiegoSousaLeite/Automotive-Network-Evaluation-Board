@@ -197,5 +197,57 @@ void McuBusinessController::setSerialProgrammerMode(int progMode) {
     }
 }
 
+int McuBusinessController::uploadFirmware(int programmerId) {
+    QString basePath = QDir(SystemProperties::USER_DIRECTORY).absolutePath();
+    QDir mcuDir(basePath);
+    mcuDir.cd(SystemProperties::MCU_DIRECTORY);
+
+    QString appHexFile = mcuDir.filePath(SystemProperties::MCU_APPLICATION);
+    QString bootHexFile = mcuDir.filePath(SystemProperties::MCU_BOOTLOADER);
+
+    QDir avrDir(basePath);
+    QString avrdudeExe = avrDir.filePath(SystemProperties::AVRDUDE_PROGRAM);
+    QString avrdudeConf = avrDir.filePath(SystemProperties::AVRDUDE_CONFIG);
+
+
+    QString optFUSE = tr(SystemProperties::MCU_OPT_FUSE);
+    QString optBOOT1 = tr(SystemProperties::MCU_OPT_BOOT1);
+    QString optBOOT2 = tr(SystemProperties::MCU_OPT_BOOT2);
+    QString optPROG = tr(SystemProperties::MCU_OPT_PROG);
+
+    switch (programmerId) {
+    case JigaTestConstants::USB_PROG_ID:
+        optPROG += tr(SystemProperties::MCU_PROG_USB);
+        break;
+    case JigaTestConstants::SERIAL_PROG_ID:
+        optPROG += tr(SystemProperties::MCU_PROG_SERIAL) + " -b" + tr(SystemProperties::MCU_PROG_BAUDRATE) + " -P";
+        break;
+    default:
+        return 1;
+    }
+
+    QString cmdBootUpFuse = avrdudeExe + " -C" + avrdudeConf + " " + optPROG + " " + optFUSE;
+    QString cmdBootUpHEX = avrdudeExe + " -C" + avrdudeConf + " " + optPROG + " " + optBOOT1 + bootHexFile + ":i " + optBOOT2;
+    QString cmdAppUpHEX = avrdudeExe + " -C" + avrdudeConf + " " + optPROG + " " + optBOOT1 + appHexFile + ":i";
+
+    qDebug() << cmdBootUpFuse;
+    qDebug() << cmdBootUpHEX;
+    qDebug() << cmdAppUpHEX;
+
+    int retVal = psController->writeFirmware(cmdBootUpFuse);
+    if (retVal < 0) {
+        qDebug() << "retVal =" << retVal;
+        return retVal;
+    }
+
+    retVal = psController->writeFirmware(cmdBootUpHEX);
+    if (retVal < 0) {
+        qDebug() << "retVal =" << retVal;
+        return retVal;
+    }
+
+    retVal = psController->writeFirmware(cmdAppUpHEX);
+    return retVal;
+}
 
 
