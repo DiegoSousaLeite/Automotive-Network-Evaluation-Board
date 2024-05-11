@@ -13,6 +13,7 @@
 #include "BusinessController.h"
 #include <QSettings>
 #include <QCoreApplication>
+#include "McuBusinessInterface.h"
 
 class McuBusinessController : public BusinessController {
     Q_OBJECT

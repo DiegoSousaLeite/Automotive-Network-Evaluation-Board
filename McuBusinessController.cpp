@@ -250,4 +250,113 @@ int McuBusinessController::uploadFirmware(int programmerId) {
     return retVal;
 }
 
+bool McuBusinessController::setCanBus1Network() {
+    bool retVal = false;
+    int resVal;
+    QString testMessage;
+    int stateMachine;
+
+    // 1 - Abrindo conexão com o programador
+    retVal = psController->openBoardConnection(JigaTestConstants::MCU1_BOARD_ID, 19200);
+    if (!retVal) {
+        return false;
+    }
+
+    // 3 - Verificar configuração de rede CAN para ECU3 e ECU4
+    resVal = checkCanBus1Network(JigaTestConstants::CAN1_NETWORK_TEST);
+    switch (resVal) {
+    case EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE:
+        testMessage = tr(CmdMessageConstants::MSG_ERROR_TO_RUN_TEST) + c1NetworkModel->getBoardDescription(JigaTestConstants::MCU1_BOARD_ID);
+        addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::MCU1_BOARD_ID, testMessage, true);
+        c1NetworkModel->setTestResult(JigaTestConstants::MCU1_BOARD_ID, JigaTestConstants::CAN1_NETWORK_TEST);
+        return false;
+
+    case JigaTestConstants::ECU_CANBUS_1:
+        testMessage = tr("ECU3 and ECU4 connected on CANBUS1!");
+        addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ALL_BOARDS_ID, testMessage, true);
+        return true;
+
+    default:
+        stateMachine = McuBusinessInterface::SM_SEL_SL_STATE;
+        for (int i = 0; i < EcuBusinessInterface::MAX_NUMBER_ATTEMPTS; i++) {
+            // Configurar CAN bus
+            switch (stateMachine) {
+            case McuBusinessInterface::SM_SEL_SL_STATE:
+                sendAtCommand(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::MCU1_BOARD_ID, AtCommandConstants::AT_SL_CMD);
+                retVal = acknowledgeAtCommand(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::MCU1_BOARD_ID);
+                if (retVal) {
+                    if (resVal == JigaTestConstants::ECU_CANBUS_2) {
+                        stateMachine = McuBusinessInterface::SM_SEL_UD_STATE;
+                    } else if (resVal == JigaTestConstants::ECU3_CANBUS1) {
+                        stateMachine = McuBusinessInterface::SM_SEL_SU_STATE;
+                    } else if (resVal == JigaTestConstants::ECU4_CANBUS1) {
+                        stateMachine = McuBusinessInterface::SM_SEL_SD_STATE;
+                    }
+                }
+                break;
+            case McuBusinessInterface::SM_SEL_UD_STATE:
+                sendAtCommand(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::MCU1_BOARD_ID, AtCommandConstants::AT_SU_CMD);
+                retVal = acknowledgeAtCommand(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::MCU1_BOARD_ID);
+                if (retVal) stateMachine = McuBusinessInterface::SM_SEL_SD_STATE;
+                break;
+            case McuBusinessInterface::SM_SEL_SU_STATE:
+                sendAtCommand(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::MCU1_BOARD_ID, AtCommandConstants::AT_SU_CMD);
+                retVal = acknowledgeAtCommand(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::MCU1_BOARD_ID);
+                if (retVal) stateMachine = McuBusinessInterface::SM_SEL_SV_STATE;
+                break;
+            case McuBusinessInterface::SM_SEL_SD_STATE:
+                sendAtCommand(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::MCU1_BOARD_ID, AtCommandConstants::AT_SD_CMD);
+                retVal = acknowledgeAtCommand(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::MCU1_BOARD_ID);
+                if (retVal) stateMachine = McuBusinessInterface::SM_SEL_SV_STATE;
+                break;
+            case McuBusinessInterface::SM_SEL_SV_STATE:
+                sendAtCommand(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::MCU1_BOARD_ID, AtCommandConstants::AT_SD_CMD);
+                retVal = acknowledgeAtCommand(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::MCU1_BOARD_ID);
+                if (retVal) return true;
+                break;
+            }
+        }
+        break;
+    }
+
+    return false;
+}
+
+int McuBusinessController::checkCanBus1Network(int testId) {
+    QString recvStr = "";
+    QString testMessage;
+    QString commPort;
+    int code = -1;
+
+    commPort = psController->getBoardCommPort(JigaTestConstants::MCU1_BOARD_ID);
+
+    // 1 - Send AT command to MCU1
+    for (int i = 0; i < EcuBusinessInterface::MAX_NUMBER_ATTEMPTS; i++) {
+        testMessage = commPort + CmdMessageConstants::MSG_SEPARATOR + CmdMessageConstants::MSG_SEND_AT_COMMAND;
+        addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, testMessage, false);
+
+        psController->serialBoardWrite(JigaTestConstants::MCU1_BOARD_ID, AtCommandConstants::AT_SB_CMD, true);
+
+        testMessage = commPort + CmdMessageConstants::MSG_SEPARATOR + AtCommandConstants::AT_SB_CMD;
+        addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, testMessage, false);
+
+        // 2 - Waiting a while
+        QThread::msleep(500);  // Delay in seconds
+
+        // 3 - Getting test result
+        recvStr = psController->serialBoardRead(JigaTestConstants::MCU1_BOARD_ID);
+        testMessage = commPort + ": " + recvStr;
+        addCmdTestMessage(testId, JigaTestConstants::MCU1_BOARD_ID, testMessage, false);
+
+        // 4 - Checking returned code
+        if (!recvStr.isEmpty()) {
+            code = getTestReportCode(recvStr);
+            if (code != EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
+                break;
+            }
+        }
+    }
+
+    return code;
+}
 
