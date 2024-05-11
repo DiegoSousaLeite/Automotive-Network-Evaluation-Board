@@ -8,8 +8,12 @@
 #include "JigaTestInterface.h"
 #include "SystemProperties.h"
 #include "CmdMessageConstants.h"
+#include "EcuBusinessInterface.h"
+#include "atCommandConstants.h"
+#include "BusinessController.h"
+#include <QSettings>
 
-class McuBusinessController : public QObject {
+class McuBusinessController : public BusinessController {
     Q_OBJECT
 
 public:
@@ -19,7 +23,6 @@ public:
     bool setCanBus1Network();
 
 private:
-    PersistenceController *psController;
     QSerialPort serialPort;
     QTimer delayTimer;
 
@@ -30,7 +33,6 @@ private:
     int checkCanBus1Network(int testId);
     void sendAtCommand(int testId, int boardId, const QString &command);
     bool acknowledgeAtCommand(int testId, int boardId);
-    void addCmdTestMessage(int testId, int boardId, const QString &message, bool isHeader);
 
 signals:
     void errorOccurred(const QString &error);
