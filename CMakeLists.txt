@@ -71,6 +71,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         RepBusinessController.h RepBusinessController.cpp
         TimeOutMonitor.h TimeOutMonitor.cpp
         TimeOutListener.h
+        McuBusinessController.h McuBusinessController.cpp
         #EcuBusinessController.h EcuBusinessController.cpp
 
 
@@ -127,6 +128,7 @@ set(CONTROLLER_BUSINESS
     BusinessController.h BusinessController.cpp
     #EcuBusinessController.h EcuBusinessController.cpp
     RepBusinessController.h RepBusinessController.cpp
+    McuBusinessController.h McuBusinessController.cpp
 )
 
 set(CONTROLLER_PERSISTENCE
