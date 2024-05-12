@@ -73,6 +73,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         TimeOutListener.h
         McuBusinessController.h McuBusinessController.cpp
         MenuOptionsInterface.h
+        SystemBuilderInterface.h
         #EcuBusinessController.h EcuBusinessController.cpp
 
 
@@ -142,6 +143,7 @@ set(INTERFACE
     ReportControllerInterface.h
     McuBusinessInterface.h
     TimeOutListener.h
+    SystemBuilderInterface.h
 )
 
 
