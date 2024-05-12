@@ -74,6 +74,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         McuBusinessController.h McuBusinessController.cpp
         MenuOptionsInterface.h
         SystemBuilderInterface.h
+        GetTestReport.h GetTestReport.cpp
         #EcuBusinessController.h EcuBusinessController.cpp
 
 
@@ -101,6 +102,7 @@ set(MODEL
     TestReportModel.h TestReportModel.cpp
     SerialCommPort.h SerialCommPort.cpp
     TimeOutMonitor.h TimeOutMonitor.cpp
+    GetTestReport.h GetTestReport.cpp
 
 )
 
