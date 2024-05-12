@@ -72,6 +72,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         TimeOutMonitor.h TimeOutMonitor.cpp
         TimeOutListener.h
         McuBusinessController.h McuBusinessController.cpp
+        MenuOptionsInterface.h
         #EcuBusinessController.h EcuBusinessController.cpp
 
 
@@ -91,6 +92,7 @@ set(CONSTANTS_HEADERS
    JigaTestInterface.h
    SystemProperties.h
    ErrorCodeInterface.h
+   MenuOptionsInterface.h
 
 )
 
