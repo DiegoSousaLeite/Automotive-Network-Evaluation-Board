@@ -75,7 +75,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MenuOptionsInterface.h
         SystemBuilderInterface.h
         GetTestReport.h GetTestReport.cpp
-        #EcuBusinessController.h EcuBusinessController.cpp
+        EcuBusinessController.h EcuBusinessController.cpp
 
 
 
@@ -131,7 +131,7 @@ set(CONTROLLER
 
 set(CONTROLLER_BUSINESS
     BusinessController.h BusinessController.cpp
-    #EcuBusinessController.h EcuBusinessController.cpp
+    EcuBusinessController.h EcuBusinessController.cpp
     RepBusinessController.h RepBusinessController.cpp
     McuBusinessController.h McuBusinessController.cpp
 )

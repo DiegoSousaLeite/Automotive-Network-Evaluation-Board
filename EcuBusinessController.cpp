@@ -3,7 +3,7 @@
 #include <QDebug>
 
 EcuBusinessController::EcuBusinessController(QObject *parent)
-    : QObject(parent), psController(new PersistenceController(this)) {
+    : BusinessController(parent){
 
 }
 
@@ -41,21 +41,21 @@ bool EcuBusinessController::startIndividualBoardTest(int testId, int boardId) {
                         break;
 
                     case JigaTestConstants::MCU_SEL_CANBUS1_TEST:
-                        Ecu3Board.getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_1);
-                        Ecu4Board.getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_1);
+                        Ecu3Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_1);
+                        Ecu4Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_1);
                         mcu1InterModel->setIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID,JigaTestConstants::MCU_SEL_CANBUS1_ITEST,JigaTestConstants::SUCCESS_EXECUTE_TEST);
                         break;
                     case JigaTestConstants::MCU_SEL_CANBUS2_TEST:
-                        Ecu3Board.getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_2);
-                        Ecu4Board.getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_2);
+                        Ecu3Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_2);
+                        Ecu4Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_2);
                         mcu1InterModel->setIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID,JigaTestConstants::MCU_SEL_CANBUS2_ITEST,JigaTestConstants::SUCCESS_EXECUTE_TEST);
                         break;
                     case JigaTestConstants::MCU_TOG_ECU3BUS_TEST:
-                        Ecu3Board.getInstance()->toggleCanBus();
+                        Ecu3Board::getInstance()->toggleCanBus();
                         mcu1InterModel->setIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID,JigaTestConstants::MCU_TOG_ECU3BUS_ITEST,JigaTestConstants::SUCCESS_EXECUTE_TEST);
                         break;
                     case JigaTestConstants::MCU_TOG_ECU4BUS_TEST:
-                        Ecu4Board.getInstance()->toggleCanBus();
+                        Ecu4Board::getInstance()->toggleCanBus();
                         mcu1InterModel->setIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID,JigaTestConstants::MCU_TOG_ECU4BUS_ITEST,JigaTestConstants::SUCCESS_EXECUTE_TEST);
                         break;
                     default:
@@ -64,20 +64,20 @@ bool EcuBusinessController::startIndividualBoardTest(int testId, int boardId) {
                     break;
 
                 default:
-                    repcontro
+                    repController->startTestResultMonitor(testId,boardId);
                 }
-
-                testMessage = commPort + ": Successfully started test";
-                addCmdTestMessage(testId, boardId, testMessage, false);
-                psController->closeBoardConnection(boardId);
                 return true;
+
             } else {
-                testMessage = commPort + ": Failed to start test";
+                testMessage = commPort + ": " + CmdMessageConstants::MSG_ERR_START_TEST ;
                 addCmdTestMessage(testId, boardId, testMessage, false);
             }
             psController->closeBoardConnection(boardId);
         } else {
-            testMessage = "Error: Unable to open port. Retrying...";
+            testMessage = CmdMessageConstants::MSG_ERROR_TO_OPEN_PORT;
+            addCmdTestMessage(testId, boardId, testMessage, true);
+
+            testMessage = QString("%1 (%2)").arg(CmdMessageConstants::MSG_TRY_CONNECTION_AGAIN).arg(i + 1);
             addCmdTestMessage(testId, boardId, testMessage, true);
             QThread::sleep(1000);  // Atraso sincronizado, não recomendado na UI thread
         }
@@ -96,15 +96,6 @@ int EcuBusinessController::uploadFirmware(int boardId) {
     return 0;
 }
 
-int EcuBusinessController::uploadFirmware(int portId, const QString &pathToHexFile) {
-    // Example: Implement similarly to Java code
-    return 0;
-}
-
-void EcuBusinessController::addCmdTestMessage(int testId, int boardId, const QString &testMessage, bool header) {
-    // Example: Log or process command test messages
-    qDebug() << "Test Message: " << testMessage;
-}
 
 bool EcuBusinessController::startTestExecution(int testId, int boardId) {
     QString commPort = psController->getBoardCommPort(boardId);

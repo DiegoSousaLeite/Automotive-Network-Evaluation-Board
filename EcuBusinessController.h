@@ -1,36 +1,32 @@
 #ifndef ECUBUSINESSCONTROLLER_H
 #define ECUBUSINESSCONTROLLER_H
 
+#include <QObject>
 #include "PersistenceController.h"
+#include "SystemDefinition.h"
+#include "RepBusinessController.h"
 #include "BusinessController.h"
-#include "EcuBusinessInterface.h"
-#include "atCommandConstants.h"
-#include "CmdMessageConstants.h"
 #include "JigaTestInterface.h"
-#include <QTimer>
 
-class EcuBusinessController : public BusinessController{
+class EcuBusinessController : public BusinessController
+{
     Q_OBJECT
 
 public:
     explicit EcuBusinessController(QObject *parent = nullptr);
-    bool startIndividualBoardTest(int testId, int boardId);
-    int loadBoard(int testId, int boardId);
-    int loadAllBoards(int testId);
-    bool loadSerialCommPort(int boardId);
+    bool startIndividualBoardTest(int test_id, int board_id);
+    int loadBoard(int test_id, int board_id);
+    int loadAllBoards(int test_id);
+    bool loadSerialCommPort(int board_id);
     int loadAllSerialCommPorts();
-    int uploadFirmware(int boardId);
-    int uploadFirmware(int portId, const QString &pathToHexFile);
+    bool setReportController(RepBusinessController *rpController);
+    int uploadFirmware(int board_id);
+    static void main(int argc, char *argv[]);
 
 private:
-    PersistenceController *psController;
-    void addCmdTestMessage(int testId, int boardId, const QString &testMessage, bool header);
-    bool startTestExecution(int testId, int boardId);
-    void setPersistenceController(PersistenceController *controller);
 
-    QTimer retryTimer;
-    int currentAttempt;
-
+    RepBusinessController *repController;
+    bool startTestExecution(int test_id, int board_id);
 };
 
 #endif // ECUBUSINESSCONTROLLER_H
