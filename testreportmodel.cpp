@@ -14,9 +14,7 @@ int TestReportModel::getBoardID() const {
 }
 
 void TestReportModel::setBoardID(int boardId) {
-    int oldId = this->boardId;
     this->boardId = boardId;
-    emit propertyChanged("boardId", oldId, boardId);
 }
 
 int TestReportModel::getTestID() const {
@@ -24,9 +22,7 @@ int TestReportModel::getTestID() const {
 }
 
 void TestReportModel::setTestID(int testId) {
-    int oldId = this->testId;
     this->testId = testId;
-    emit propertyChanged("testId", oldId, testId);
 }
 
 QString TestReportModel::getLastMessage() const {
@@ -38,7 +34,7 @@ QString TestReportModel::getLastMessage() const {
 void TestReportModel::addMessage(const QString &message) {
     QString oldMessage = getLastMessage();
     reportMsg.append(message);
-    emit propertyChanged("message", oldMessage, message);
+    notifyPropertyChange(SystemProperties::TEST_MESSAGE_PROPERTY, oldMessage, message);
 }
 
 QString TestReportModel::getLastMessageAndRemove()
@@ -83,6 +79,24 @@ void TestReportModel::resetReportModel() {
     }
 }
 
+void TestReportModel::addChangeListeners(PropertyChangeListener *listener)
+{
+    if (!listeners.contains(listener)) {
+        listeners.append(listener);
+    }
+}
+
+void TestReportModel::removeChangeListeners(PropertyChangeListener *listener)
+{
+    listeners.removeAll(listener);
+}
+
+void TestReportModel::notifyPropertyChange(const QString &property, const QVariant &oldValue, const QVariant &newValue) {
+    for (auto *listener : listeners) {
+        listener->propertyChanged(property, oldValue, newValue);
+    }
+}
+
 void TestReportModel::addIndividualTest(int testId) {
     individuaTest.append(IndividualTest(testId));
 }
@@ -98,7 +112,7 @@ void TestReportModel::setIndividualTestResult(int testId, int testResult) {
         if (test.getTestId() == testId) {
             int oldResult = test.getTestResult();
             test.setTestResult(testResult);
-            emit propertyChanged("testResult", oldResult, testResult);
+           notifyPropertyChange("testResult", oldResult, testResult);
         }
     }
 }
@@ -116,7 +130,5 @@ TestReportModel* TestReportModel::getTestReportModel() {
     return this;
 }
 
-void TestReportModel::notifyPropertyChange(const QString &property, const QVariant &oldValue, const QVariant &newValue) {
-    emit propertyChanged(property, oldValue, newValue);
-}
+
 

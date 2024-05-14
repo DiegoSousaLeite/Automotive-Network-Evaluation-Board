@@ -20,6 +20,7 @@
 #include "MCUInterfaceTest.h"
 #include "CANInitTest.h"
 #include "IFrameListener.h"
+#include "PropertyChangeListener.h"
 
 
 
@@ -61,8 +62,6 @@ protected:
 private:
     QList<IFrameListener*> listeners;
 
-signals:
-    void propertyChanged(const QString &property);
 
 public slots:
     void onReportUpdated(const QString &message);

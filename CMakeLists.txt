@@ -78,9 +78,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         EcuBusinessController.h EcuBusinessController.cpp
         SystemBuilder.h
         IFrameListener.h
-
-
-
+        PropertyChangeListener.h
 
 
 
@@ -150,6 +148,7 @@ set(INTERFACE
     TimeOutListener.h
     SystemBuilderInterface.h
     IFrameListener.h
+    PropertyChangeListener.h
 )
 
 

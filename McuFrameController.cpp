@@ -3,7 +3,7 @@
 
 McuFrameController::McuFrameController(QObject *parent) : FrameController(parent) {
 
-    //connect(fwUpdateModel, &FirmwareUpload::propertyChanged, this, &McuFrameController::onPropertyChanged);
+    fwUpdateModel->addChangeListener(this);
 }
 
 McuFrameController::~McuFrameController() {

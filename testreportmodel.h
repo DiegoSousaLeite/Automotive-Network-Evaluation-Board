@@ -6,6 +6,8 @@
 #include <QList>
 #include "IndividualTest.h"
 #include <QVariant>
+#include "PropertyChangeListener.h"
+#include "SystemProperties.h"
 
 
 class TestReportModel : public QObject {
@@ -29,6 +31,9 @@ public:
     QString getBoardDescription() const;
     void resetReportModel();
 
+    void addChangeListeners(PropertyChangeListener* listener);
+    void removeChangeListeners(PropertyChangeListener* listener);
+
     void addIndividualTest(int testId);
     void setTestResult(int testResult);
     void setIndividualTestResult(int testId, int testResult);
@@ -36,8 +41,10 @@ public:
 
     TestReportModel* getTestReportModel();
 
+
+
 signals:
-    void propertyChanged(const QString &property, const QVariant &oldValue, const QVariant &newValue);
+
 
     void reportUpdated(const QString &message); // Sinal emitido quando um relatório é atualizado
     void reportRemoved(const QString &message); // Sinal emitido quando um relatório é removido
@@ -47,6 +54,8 @@ private:
     int boardId;
     QList<QString> reportMsg;
     QList<IndividualTest> individuaTest;
+
+    QList<PropertyChangeListener*> listeners;
 
     void notifyPropertyChange(const QString &property, const QVariant &oldValue, const QVariant &newValue);
 };

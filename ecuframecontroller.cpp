@@ -11,8 +11,18 @@ EcuFrameController::~EcuFrameController() {
 }
 
 void EcuFrameController::setupModels() {
-    // Setup and initialize models, connect signals to slots for event handling
-    connect(&timer, &QTimer::timeout, this, &EcuFrameController::handleTimeout);
+
+    commTestModel->addChangeListeners(this);
+    diInputModel->addChangeListeners(this);
+    anInputModel->addChangeListeners(this);
+    anOutputModel->addChangeListeners(this);
+    canInitModel->addChangeListeners(this);
+    lbNetworkModel->addChangeListeners(this);
+    c1NetworkModel->addChangeListeners(this);
+    c2NetworkModel->addChangeListeners(this);
+    lnNetworkModel->addChangeListeners(this);
+    fwUpdateModel->addChangeListeners(this);
+    mcu1TestModel->addChangeListeners(this);
 }
 
 // CONSERTAR

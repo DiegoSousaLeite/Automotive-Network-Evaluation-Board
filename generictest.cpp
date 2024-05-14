@@ -89,14 +89,25 @@ void GenericTest::resetTestModel() {
 void GenericTest::addChangeListeners(IFrameListener* frameController)
 {
     for (TestReportModel* model : testReportModel) {
-       // model->addChangeListeners(frameController);
+        PropertyChangeListener* listener = dynamic_cast<PropertyChangeListener*>(frameController);
+        if (listener != nullptr) {
+            model->addChangeListeners(listener);
+        } else {
+            qWarning() << "Aviso: frameController não é um PropertyChangeListener e não foi adicionado ao modelo do addChangeListeners";
+        }
     }
+
 }
 
 void GenericTest::removeChangeListeners(IFrameListener* frameController)
 {
     for (TestReportModel* model : testReportModel) {
-        // model->removeChangeListeners(frameController);
+        PropertyChangeListener* listener = dynamic_cast<PropertyChangeListener*>(frameController);
+        if (listener != nullptr) {
+            model->removeChangeListeners(listener);
+        } else {
+            qWarning() << "Aviso: frameController não é um PropertyChangeListener e não foi adicionado ao modelo do removeChangeListeners.";
+        }
     }
 }
 

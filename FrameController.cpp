@@ -37,6 +37,7 @@ void FrameController::removeChangeListener(IFrameListener *listener)
     listeners.removeAll(listener);
 }
 
+
 void FrameController::resetTestModel(int test_id) {
     switch (test_id) {
     case JigaTestConstants::COMMUNICATION_TEST:
