@@ -1,6 +1,11 @@
 #ifndef SYSTEMPROPERTIES_H
 #define SYSTEMPROPERTIES_H
 
+#include <QSettings>
+#include <QDir>
+#include <QStandardPaths>
+#include "JigaTestInterface.h"
+
 class SystemProperties {
 public:
     static constexpr auto TEST_RESULT_PROPERTY      = "test.result";
@@ -33,6 +38,18 @@ public:
     static constexpr auto ECU_DIRECTORY             = "ecu.dir";
 
     static constexpr auto SYSTEM_APP_NAME           = "app.name";
+
+    static QString getPortDescription(int boardId) {
+        QString configPath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+        QString configFile = QDir(configPath).filePath("settings.ini");
+        QSettings settings(configFile, QSettings::IniFormat);
+
+        if(boardId == JigaTestConstants::MCU1_BOARD_ID ){
+            return settings.value(QString("mcu.port.desc")).toString();
+        }else{
+            return settings.value(QString("ecu.port.desc")).toString();
+        }
+    }
 };
 
 #endif // SYSTEMPROPERTIES_H

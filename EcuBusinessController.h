@@ -7,26 +7,29 @@
 #include "RepBusinessController.h"
 #include "BusinessController.h"
 #include "JigaTestInterface.h"
-
+#include "ErrorCodeInterface.h"
+#include "atCommandConstants.h"
+#include <QSerialPortInfo>
 class EcuBusinessController : public BusinessController
 {
     Q_OBJECT
 
 public:
     explicit EcuBusinessController(QObject *parent = nullptr);
-    bool startIndividualBoardTest(int test_id, int board_id);
-    int loadBoard(int test_id, int board_id);
-    int loadAllBoards(int test_id);
-    bool loadSerialCommPort(int board_id);
+    bool startIndividualBoardTest(int testId, int boardId);
+    int loadBoard(int testId, int boardId);
+    int loadAllBoards(int testId);
+    bool loadSerialCommPort(int boardId);
     int loadAllSerialCommPorts();
-    bool setReportController(RepBusinessController *rpController);
-    int uploadFirmware(int board_id);
-    static void main(int argc, char *argv[]);
+    void setReportController(RepBusinessController *rpController);
+    int uploadFirmware(int boardId);
+    int uploadFirmware(int portId, const QString &pathToHexFile);
+    QVector<SerialCommPort*> getSerialCommPortsInfo();
 
 private:
 
     RepBusinessController *repController;
-    bool startTestExecution(int test_id, int board_id);
+    bool startTestExecution(int testId, int boardId);
 };
 
 #endif // ECUBUSINESSCONTROLLER_H

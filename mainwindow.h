@@ -8,6 +8,7 @@
 #include "SystemDefinition.h"
 #include "PersistenceController.h"
 #include "McuBusinessController.h"
+#include "EcuBusinessController.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

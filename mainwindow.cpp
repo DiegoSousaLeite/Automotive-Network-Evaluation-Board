@@ -67,7 +67,7 @@ void MainWindow::initializeDevice()
         */
     }
 
-    //Mcu BusinessC ontroller main
+    //Mcu Business Controller main
     McuBusinessController mcuBController;
     //SystemDefinition sDefinition;
     sDefinition.printSystemProperties();
@@ -85,6 +85,24 @@ void MainWindow::initializeDevice()
 
     // Atraso para simular delay no fim do programa
     QThread::sleep(3);  // Delay in seconds
+
+    //Ecu Business Controller main
+    EcuBusinessController ecuBController;
+    sDefinition.printSystemProperties();
+
+    ecuBController.setPersistenceController(psController);
+
+    int portFounds = psController->findSerialCommPorts();
+    qDebug() << "Number of ports=" << portFounds;
+
+    for (int i = 0; i < portFounds; ++i) {
+        int index = psController->getCommPortFound(i);
+        qDebug() << "[" << i << "]" << ":" << "(" << psController->getPortDescription(index) << ")" << " : "
+                 << "(" << psController->getDescriptivePortName(index) << ")" << " :";
+    }
+
+
+    //QTimer::singleShot(3000, &app, &QCoreApplication::quit);
 
 }
 
