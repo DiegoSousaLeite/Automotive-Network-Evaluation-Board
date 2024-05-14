@@ -25,6 +25,18 @@ FrameController::~FrameController() {
     // Destruição apropriada, se necessário
 }
 
+void FrameController::addChangeListener(IFrameListener *listener)
+{
+    if (!listeners.contains(listener)) {
+        listeners.append(listener);
+    }
+}
+
+void FrameController::removeChangeListener(IFrameListener *listener)
+{
+    listeners.removeAll(listener);
+}
+
 void FrameController::resetTestModel(int test_id) {
     switch (test_id) {
     case JigaTestConstants::COMMUNICATION_TEST:

@@ -7,7 +7,7 @@
 #include <QFile>
 #include <QDir>
 
-class SystemDefinition {
+class SystemDefinition  {
 private:
     QString mFilePath;
     QString rFilePath;

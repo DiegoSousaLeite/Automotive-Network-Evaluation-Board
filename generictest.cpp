@@ -85,18 +85,18 @@ void GenericTest::resetTestModel() {
         model->resetReportModel();
     }
 }
-/*
-void GenericTest::addChangeListeners(FrameController frameController)
+
+void GenericTest::addChangeListeners(IFrameListener* frameController)
 {
     for (TestReportModel* model : testReportModel) {
-        connect(model, &TestReportModel::reportUpdated, frameController, &FrameController::onReportUpdated);
+       // model->addChangeListeners(frameController);
     }
 }
 
-void GenericTest::removeChangeListeners(FrameController frameController)
+void GenericTest::removeChangeListeners(IFrameListener* frameController)
 {
     for (TestReportModel* model : testReportModel) {
-        connect(model, &TestReportModel::reportRemoved, frameController, &FrameController::onReportUpdated);
+        // model->removeChangeListeners(frameController);
     }
 }
-*/
+

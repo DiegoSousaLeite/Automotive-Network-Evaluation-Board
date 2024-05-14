@@ -19,10 +19,11 @@
 #include "LoopbackCanTest.h"
 #include "MCUInterfaceTest.h"
 #include "CANInitTest.h"
+#include "IFrameListener.h"
 
 
 
-class FrameController : public QObject {
+class FrameController : public QObject,public IFrameListener {
     Q_OBJECT
 
 public:
@@ -41,6 +42,9 @@ public:
     FirmwareUpload *fwUpdateModel;
     MCUInterfaceTest *mcu1TestModel;
 
+    void addChangeListener(IFrameListener* listener) override;
+    void removeChangeListener(IFrameListener* listener) override;
+
 protected:
     void resetTestModel(int test_id);
     void addHeaderTestMessage(int test_id, int board_id, const QString &testMessage);
@@ -53,6 +57,9 @@ protected:
     void handleTimeout();
 
     void addTestReportModels(const QList<TestReportModel*>& models);
+
+private:
+    QList<IFrameListener*> listeners;
 
 signals:
     void propertyChanged(const QString &property);

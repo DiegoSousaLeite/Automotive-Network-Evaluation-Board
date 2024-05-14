@@ -76,6 +76,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         SystemBuilderInterface.h
         GetTestReport.h GetTestReport.cpp
         EcuBusinessController.h EcuBusinessController.cpp
+        SystemBuilder.h
+        IFrameListener.h
 
 
 
@@ -86,6 +88,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
 set(BUILD
     SystemDefinition.h
+    SystemBuilder.h
 )
 
 set(CONSTANTS_HEADERS
@@ -146,6 +149,7 @@ set(INTERFACE
     McuBusinessInterface.h
     TimeOutListener.h
     SystemBuilderInterface.h
+    IFrameListener.h
 )
 
 
