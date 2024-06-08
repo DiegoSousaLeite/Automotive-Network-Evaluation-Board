@@ -40,75 +40,64 @@ PersistenceController* PersistenceController::getInstance() {
 }
 
 
-libusb_device* PersistenceController::findUsbDevice(libusb_device** devices, uint16_t vid, uint16_t pid) {
-    for (int i = 0; devices[i] != nullptr; i++) {
-        libusb_device* device = devices[i];
-        libusb_device_descriptor descriptor;
+libusb_device* PersistenceController::findUsbDevice(libusb_device **devs, uint16_t vid, uint16_t pid) {
+    libusb_device *found = nullptr;
+    libusb_device *device;
+    libusb_device_descriptor desc;
 
-        if (libusb_get_device_descriptor(device, &descriptor) == 0) {
-            if (descriptor.idVendor == vid && descriptor.idProduct == pid) {
-                emit deviceFound();
-                return device;
-            }
-        }
-
-        if (descriptor.bDeviceClass == LIBUSB_CLASS_HUB) {
-            libusb_device** childDevices;
-            int count = libusb_get_device_list(usbContext, &childDevices); // Use usbContext
-            if (count < 0) continue;
-
-            libusb_device* found = findUsbDevice(childDevices, vid, pid);
-            libusb_free_device_list(childDevices, 1);
-            if (found) {
-                emit deviceFound();
-                return found;
-            }
-        }
-    }
-
-    emit deviceNotFound();
-    return nullptr;
-}
-
-int PersistenceController::findSerialCommPorts() {
-
-    int portFounds = 0;
-    int i;
-
-    // Obter descrições de configuração
-    QString ecuPortDesc = QString::fromStdString(getenv(SystemProperties::ECU_PORT_DESCRIPTION));
-    QString ecuDescPortName = QString::fromStdString(getenv(SystemProperties::ECU_DESC_PORT_NAME));
-    QString mcuPortDesc = QString::fromStdString(getenv(SystemProperties::MCU_PORT_DESCRIPTION));
-    QString mcuDescPortName = QString::fromStdString(getenv(SystemProperties::MCU_DESC_PORT_NAME));
-
-    // Lista de portas disponíveis
-    QList<QSerialPortInfo> availablePorts = QSerialPortInfo::availablePorts();
-
-    // Verificar se alguma porta foi encontrada
-    if (availablePorts.isEmpty()) {
-        return 0;
-    }
-
-    // Verificar cada porta disponível
-    for (i = 0; i < availablePorts.count(); ++i) {
-        QSerialPortInfo portInfo = availablePorts[i];
-        QString portDescription = portInfo.description();
-        QString portName = portInfo.portName();
-
-        if (portDescription.startsWith(ecuPortDesc) || portDescription.startsWith(mcuPortDesc)) {
-            foundCommPorts.append(i);
-            portFounds++;
+    for (size_t i = 0; (device = devs[i]) != nullptr; ++i) {
+        int r = libusb_get_device_descriptor(device, &desc);
+        if (r < 0) {
+            qWarning() << "Failed to get device descriptor";
             continue;
         }
-
-        if (portName.startsWith(ecuDescPortName) || portName.startsWith(mcuDescPortName)) {
-            foundCommPorts.append(i);
-            portFounds++;
+        if (desc.idVendor == vid && desc.idProduct == pid) {
+            found = device;
+            break;
         }
     }
+    return found;
+}
 
-    this->foundCommPorts.append(i); // Adiciona o índice da porta encontrada ao vetor
 
+int PersistenceController::findSerialCommPorts() {
+    int numberOfPorts;
+    QString ecuPortDesc, ecuDescPortName;
+    QString mcuPortDesc, mcuDescPortName;
+    QString retPortDesc, retDescPortName;
+    int portFounds = 0;
+
+    // 1- Obter o número de portas
+    numberOfPorts = getTotalNumberOfPorts();
+
+    // 2- Verificar se pelo menos uma porta foi encontrada
+    if (numberOfPorts <= 0) {
+        return numberOfPorts;
+    }
+
+    // 3- Obter descrições das propriedades do sistema
+    ecuPortDesc = SystemProperties::getProperty(SystemProperties::ECU_PORT_DESCRIPTION);
+    ecuDescPortName = SystemProperties::getProperty(SystemProperties::ECU_DESC_PORT_NAME);
+    mcuPortDesc = SystemProperties::getProperty(SystemProperties::MCU_PORT_DESCRIPTION);
+    mcuDescPortName = SystemProperties::getProperty(SystemProperties::MCU_DESC_PORT_NAME);
+
+    // 4- Verificar se a porta está disponível
+    for (int i = 0; i < numberOfPorts; ++i) {
+        retPortDesc = getPortDescription(i);
+        if (retPortDesc.startsWith(ecuPortDesc) || retPortDesc.startsWith(mcuPortDesc)) {
+            setCommPortFound(portFounds, i);
+            ++portFounds;
+            continue;
+        }
+        retDescPortName = getDescriptivePortName(i);
+        if (retDescPortName.startsWith(ecuDescPortName)) {
+            setCommPortFound(portFounds, i);
+            ++portFounds;
+        } else if (retDescPortName.startsWith(mcuDescPortName)) {
+            setCommPortFound(portFounds, i);
+            ++portFounds;
+        }
+    }
 
     return portFounds;
 }
@@ -151,46 +140,44 @@ int PersistenceController::getCommPortFound(int index) const
 
 bool PersistenceController::loadUsbProgrammer()
 {
-    libusb_device **devs;
-    libusb_device *found = nullptr;
+    libusb_device *device = nullptr;
+    libusb_device **devs = nullptr;
     libusb_context *ctx = nullptr;
-    int r; // Para resultados das chamadas de função
-    ssize_t cnt; // Número de dispositivos na lista
+    int r;
+    ssize_t cnt;
 
-    // Inicialize o contexto da libusb
-    r = libusb_init(&ctx);
-    if (r < 0) {
-        qCWarning(usb) << "Init Error" << r;
-        return false;
+    uint16_t vid = UtilsConversion::hexToShort(QString::fromStdString(qgetenv("MCU_PROG_VID").toStdString()));
+    uint16_t pid = UtilsConversion::hexToShort(QString::fromStdString(qgetenv("MCU_PROG_PID").toStdString()));
+
+    try {
+        r = libusb_init(&ctx);
+        if (r < 0) {
+            qCritical() << "Init Error:" << r;
+            return false;
+        }
+
+        cnt = libusb_get_device_list(ctx, &devs);
+        if (cnt < 0) {
+            qCritical() << "Get Device List Error";
+            libusb_exit(ctx);
+            return false;
+        }
+
+        device = findUsbDevice(devs, vid, pid);
+    } catch (const std::exception &ex) {
+        qCritical() << "Exception occurred:" << ex.what();
     }
 
-    // Obtenha a lista de dispositivos
-    cnt = libusb_get_device_list(ctx, &devs);
-    if (cnt < 0) {
-        qCWarning(usb) << "Get Device List Error";
+    if (device != nullptr) {
+        usbDevice = device;
+        libusb_free_device_list(devs, 1);
         libusb_exit(ctx);
-        return false;
+        return true;
     }
 
-    // Converta VID e PID de strings ou configuração para números
-    uint16_t vid = UtilsConversion::hexToShort(QString::fromStdString(getenv(SystemProperties::MCU_PROG_VID)));
-    uint16_t pid = UtilsConversion::hexToShort(QString::fromStdString(getenv(SystemProperties::MCU_PROG_PID)));
-
-    // Tente encontrar o dispositivo
-    found = findUsbDevice(devs, vid, pid);
-
-    // Libere a lista de dispositivos
     libusb_free_device_list(devs, 1);
     libusb_exit(ctx);
-
-    if (found) {
-        usbDevice = found; // Armazene o dispositivo encontrado globalmente ou como membro da classe
-        qCDebug(usb) << "Device Found";
-        return true;
-    } else {
-        qCDebug(usb) << "Device Not Found";
-        return false;
-    }
+    return false;
 }
 
 

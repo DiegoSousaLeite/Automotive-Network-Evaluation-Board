@@ -47,32 +47,35 @@ MainWindow::~MainWindow() {
     delete ui; // Clean up the Ui::MainWindow object when the MainWindow object is destroyed
 }
 
-void MainWindow::initializeDevice()
-{
-    //Persistence Controller main
-    SystemDefinition sDefinition;  // Supondo que esta classe esteja definida
-    sDefinition.printSystemProperties();  // Supondo método de impressão
+void MainWindow::initializeDevice() {
+    qDebug() << "Starting device initialization...";
 
+    // Inicializando PersistenceController
+    qDebug() << "Initializing PersistenceController...";
     PersistenceController* psController = PersistenceController::getInstance();
+    if (!psController) {
+        qDebug() << "Failed to get PersistenceController instance";
+        return;
+    }
+
+    qDebug() << "Creating SystemDefinition instance...";
+    SystemDefinition sDefinition;
+    qDebug() << "Printing System Properties...";
+    sDefinition.printSystemProperties();
 
     bool deviceFound = psController->loadUsbProgrammer();
     if (!deviceFound) {
         qDebug() << "USBASC not found!";
     } else {
         qDebug() << "USBASC Found";
-        /*
-        qDebug() << "Serial Number =" << psController->getUsbDeviceSerialNumber();
-        qDebug() << "Product ID =" << psController->getUsbDeviceProductString();
-        qDebug() << "Manufacturer =" << psController->getUsbDeviceManufacturerString();
-        */
+//        qDebug() << "Serial Number =" << psController->getUsbDeviceSerialNumber();
+//        qDebug() << "Product ID =" << psController->getUsbDeviceProductString();
+//        qDebug() << "Manufacturer =" << psController->getUsbDeviceManufacturerString();
     }
 
-    //Mcu Business Controller main
+    // Inicializando McuBusinessController
+    qDebug() << "Initializing McuBusinessController...";
     McuBusinessController mcuBController;
-    //SystemDefinition sDefinition;
-    sDefinition.printSystemProperties();
-
-   // PersistenceController* psController = PersistenceController::getInstance();
     mcuBController.setPersistenceController(psController);
 
     bool progLoaded = mcuBController.loadProgrammer(JigaTestConstants::SERIAL_PROG_ID);
@@ -83,28 +86,29 @@ void MainWindow::initializeDevice()
         qDebug() << "Programmer is not loaded!";
     }
 
-    // Atraso para simular delay no fim do programa
-    QThread::sleep(3);  // Delay in seconds
+    QThread::sleep(3); // Simulating delay
 
-    //Ecu Business Controller main
+    // Inicializando EcuBusinessController
+    qDebug() << "Initializing EcuBusinessController...";
     EcuBusinessController ecuBController;
-    sDefinition.printSystemProperties();
-
     ecuBController.setPersistenceController(psController);
 
     int portFounds = psController->findSerialCommPorts();
-    qDebug() << "Number of ports=" << portFounds;
+    qDebug() << "Number of ports =" << portFounds;
 
     for (int i = 0; i < portFounds; ++i) {
         int index = psController->getCommPortFound(i);
-        qDebug() << "[" << i << "]" << ":" << "(" << psController->getPortDescription(index) << ")" << " : "
-                 << "(" << psController->getDescriptivePortName(index) << ")" << " :";
+        qDebug() << "[" << i << "] : (" << psController->getPortDescription(index) << ") : ("
+                 << psController->getDescriptivePortName(index) << ")";
     }
 
+    QThread::sleep(3); // Simulating delay
 
-    //QTimer::singleShot(3000, &app, &QCoreApplication::quit);
-
+    qDebug() << "Device initialization completed.";
 }
+
+
+
 
 // Function to set up the styles and behaviors for navigation buttons
 void MainWindow::setupButtonStyles() {
@@ -192,34 +196,54 @@ void MainWindow::onCleanConsoleButtonClicked(){
     }
 }
 
-void MainWindow::myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-{
-    Q_UNUSED(context);
+//void MainWindow::myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+//{
+//    Q_UNUSED(context);
 
-    // Formata a mensagem de acordo com o tipo
-    QString formattedMessage;
+//    // Formata a mensagem de acordo com o tipo
+//    QString formattedMessage;
+//    switch (type) {
+//    case QtDebugMsg:
+//        formattedMessage = QString("<b>Debug:</b> %1").arg(msg);
+//        break;
+//    case QtInfoMsg:
+//        formattedMessage = QString("<b>Info:</b> %1").arg(msg);
+//        break;
+//    case QtWarningMsg:
+//        formattedMessage = QString("<b>Warning:</b> %1").arg(msg);
+//        break;
+//    case QtCriticalMsg:
+//        formattedMessage = QString("<b>Critical:</b> %1").arg(msg);
+//        break;
+//    case QtFatalMsg:
+//        formattedMessage = QString("<b>Fatal:</b> %1").arg(msg);
+//        abort();  // Fecha o programa
+//    }
+
+//    // Acesso direto via ui
+//    if (staticConsole) {
+//        staticConsole->append(formattedMessage);
+//    }
+
+//}
+
+void MainWindow::myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
     switch (type) {
     case QtDebugMsg:
-        formattedMessage = QString("<b>Debug:</b> %1").arg(msg);
+        fprintf(stderr, "Debug: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
         break;
     case QtInfoMsg:
-        formattedMessage = QString("<b>Info:</b> %1").arg(msg);
+        fprintf(stderr, "Info: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
         break;
     case QtWarningMsg:
-        formattedMessage = QString("<b>Warning:</b> %1").arg(msg);
+        fprintf(stderr, "Warning: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
         break;
     case QtCriticalMsg:
-        formattedMessage = QString("<b>Critical:</b> %1").arg(msg);
+        fprintf(stderr, "Critical: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
         break;
     case QtFatalMsg:
-        formattedMessage = QString("<b>Fatal:</b> %1").arg(msg);
-        abort();  // Fecha o programa
+        fprintf(stderr, "Fatal: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
+        abort(); // Aqui é onde o programa está abortando
     }
-
-    // Acesso direto via ui
-    if (staticConsole) {
-        staticConsole->append(formattedMessage);
-    }
-
 }
 

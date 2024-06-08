@@ -17,7 +17,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void initializeDevice(); //Main do PersistenceController
+    void initializeDevice(); //Main do PersistenceController,EcuBusinessController e McuBusinessController
 
 private:
     Ui::MainWindow *ui;

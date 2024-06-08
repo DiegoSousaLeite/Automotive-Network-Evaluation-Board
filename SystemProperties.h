@@ -39,6 +39,13 @@ public:
 
     static constexpr auto SYSTEM_APP_NAME           = "app.name";
 
+    static QString getProperty(const char* key) {
+        QString configPath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+        QString configFile = QDir(configPath).filePath("settings.ini");
+        QSettings settings(configFile, QSettings::IniFormat);
+        return settings.value(QString(key)).toString();
+    }
+
     static QString getPortDescription(int boardId) {
         QString configPath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
         QString configFile = QDir(configPath).filePath("settings.ini");

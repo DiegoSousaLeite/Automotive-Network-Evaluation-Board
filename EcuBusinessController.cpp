@@ -352,27 +352,56 @@ void EcuBusinessController::setReportController(RepBusinessController *rpControl
 }
 
 int EcuBusinessController::uploadFirmware(int boardId) {
-    QString userDir = QDir::homePath();  // Equivalent to System.getProperty("user.dir") in Java
-    QString ecuDir = userDir + "/ecu";
-    QString appHexFile = ecuDir + "/app" + QString::number(boardId + 1) + ".hex";  // Assuming .hex extension
-    QString avrdudeExe = userDir + "/avrdude";
-    QString avrdudeConf = userDir + "/avrdude.conf";
-    QString portDesc = psController->getBoardCommPort(boardId);  // Assuming psController is accessible
+    QString appHexFile, avrdudeEXE, avrdudeCONF;
+    QString optPROG, optBOOT1;
+    QString cmdAppUpHEX;
+    int retVal;
 
-    QString optProg = "-cstk500v1 -b19200 -P" + portDesc;  // Example options for avrdude
-    QString optBoot1 = "-U flash:w:";
+    // 2 - printing board information
+    appHexFile = SystemProperties::getProperty(SystemProperties::USER_DIRECTORY)
+                 + SystemProperties::getProperty(SystemProperties::ECU_DIRECTORY);
 
-    QString cmdAppUpHex = QString("%1 -C %2 %3 %4%5:i").arg(avrdudeExe, avrdudeConf, optProg, optBoot1, appHexFile);
-    qDebug() << "Command to execute:" << cmdAppUpHex;
-
-    QProcess process;
-    process.start(cmdAppUpHex);
-    if (!process.waitForFinished()) {
-        qDebug() << "Error executing avrdude:" << process.errorString();
-        return -1;  // Error
+    switch (boardId) {
+    case JigaTestConstants::ECU1_BOARD_ID: {
+        appHexFile = SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "1";
+        break;
+    }
+    case JigaTestConstants::ECU2_BOARD_ID: {
+        appHexFile = SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "2";
+        break;
+    }
+    case JigaTestConstants::ECU3_BOARD_ID: {
+        appHexFile = SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "3";
+        break;
+    }
+    case JigaTestConstants::ECU4_BOARD_ID: {
+        appHexFile = SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "4";
+        break;
+    }
+    default: {
+        return 1;
+    }
     }
 
-    return process.exitCode();  // Return the exit code from avrdude
+    avrdudeEXE = SystemProperties::getProperty(SystemProperties::USER_DIRECTORY)
+                 + SystemProperties::getProperty(SystemProperties::AVRDUDE_PROGRAM);
+    avrdudeCONF = SystemProperties::getProperty(SystemProperties::USER_DIRECTORY)
+                  + SystemProperties::getProperty(SystemProperties::AVRDUDE_CONFIG);
+
+    optPROG = SystemProperties::getProperty(SystemProperties::ECU_OPT_PROG)
+              + SystemProperties::getProperty(SystemProperties::ECU_PROG_BAUDRATE)
+              + " -P" + psController->getBoardCommPort(boardId);
+    optBOOT1 = SystemProperties::getProperty(SystemProperties::MCU_OPT_BOOT1);
+
+    // 2 - Building the command string
+    cmdAppUpHEX = QString("%1 -C %2 %3 %4 %5:i")
+                      .arg(avrdudeEXE, avrdudeCONF, optPROG, optBOOT1, appHexFile);
+    qDebug() << cmdAppUpHEX;
+
+    // Upgrading firmware
+    retVal = psController->writeFirmware(cmdAppUpHEX);
+
+    return retVal;
 }
 
 int EcuBusinessController::uploadFirmware(int portId, const QString &pathToHexFile) {
