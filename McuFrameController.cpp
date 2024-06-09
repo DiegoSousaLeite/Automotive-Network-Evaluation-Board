@@ -10,7 +10,7 @@ McuFrameController::~McuFrameController() {
     delete fwUpdateModel;
 }
 
-void McuFrameController::setMcuBusinessController(McuBusinessInterface* mcuInterface) {
+void McuFrameController::setMcuBusinessController(McuBusinessController* mcuInterface) {
     bsController = mcuInterface;
 }
 

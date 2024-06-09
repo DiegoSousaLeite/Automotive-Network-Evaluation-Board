@@ -9,6 +9,8 @@
 #include "PersistenceController.h"
 #include "McuBusinessController.h"
 #include "EcuBusinessController.h"
+#include "EcuFrameController.h"
+#include "McuFrameController.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -23,15 +25,20 @@ private:
     Ui::MainWindow *ui;
     Virtual_IO *virtualIOWidget;  // Instância da interface de I/O Virtual
     static QTextBrowser *staticConsole;  // Referência estática ao console
+    EcuFrameController *ecuFmController;
 
     void setupButtonStyles();  // Método para configurar os estilos dos botões
     void resetButtonStyles(const QString &defaultStyle);  // Método para resetar os estilos dos botões
     void showVirtualIO();
     void onFirmwareUpdateButtonClicked();
+    void onMasterResetButtonClicked();
     static void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg); // Método para configurar o console
 
 
     void onCleanConsoleButtonClicked();
+
+signals:
+    void resetFinished();
 
 public slots:
     void pageFirmware();

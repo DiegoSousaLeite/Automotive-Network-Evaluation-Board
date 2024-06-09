@@ -7,6 +7,7 @@
 #include "Board.h"
 #include "PersistenceController.h"
 #include "EcuBusinessInterface.h"
+#include "McuBusinessInterface.h"
 #include "CommunicationTest.h"
 #include "FirmwareUpload.h"
 #include "DigitalInputTest.h"
@@ -23,7 +24,7 @@
 #include <QStringView>
 
 
-class BusinessController : public QObject {
+class BusinessController : public QObject,public virtual McuBusinessInterface, public virtual EcuBusinessInterface {
     Q_OBJECT
 
 public:
@@ -44,8 +45,7 @@ public:
     QList<Board *> boardList;
     PersistenceController *psController;
 
-    void addCmdTestMessage(int testId, int boardId, const QString &testMessage, bool header);
-
+    void addCmdTestMessage(int testId, int boardId, const QString &testMessage, bool header) override;
 private:
 
 protected:

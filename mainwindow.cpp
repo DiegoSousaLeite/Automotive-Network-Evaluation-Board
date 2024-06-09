@@ -6,6 +6,8 @@
 #include <QMessageBox>
 #include <QList>
 #include <QSerialPortInfo>
+#include <QCursor>
+#include <QThread>
 
 
 // Constructor for MainWindow class
@@ -16,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     setupButtonStyles(); // Function call to centralize the style configuration and page switching setup
     qInstallMessageHandler(myMessageOutput);  // Instala o manipulador de log personalizado
     updateComboBoxCommPortList(); // Atualiza a lista de portas seriais na inicialização
+
+    ecuFmController = new EcuFrameController(this); // Inicializa o controlador
 
     // Create the Virtual_IO widget, set its parent to ui->pageVirtual for proper hierarchy
     virtualIOWidget = new Virtual_IO(ui->pageVirtual);
@@ -28,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(ui->firmwareUpdateButton, &QPushButton::clicked, this, &MainWindow::onFirmwareUpdateButtonClicked);
     connect(ui->cleanConsoleButton, &QPushButton::clicked,this,&MainWindow::onCleanConsoleButtonClicked);
     connect(ui->refreshButton, &QPushButton::clicked, this, &MainWindow::updateComboBoxCommPortList);
+    connect(ui->masterResetButton, &QPushButton::clicked, this, &MainWindow::onMasterResetButtonClicked);
+
 
 
     // Apply an active style to the firmware button, as it's the main/start page
@@ -190,60 +196,100 @@ void MainWindow::onFirmwareUpdateButtonClicked() {
         qDebug() << "Arquivo selecionado:" << fileName;
     }
 }
+
+void MainWindow::onMasterResetButtonClicked()
+{
+    if (this->cursor().shape() == Qt::WaitCursor) {
+        QApplication::beep();
+        return;
+    }
+    this->setCursor(Qt::WaitCursor);
+    qDebug() << "Chegou aqui";
+
+    if (!ecuFmController) {
+        qDebug() << "Erro: ecuFmController não inicializado!";
+                    this->setCursor(Qt::ArrowCursor);
+        return;
+    }
+
+    QThread* workerThread = QThread::create([=] {
+        qDebug() << "Chegou aqui2";
+        QString line = ">> Master reset initialized...";
+        staticConsole->append(line);
+        qDebug() << "Chegou aqui3";
+
+        // Assumindo que ecuFmController é um membro da classe MainWindow
+        ecuFmController->executeTest(JigaTestConstants::MCU_RST_ATT_TEST, JigaTestConstants::MCU1_BOARD_ID);
+
+        // Emitimos um sinal para notificar a UI após a conclusão do reset
+        emit resetFinished();
+    });
+
+    // Conectamos o fim do trabalho no thread com o slot que retorna o cursor ao normal
+    connect(workerThread, &QThread::finished, this, [=] {
+        QString line = ">> Master reset finished.";
+        staticConsole->append(line);
+        this->setCursor(Qt::ArrowCursor);
+        workerThread->deleteLater(); // Limpamos o thread após a execução
+    });
+
+    workerThread->start(); // Adicione esta linha para iniciar o thread
+}
+
 void MainWindow::onCleanConsoleButtonClicked(){
     if (staticConsole) {
         staticConsole->clear();
     }
 }
 
-//void MainWindow::myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
-//{
-//    Q_UNUSED(context);
+void MainWindow::myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    Q_UNUSED(context);
 
-//    // Formata a mensagem de acordo com o tipo
-//    QString formattedMessage;
-//    switch (type) {
-//    case QtDebugMsg:
-//        formattedMessage = QString("<b>Debug:</b> %1").arg(msg);
-//        break;
-//    case QtInfoMsg:
-//        formattedMessage = QString("<b>Info:</b> %1").arg(msg);
-//        break;
-//    case QtWarningMsg:
-//        formattedMessage = QString("<b>Warning:</b> %1").arg(msg);
-//        break;
-//    case QtCriticalMsg:
-//        formattedMessage = QString("<b>Critical:</b> %1").arg(msg);
-//        break;
-//    case QtFatalMsg:
-//        formattedMessage = QString("<b>Fatal:</b> %1").arg(msg);
-//        abort();  // Fecha o programa
-//    }
-
-//    // Acesso direto via ui
-//    if (staticConsole) {
-//        staticConsole->append(formattedMessage);
-//    }
-
-//}
-
-void MainWindow::myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
+    // Formata a mensagem de acordo com o tipo
+    QString formattedMessage;
     switch (type) {
     case QtDebugMsg:
-        fprintf(stderr, "Debug: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
+        formattedMessage = QString("<b>Debug:</b> %1").arg(msg);
         break;
     case QtInfoMsg:
-        fprintf(stderr, "Info: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
+        formattedMessage = QString("<b>Info:</b> %1").arg(msg);
         break;
     case QtWarningMsg:
-        fprintf(stderr, "Warning: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
+        formattedMessage = QString("<b>Warning:</b> %1").arg(msg);
         break;
     case QtCriticalMsg:
-        fprintf(stderr, "Critical: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
+        formattedMessage = QString("<b>Critical:</b> %1").arg(msg);
         break;
     case QtFatalMsg:
-        fprintf(stderr, "Fatal: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
-        abort(); // Aqui é onde o programa está abortando
+        formattedMessage = QString("<b>Fatal:</b> %1").arg(msg);
+        abort();  // Fecha o programa
     }
+
+    // Acesso direto via ui
+    if (staticConsole) {
+        staticConsole->append(formattedMessage);
+    }
+
 }
+
+//void MainWindow::myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
+//    switch (type) {
+//    case QtDebugMsg:
+//        fprintf(stderr, "Debug: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
+//        break;
+//    case QtInfoMsg:
+//        fprintf(stderr, "Info: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
+//        break;
+//    case QtWarningMsg:
+//        fprintf(stderr, "Warning: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
+//        break;
+//    case QtCriticalMsg:
+//        fprintf(stderr, "Critical: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
+//        break;
+//    case QtFatalMsg:
+//        fprintf(stderr, "Fatal: %s (%s:%u, %s)\n", msg.toLocal8Bit().constData(), context.file, context.line, context.function);
+//        abort(); // Aqui é onde o programa está abortando
+//    }
+//}
 

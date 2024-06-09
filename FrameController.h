@@ -67,7 +67,7 @@ public slots:
     void onReportUpdated(const QString &message);
 
 protected slots:
-    virtual void propertyChange() = 0;
+    //virtual void propertyChange() = 0;
 };
 
 #endif // FRAMECONTROLLER_H

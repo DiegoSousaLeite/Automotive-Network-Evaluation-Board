@@ -16,15 +16,15 @@
 #include "McuBusinessInterface.h"
 #include <stdexcept>
 
-class McuBusinessController : public BusinessController {
+class McuBusinessController : public BusinessController{
     Q_OBJECT
 
 public:
     explicit McuBusinessController(QObject *parent = nullptr);
-    bool loadProgrammer(int programmerId);
-    int getSerialProgrammerMode();
-    void setSerialProgrammerMode(int progMode);
-    int uploadFirmware(int programmerId);
+    bool loadProgrammer(int programmerId) ;
+    int getSerialProgrammerMode() ;
+    void setSerialProgrammerMode(int progMode) ;
+    int uploadFirmware(int programmerId) ;
     bool setCanBus1Network();
     bool setCanBus2Network();
 

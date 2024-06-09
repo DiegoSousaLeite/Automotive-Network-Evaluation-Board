@@ -4,6 +4,7 @@
 #include <QObject>
 #include "FrameController.h"
 #include "McuBusinessInterface.h"
+#include "McuBusinessController.h"
 #include "SystemProperties.h"
 
 class McuFrameController : public FrameController {
@@ -13,7 +14,7 @@ public:
     explicit McuFrameController(QObject *parent = nullptr);
     virtual ~McuFrameController();
 
-    void setMcuBusinessController(McuBusinessInterface* mcuInterface);
+    void setMcuBusinessController(McuBusinessController* mcuInterface);
 
 public slots:
     void executeFirmwareUpload(int programmer_id);
@@ -23,7 +24,7 @@ signals:
     void testMessageChanged(const QString &message);
 
 private:
-    McuBusinessInterface* bsController;
+    McuBusinessController* bsController;
     FrameController* fwUpdateModel;
 };
 

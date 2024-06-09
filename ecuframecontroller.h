@@ -14,6 +14,8 @@
 #include "CAN1NetworkTest.h"
 #include "CAN2NetworkTest.h"
 #include "DigitalInputTest.h"
+#include "EcuBusinessController.h"
+#include "McuBusinessController.h"
 
 class EcuFrameController : public FrameController {
     Q_OBJECT
@@ -37,8 +39,8 @@ public:
 
     void executeFirmwareUpload(int board_id);
     void executeFirmwareUpload(int port_id, const QString &pathToHexFile);
-    void setEcuBusinessController(EcuBusinessInterface bsInterface);
-    SerialCommPort* getSerialCommPortsInfo();
+    void setEcuBusinessController(EcuBusinessController bsInterface);
+    QVector<SerialCommPort*> getSerialCommPortsInfo();
 
 signals:
     void testFinished(int test_id, int board_id, const QString &message);
@@ -47,7 +49,7 @@ private slots:
     void handleTimeout(); // Handles what happens when a test timeout occurs
 
 private:
-    EcuBusinessInterface* bsController;
+    EcuBusinessController* bsController;
 
     void setupModels();
     void waitReportTestTimeOut(int test_id, int offset, int board_id);

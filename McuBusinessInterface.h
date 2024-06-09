@@ -7,12 +7,12 @@ class McuBusinessInterface {
 public:
     virtual ~McuBusinessInterface() {}
 
-    virtual bool loadProgrammer(int programmerId) = 0;
-    virtual int getSerialProgrammerMode() = 0;
-    virtual void addCmdTestMessage(int testId, int boardId, const QString& testMessage, bool endOfLine) = 0;
-    virtual int uploadFirmware(int programmerId) = 0;
-    virtual void setSerialProgrammerMode(int progMode) = 0;
-    virtual void executeFirmwareUpload(int programmer_id) = 0;
+//    virtual bool loadProgrammer(int programmerId) = 0;
+//    virtual int getSerialProgrammerMode() = 0;
+    virtual void addCmdTestMessage(int testId, int boardId, const QString& testMessage, bool header) = 0;
+//    virtual int uploadFirmware(int programmerId) = 0;
+//    virtual void setSerialProgrammerMode(int progMode) = 0;
+//    virtual void executeFirmwareUpload(int programmer_id) = 0;
 
     enum SerialMode {
         SM_SEL_SL_STATE = 0,

@@ -4,6 +4,8 @@
 EcuFrameController::EcuFrameController(QObject *parent)
     : FrameController(parent) {
     setupModels();
+
+    bsController = new EcuBusinessController();
 }
 
 EcuFrameController::~EcuFrameController() {
@@ -25,41 +27,57 @@ void EcuFrameController::setupModels() {
     mcu1TestModel->addChangeListeners(this);
 }
 
-// CONSERTAR
-void EcuFrameController::executeTest(int test_id, int board_id) {
-    QString testMessage;
-    bool testStarted;
-    int boardLoaded = bsController->loadBoard(test_id, board_id);
+void EcuFrameController::executeTest(int testId, int boardId) {
 
-    if (!bsController) {
-        qWarning() << "Business controller not set.";
-        return;
+    if (bsController == nullptr) {
+        qDebug() << "Erro: bsController não inicializado";
+            return;
     }
 
-    resetTestModel(test_id);
+    if (commTestModel == nullptr) {
+        qDebug() << "Erro: commTestModel não inicializado";
+            return;
+    }
 
-    testMessage = (board_id == JigaTestConstants::MCU1_BOARD_ID) ? " iniciada!" : " iniciado!";
-    addHeaderTestMessage(test_id, board_id, testMessage);
+    int boardLoaded;
+    bool testStarted;
+    QString testMessage;
 
+    // 1 - Resetting conditions
+    this->resetTestModel(testId);
+
+    // 2 - Adding message to start the test
+    if (boardId == JigaTestConstants::MCU1_BOARD_ID) {
+        testMessage = " iniciada!";
+    } else {
+        testMessage = " iniciado!";
+    }
+
+    this->addHeaderTestMessage(testId, boardId, testMessage);
+
+    // 3 - Load board information
+    boardLoaded = bsController->loadBoard(testId, boardId);
     if (boardLoaded != ErrorCodeInterface::SUCCESS) {
         testMessage = CmdMessageConstants::MSG_UNAVAILABLE_SERIAL_PORT;
-        bsController->addCmdTestMessage(test_id,board_id,testMessage,true);
+        bsController->addCmdTestMessage(testId, boardId, testMessage, true);
         return;
     }
 
-    testStarted = bsController->startIndividualBoardTest(test_id, board_id);
+    // 4 - Start individual board test
+    testStarted = bsController->startIndividualBoardTest(testId, boardId);
     if (!testStarted) {
-        testMessage = QString(CmdMessageConstants::MSG_ERROR_TO_RUN_TEST) + commTestModel->getBoardDescription(board_id);
-        bsController->addCmdTestMessage(test_id,board_id,testMessage,true);
-        commTestModel->setTestResult(board_id, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+        // Error to execute the test
+        testMessage = CmdMessageConstants::MSG_ERROR_TO_RUN_TEST + commTestModel->getBoardDescription(boardId);
+        bsController->addCmdTestMessage(testId, boardId, testMessage, true);
+        commTestModel->setTestResult(boardId, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
     } else {
-        waitReportTestTimeOut(test_id, 0,board_id);
+        waitReportTestTimeOut(testId, 0, boardId);
     }
 
-    addHeaderTestMessage(test_id, board_id, " finalizado!");
-
-
+    // 5 - Adding message to end the test
+    this->addHeaderTestMessage(testId, boardId, " finalizado!");
 }
+
 
 void EcuFrameController::executeTest(int test_id)
 {
@@ -453,15 +471,16 @@ void EcuFrameController::executeFirmwareUpload(int port_id, const QString &pathT
     addHeaderTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, "finalizada!");
 }
 
-void EcuFrameController::setEcuBusinessController(EcuBusinessInterface bsInterface)
+void EcuFrameController::setEcuBusinessController(EcuBusinessController bsInterface)
 {
     this->bsController = &bsInterface;
 }
 
-SerialCommPort *EcuFrameController::getSerialCommPortsInfo()
+QVector<SerialCommPort *> EcuFrameController::getSerialCommPortsInfo()
 {
     return bsController->getSerialCommPortsInfo();
 }
+
 
 void EcuFrameController::handleTimeout() {
     qDebug() << "Test timeout occurred";

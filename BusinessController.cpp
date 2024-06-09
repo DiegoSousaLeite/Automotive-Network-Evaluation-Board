@@ -118,6 +118,7 @@ void BusinessController::addCmdTestMessage(int testId, int boardId, const QStrin
 
 }
 
+
 void BusinessController::sendAtCommand(int testId, int boardId, const QString &atCommand) {
     QString commPort = psController->getBoardCommPort(boardId);
     QString testMessage = commPort + CmdMessageConstants::MSG_SEPARATOR + CmdMessageConstants::MSG_SEND_AT_COMMAND;
