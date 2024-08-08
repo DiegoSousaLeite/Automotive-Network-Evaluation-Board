@@ -9,12 +9,12 @@
 #include "EcuBusinessInterface.h"
 #include "McuBusinessInterface.h"
 #include "CommunicationTest.h"
-#include "FirmwareUpload.h"
+#include "MCUFirmwareUpload.h"
 #include "DigitalInputTest.h"
 #include "AnalogInputTest.h"
 #include "AnalogOutputTest.h"
 #include "CANInitTest.h"
-#include "LoopbackCanTest.h"
+#include "CANLoopbackTest.h"
 #include "CAN1NetworkTest.h"
 #include "CAN2NetworkTest.h"
 #include "LinNetworkTest.h"
@@ -22,7 +22,7 @@
 #include <QEventLoop>
 #include <QTimer>
 #include <QStringView>
-
+#include "ecufirmwareupload.h"
 
 class BusinessController : public QObject,public virtual McuBusinessInterface, public virtual EcuBusinessInterface {
     Q_OBJECT
@@ -32,12 +32,12 @@ public:
     void setPersistenceController(PersistenceController *controller);
 
     CommunicationTest *commTestModel;
-    FirmwareUpload *fwUploadModel;
+    ECUFirmwareUpload *ecuFwUpModel;
     DigitalInputTest *diInputModel;
     AnalogInputTest *anInputModel;
     AnalogOutputTest *anOutputModel;
     CANInitTest *canInitModel;
-    LoopbackCanTest *lbNetworkModel;
+    CANLoopbackTest *canLoopbackModel;
     CAN1NetworkTest *c1NetworkModel;
     CAN2NetworkTest *c2NetworkModel;
     LinNetworkTest *lnNetworkModel;

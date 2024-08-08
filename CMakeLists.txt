@@ -9,79 +9,78 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Adicione a linha abaixo para definir o caminho do Qt
+set(CMAKE_PREFIX_PATH "/Users/sousadiego/Qt/6.7.0/macos/lib/cmake")
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
-find_package(Qt6 COMPONENTS SerialPort REQUIRED)
-
-
+find_package(Qt6 COMPONENTS SerialPort Multimedia MultimediaWidgets REQUIRED)
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        ui_mainwindow.h
+    main.cpp
+    mainwindow.cpp
+    mainwindow.h
+    mainwindow.ui
+    ui_mainwindow.h
+    virtual_io.h virtual_io.cpp virtual_io.ui
+    ui_virtual_io.h
+    AtCommandConstants.h
+    CmdMessageConstants.h
+    JigaTestInterface.h
+    SystemProperties.h
+    IndividualTest.h IndividualTest.cpp
+    TestReportModel.h TestReportModel.cpp
+    GenericTest.h GenericTest.cpp
+    MCUFirmwareUpload.h MCUFirmwareUpload.cpp
+    EcuFrameController.h EcuFrameController.cpp
+    SerialCommPort.h SerialCommPort.cpp
+    EcuBusinessInterface.h
+    Board.h Board.cpp
+    Ecu1Board.h Ecu1Board.cpp
+    Environment.h
+    Ecu2Board.h Ecu2Board.cpp
+    Ecu3Board.h Ecu3Board.cpp
+    Ecu4Board.h Ecu4Board.cpp
+    Mcu1Board.h Mcu1Board.cpp
+    ErrorCodeInterface.h
+    AnalogInputTest.h AnalogInputTest.cpp
+    AnalogOutputTest.h AnalogOutputTest.cpp
+    CAN1NetworkTest.h CAN1NetworkTest.cpp
+    CAN2NetworkTest.h CAN2NetworkTest.cpp
+    CANInitTest.h CANInitTest.cpp
+    CommunicationTest.h CommunicationTest.cpp
+    DigitalInputTest.h DigitalInputTest.cpp
+    SystemDefinition.h
+    LinNetworkTest.h LinNetworkTest.cpp
+    CANLoopbackTest.h CANLoopbackTest.cpp
+    MCUInterfaceTest.h MCUInterfaceTest.cpp
+    ReportControllerInterface.h
+    FrameController.h FrameController.cpp
+    McuFrameController.h McuFrameController.cpp
+    McuBusinessInterface.h
+    PersistenceController.h PersistenceController.cpp
+    UtilsConversion.h
+    BusinessController.h BusinessController.cpp
+    RepBusinessController.h RepBusinessController.cpp
+    TimeOutMonitor.h TimeOutMonitor.cpp
+    TimeOutListener.h
+    McuBusinessController.h McuBusinessController.cpp
+    MenuOptionsInterface.h
+    SystemBuilderInterface.h
+    GetTestReport.h GetTestReport.cpp
+    EcuBusinessController.h EcuBusinessController.cpp
+    SystemBuilder.h
+    IFrameListener.h
+    PropertyChangeListener.h
+    ECUFirmwareUpload.h ECUFirmwareUpload.cpp
+    FindSerialPortTest.h FindSerialPortTest.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ANEB_2
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-
-        ui_mainwindow.h
-        virtual_io.h virtual_io.cpp virtual_io.ui
-        ui_virtual_io.h
-        AtCommandConstants.h
-        CmdMessageConstants.h
-        JigaTestInterface.h
-        SystemProperties.h
-        IndividualTest.h IndividualTest.cpp
-        TestReportModel.h TestReportModel.cpp
-        GenericTest.h GenericTest.cpp
-        FirmwareUpload.h FirmwareUpload.cpp
-        EcuFrameController.h EcuFrameController.cpp
-        SerialCommPort.h SerialCommPort.cpp
-        EcuBusinessInterface.h
-        Board.h
-        Ecu1Board.h Ecu1Board.cpp
-        Environment.h
-        Ecu2Board.h Ecu2Board.cpp
-        Ecu3Board.h Ecu3Board.cpp
-        Ecu4Board.h Ecu4Board.cpp
-        Mcu1Board.h Mcu1Board.cpp
-        ErrorCodeInterface.h
-        AnalogInputTest.h AnalogInputTest.cpp
-        AnalogOutputTest.h AnalogOutputTest.cpp
-        CAN1NetworkTest.h CAN1NetworkTest.cpp
-        CAN2NetworkTest.h CAN2NetworkTest.cpp
-        CANInitTest.h CANInitTest.cpp
-        CommunicationTest.h CommunicationTest.cpp
-        DigitalInputTest.h DigitalInputTest.cpp
-        SystemDefinition.h
-        LinNetworkTest.h  LinNetworkTest.cpp
-        LoopbackCanTest.h LoopbackCanTest.cpp
-        MCUInterfaceTest.h  MCUInterfaceTest.cpp
-        ReportControllerInterface.h
-        FrameController.h FrameController.cpp
-        McuFrameController.h McuFrameController.cpp
-        McuBusinessInterface.h
-        PersistenceController.h PersistenceController.cpp
-        UtilsConversion.h
-        BusinessController.h BusinessController.cpp
-        RepBusinessController.h RepBusinessController.cpp
-        TimeOutMonitor.h TimeOutMonitor.cpp
-        TimeOutListener.h
-        McuBusinessController.h McuBusinessController.cpp
-        MenuOptionsInterface.h
-        SystemBuilderInterface.h
-        GetTestReport.h GetTestReport.cpp
-        EcuBusinessController.h EcuBusinessController.cpp
-        SystemBuilder.h
-        IFrameListener.h
-        PropertyChangeListener.h
-
-
-
+        RCWebcam.h
     )
 
 set(BUILD
@@ -96,7 +95,6 @@ set(CONSTANTS_HEADERS
    SystemProperties.h
    ErrorCodeInterface.h
    MenuOptionsInterface.h
-
 )
 
 set(MODEL
@@ -104,30 +102,30 @@ set(MODEL
     SerialCommPort.h SerialCommPort.cpp
     TimeOutMonitor.h TimeOutMonitor.cpp
     GetTestReport.h GetTestReport.cpp
-
 )
 
 set(MODEL_TEST
     IndividualTest.h IndividualTest.cpp
     GenericTest.h GenericTest.cpp
-    FirmwareUpload.h FirmwareUpload.cpp
+    MCUFirmwareUpload.h MCUFirmwareUpload.cpp
+    ECUFirmwareUpload.h ECUFirmwareUpload.cpp
     AnalogInputTest.h AnalogInputTest.cpp
     AnalogOutputTest.h AnalogOutputTest.cpp
     CAN1NetworkTest.h CAN1NetworkTest.cpp
     CAN2NetworkTest.h CAN2NetworkTest.cpp
     CANInitTest.h CANInitTest.cpp
-    CommunicationTest.h  CommunicationTest.cpp
+    CommunicationTest.h CommunicationTest.cpp
     DigitalInputTest.h DigitalInputTest.cpp
     LinNetworkTest.h LinNetworkTest.cpp
-    LoopbackCanTest.h LoopbackCanTest.cpp
-    MCUInterfaceTest.h  MCUInterfaceTest.cpp
+    CANLoopbackTest.h CANLoopbackTest.cpp
+    MCUInterfaceTest.h MCUInterfaceTest.cpp
+    FindSerialPortTest.h FindSerialPortTest.cpp
 )
 
 set(CONTROLLER
     EcuFrameController.h EcuFrameController.cpp
     FrameController.h FrameController.cpp
     McuFrameController.h McuFrameController.cpp
-
 )
 
 set(CONTROLLER_BUSINESS
@@ -151,9 +149,9 @@ set(INTERFACE
     PropertyChangeListener.h
 )
 
-
 set(MODEL_BOARD
     Board.h
+    Board.cpp
     Ecu1Board.h Ecu1Board.cpp
     Ecu2Board.h Ecu2Board.cpp
     Ecu3Board.h Ecu3Board.cpp
@@ -196,8 +194,7 @@ find_library(LIBUSB_LIBRARY NAMES usb-1.0 libusb-1.0 PATHS /opt/homebrew/opt/lib
 include_directories(SYSTEM /opt/homebrew/opt/libusb/include/libusb-1.0)
 
 # Linkando as bibliotecas ao executável
-target_link_libraries(ANEB_2 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt6::SerialPort ${LIBUSB_LIBRARY})
-
+target_link_libraries(ANEB_2 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt6::SerialPort ${LIBUSB_LIBRARY} Qt6::Multimedia Qt6::MultimediaWidgets)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -223,3 +220,24 @@ install(TARGETS ANEB_2
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(ANEB_2)
 endif()
+
+# Adiciona um alvo customizado para rodar o Valgrind
+add_custom_target(valgrind_test
+    COMMAND valgrind --leak-check=full --track-origins=yes --show-reachable=yes --log-file=valgrind-out.txt ./ANEB_2
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    DEPENDS ANEB_2
+    COMMENT "Running Valgrind to check for memory leaks"
+    VERBATIM
+)
+
+# Adicionar flags para o AddressSanitizer
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer")
+set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=address")
+
+# Adicionar flags para o ThreadSanitizer
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=thread -fno-omit-frame-pointer")
+#set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fsanitize=thread")
+
+# Adicionar subdiretório para testes
+enable_testing()
+add_subdirectory(tests)

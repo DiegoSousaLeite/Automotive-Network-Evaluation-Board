@@ -5,9 +5,11 @@ Ecu1Board* Ecu1Board::instance = nullptr;
 
 Ecu1Board::Ecu1Board() {
     int ecuBaudRate = Environment::getInt("ecu.app.baudrate", 115200);
-    setBoardIdentification(JigaTestConstants::ECU1_BOARD_ID);
+    setBoardIdentification(JigaTestInterface::ECU1_BOARD_ID);
     setBoardDescription("ECU1");
     setBoardBaudRate(ecuBaudRate);
+
+    qDebug() << "Ecu1Board constructor called";
 }
 
 Ecu1Board::~Ecu1Board() {

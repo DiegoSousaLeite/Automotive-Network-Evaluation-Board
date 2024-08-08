@@ -4,16 +4,19 @@
 BusinessController::BusinessController(QObject *parent) : QObject(parent) {
     // Initializing models
     commTestModel = CommunicationTest::getInstance();
-    fwUploadModel =  FirmwareUpload::getInstance();
+    ecuFwUpModel =  ECUFirmwareUpload::getInstance();
+    MCUFirmwareUpload::getInstance();
     diInputModel =  DigitalInputTest::getInstance();
     anInputModel =  AnalogInputTest::getInstance();
     anOutputModel =  AnalogOutputTest::getInstance();
     canInitModel =  CANInitTest::getInstance();
-    lbNetworkModel =  LoopbackCanTest::getInstance();
+    canLoopbackModel =  CANLoopbackTest::getInstance();
     c1NetworkModel =  CAN1NetworkTest::getInstance();
     c2NetworkModel =  CAN2NetworkTest::getInstance();
     lnNetworkModel =  LinNetworkTest::getInstance();
     mcu1InterModel =  MCUInterfaceTest::getInstance();
+
+
 }
 
 void BusinessController::setPersistenceController(PersistenceController *controller)
@@ -26,92 +29,99 @@ void BusinessController::addCmdTestMessage(int testId, int boardId, const QStrin
         QString strMessage = "";
 
         switch (testId) {
-        case JigaTestConstants::COMMUNICATION_TEST:
+        case JigaTestInterface::COMMUNICATION_TEST:
             if(header){
                 strMessage = QString(CmdMessageConstants::CMD_HDR_COMMUNICATION) + " ";
             }
             strMessage += testMessage;
             commTestModel->addTestMessage(boardId, strMessage);
             break;
-        case JigaTestConstants::DIGITAL_INPUT_TEST:
+        case JigaTestInterface::DIGITAL_INPUT_TEST:
             if(header){
                 strMessage = QString(CmdMessageConstants::CMD_HDR_DIGITAL_INPUT) + " ";
             }
             strMessage += testMessage;
             diInputModel->addTestMessage(boardId, strMessage);
             break;
-        case JigaTestConstants::ANALOG_INPUT_TEST:
+        case JigaTestInterface::ANALOG_INPUT_TEST:
             if(header){
                 strMessage = QString(CmdMessageConstants::CMD_HDR_ANALOG_INPUT) + " ";
             }
             strMessage += testMessage;
             anInputModel->addTestMessage(boardId, strMessage);
             break;
-        case JigaTestConstants::ANALOG_OUTPUT_TEST:
+        case JigaTestInterface::ANALOG_OUTPUT_TEST:
             if(header){
                 strMessage = QString(CmdMessageConstants::CMD_HDR_ANALOG_OUTPUT) + " ";
             }
             strMessage += testMessage;
             anOutputModel->addTestMessage(boardId, strMessage);
             break;
-        case JigaTestConstants::CAN_INIT_TEST:
+        case JigaTestInterface::CAN_INIT_TEST:
             if(header){
                 strMessage = QString(CmdMessageConstants::CMD_HDR_CAN_INIT) + " ";
             }
             strMessage += testMessage;
             canInitModel->addTestMessage(boardId, strMessage);
             break;
-        case JigaTestConstants::LOOPBACK_CAN_TEST:
+        case JigaTestInterface::CAN_LOOPBACK_TEST:
             if(header){
                 strMessage = QString(CmdMessageConstants::CMD_HDR_LOOPBACK_CAN) + " ";
             }
             strMessage += testMessage;
-            lbNetworkModel->addTestMessage(boardId, strMessage);
+            canLoopbackModel->addTestMessage(boardId, strMessage);
             break;
-        case JigaTestConstants::CAN1_NETWORK_TEST:
+        case JigaTestInterface::CAN1_NETWORK_TEST:
             if(header){
                 strMessage = QString(CmdMessageConstants::CMD_HDR_CAN1_NETWORK) + " ";
             }
             strMessage += testMessage;
             c1NetworkModel->addTestMessage(boardId, strMessage);
             break;
-        case JigaTestConstants::CAN2_NETWORK_TEST:
+        case JigaTestInterface::CAN2_NETWORK_TEST:
             if(header){
                 strMessage = QString(CmdMessageConstants::CMD_HDR_CAN2_NETWORK) + " ";
             }
             strMessage += testMessage;
             c2NetworkModel->addTestMessage(boardId, strMessage);
             break;
-        case JigaTestConstants::LIN_NETWORK_TEST:
+        case JigaTestInterface::LIN_NETWORK_TEST:
             if(header){
                 strMessage = QString(CmdMessageConstants::CMD_HDR_LIN_NETWORK) + " ";
             }
             strMessage += testMessage;
             lnNetworkModel->addTestMessage(boardId, strMessage);
             break;
-        case JigaTestConstants::FIRMWARE_UPLOAD:
+        case JigaTestInterface::MCU_FIRMWARE_UPLOAD:
             if(header){
                 strMessage = QString(CmdMessageConstants::CMD_HDR_FIRM_UPLOAD) + " ";
             }
             strMessage += testMessage;
-            fwUploadModel->addTestMessage(boardId, strMessage);
+            ecuFwUpModel->addTestMessage(boardId, strMessage);
             break;
         // Add cases for MCU specific tests as well
-        case JigaTestConstants::MCU_RST_ACT_TEST:
-        case JigaTestConstants::MCU_RST_DAC_TEST:
-        case JigaTestConstants::MCU_RST_ATT_TEST:
-        case JigaTestConstants::MCU_IDENT_PORT_TEST:
-        case JigaTestConstants::MCU_SEL_CANBUS1_TEST:
-        case JigaTestConstants::MCU_SEL_CANBUS2_TEST:
-        case JigaTestConstants::MCU_GET_CANBUS_TEST:
-        case JigaTestConstants::MCU_TOG_ECU3BUS_TEST:
-        case JigaTestConstants::MCU_TOG_ECU4BUS_TEST:
+        case JigaTestInterface::MCU_RST_ACT_TEST:
+        case JigaTestInterface::MCU_RST_DAC_TEST:
+        case JigaTestInterface::MCU_RST_ATT_TEST:
+        case JigaTestInterface::MCU_IDENT_PORT_TEST:
+        case JigaTestInterface::MCU_SEL_CANBUS1_TEST:
+        case JigaTestInterface::MCU_SEL_CANBUS2_TEST:
+        case JigaTestInterface::MCU_GET_CANBUS_TEST:
+        case JigaTestInterface::MCU_TOG_ECU3BUS_TEST:
+        case JigaTestInterface::MCU_TOG_ECU4BUS_TEST:
             if(header){
                 strMessage = QString(CmdMessageConstants::CMD_HDR_MCU_INTERFACE) + " ";
             }
             strMessage += testMessage;
             mcu1InterModel->addTestMessage(boardId, strMessage);
             break;
+        case JigaTestInterface::FIND_SERIAL_PORT_TEST:{
+            if(header){
+                strMessage = QString(CmdMessageConstants::CMD_HDR_FIND_SERIAL_PORT) + " ";
+            }
+            strMessage += testMessage;
+            mcu1InterModel->addTestMessage(boardId,strMessage);
+        }
         default:
             break;
         }
@@ -137,9 +147,9 @@ void BusinessController::sendAtCommand(int testId, int boardId, const QString &a
 
 bool BusinessController::acknowledgeAtCommand(int testId, int boardId)
 {
-    int timeout = (boardId == JigaTestConstants::MCU1_BOARD_ID) ?
-                      JigaTestConstants::MCU_AT_COMMAND_TIMEOUT :
-                      JigaTestConstants::ECU_AT_COMMAND_TIMEOUT;
+    int timeout = (boardId == JigaTestInterface::MCU1_BOARD_ID) ?
+                      JigaTestInterface::MCU_AT_COMMAND_TIMEOUT :
+                      JigaTestInterface::ECU_AT_COMMAND_TIMEOUT;
 
     QString commPort = psController->getBoardCommPort(boardId);
     QString testMessage = commPort + ": " + CmdMessageConstants::MSG_READING_RECEIVED_MESSAGE;
@@ -155,18 +165,18 @@ bool BusinessController::acknowledgeAtCommand(int testId, int boardId)
     addCmdTestMessage(testId, boardId, testMessage, false);
 
     switch(boardId){
-    case JigaTestConstants::ECU1_BOARD_ID:
+    case JigaTestInterface::ECU1_BOARD_ID:
         return recvStr == AtCommandConstants::AT_ECU1_OK;
 
-    case JigaTestConstants::ECU2_BOARD_ID:
+    case JigaTestInterface::ECU2_BOARD_ID:
         return recvStr == AtCommandConstants::AT_ECU2_OK;
 
-    case JigaTestConstants::ECU3_BOARD_ID:
+    case JigaTestInterface::ECU3_BOARD_ID:
         return recvStr == AtCommandConstants::AT_ECU3_OK;
 
-    case JigaTestConstants::ECU4_BOARD_ID:
+    case JigaTestInterface::ECU4_BOARD_ID:
         return recvStr == AtCommandConstants::AT_ECU4_OK;
-    case JigaTestConstants::MCU1_BOARD_ID:
+    case JigaTestInterface::MCU1_BOARD_ID:
         return recvStr == AtCommandConstants::AT_MCU1_OK;
 
     }

@@ -5,7 +5,7 @@ Ecu2Board* Ecu2Board::instance = nullptr;
 
 Ecu2Board::Ecu2Board() {
     int ecuBaudRate = Environment::getInt("ecu.app.baudrate", 115200);
-    setBoardIdentification(JigaTestConstants::ECU2_BOARD_ID);
+    setBoardIdentification(JigaTestInterface::ECU2_BOARD_ID);
     setBoardDescription("ECU2");
     setBoardBaudRate(ecuBaudRate);
 }

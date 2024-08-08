@@ -17,73 +17,34 @@ private:
 
 public:
     // Constructor
-    Board() : board_id(-1), commPort_id(-1), canbus(-1), baudrate(115200) {
-    }
+    Board();
 
-    void setBoardIdentification(int board_id) {
-        this->board_id = board_id;
-    }
+    void setBoardIdentification(int board_id);
+    int getBoardIdentification() const;
 
-    int getBoardIdentification() const {
-        return board_id;
-    }
+    void setBoardDescription(const QString& board_description);
+    QString getBoardDescription() const;
 
-    void setBoardDescription(const QString& board_description) {
-        this->description = board_description;
-    }
+    void setCommPortName(const QString& commPort);
+    QString getCommPortName() const;
 
-    QString getBoardDescription() const {
-        return description;
-    }
+    void setCommPortIdentification(int commPortID);
+    int getCommPortIdentification() const;
 
-    void setCommPortName(const QString& commPort) {
-        serialCommPort.setSystemPortName(commPort);
-    }
+    void setCanbus(int canbus);
+    int getCanbus() const;
 
-    QString getCommPortName() const {
-        return serialCommPort.getSystemPortName();
-    }
+    void toggleCanBus();
 
-    void setCommPortIdentification(int commPortID) {
-        this->commPort_id = commPortID;
-    }
+    void setBoardBaudRate(int baudrate);
+    int getBoardBaudRate() const;
 
-    int getCommPortIdentification() const {
-        return commPort_id;
-    }
+    void printBoardInformation() const;
 
-    void setCanbus(int canbus) {
+    SerialCommPort& getSerialCommPort();
+    const SerialCommPort& getSerialCommPort() const;
 
-        if (board_id == JigaTestConstants::ECU1_BOARD_ID || board_id == JigaTestConstants::ECU2_BOARD_ID) {
-            this->canbus = (board_id == JigaTestConstants::ECU1_BOARD_ID) ? JigaTestConstants::ECU_CANBUS_1 : JigaTestConstants::ECU_CANBUS_2;
-        } else {
-            this->canbus = canbus;
-        }
-    }
-
-    int getCanbus() const {
-        return canbus;
-    }
-
-    void toggleCanBus() {
-        if (board_id == JigaTestConstants::ECU3_BOARD_ID || board_id == JigaTestConstants::ECU4_BOARD_ID) {
-            canbus = (canbus == JigaTestConstants::ECU_CANBUS_1) ? JigaTestConstants::ECU_CANBUS_2 : JigaTestConstants::ECU_CANBUS_1;
-        }
-    }
-
-    void setBoardBaudRate(int baudrate) {
-        this->baudrate = baudrate;
-    }
-
-    int getBoardBaudRate() const {
-        return baudrate;
-    }
-
-    void printBoardInformation() const {
-        qDebug() << "[" << getCommPortIdentification() << "]" << getCommPortName() << ", "
-                 << "Board_id = " << getBoardIdentification() << ", "
-                 << "Port_desc = " << getBoardDescription();
-    }
+    void resetBoardData();
 };
 
 #endif // BOARD_H

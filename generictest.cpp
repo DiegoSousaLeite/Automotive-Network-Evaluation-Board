@@ -52,7 +52,7 @@ int GenericTest::getIndividualTestResult(int boardId, int testId) const {
     if (model) {
         return model->getIndividualTestResult(testId);
     }
-    return JigaTestConstants::ERROR_TO_EXECUTE_TEST;
+    return JigaTestInterface::ERROR_TO_EXECUTE_TEST;
 }
 
 QString GenericTest::getLastMessage(int boardId) const {

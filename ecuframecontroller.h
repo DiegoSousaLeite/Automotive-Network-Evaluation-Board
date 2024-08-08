@@ -37,9 +37,10 @@ public:
     void executeLoopbackCanTest();
     void executeAnalogInputTest();
 
-    void executeFirmwareUpload(int board_id);
-    void executeFirmwareUpload(int port_id, const QString &pathToHexFile);
+    void executeFirmwareUpload(int board_id, int processor_id);
+   //void executeFirmwareUpload(int port_id, const QString &pathToHexFile);
     void setEcuBusinessController(EcuBusinessController bsInterface);
+    void executeFindSerialPortTest();
     QVector<SerialCommPort*> getSerialCommPortsInfo();
 
 signals:

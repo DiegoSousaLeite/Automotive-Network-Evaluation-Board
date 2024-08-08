@@ -23,7 +23,7 @@ public:
         rpController    = new RepBusinessController();
 
         psController = PersistenceController::getInstance();
-        psController->setReportProperty(sDefinition->getReportProperty(),sDefinition->getReportProperty());
+        rpController->setReportProperty(sDefinition->getReportProperty());
 
         //2 - Creating all view
 
@@ -49,7 +49,7 @@ public:
 
 
         //Load CANBUS status
-        ecuFmController->executeTest(JigaTestConstants::MCU_GET_CANBUS_TEST,JigaTestConstants::MCU1_BOARD_ID);
+        ecuFmController->executeTest(JigaTestInterface::MCU_GET_CANBUS_TEST,JigaTestInterface::MCU1_BOARD_ID);
 
     }
 

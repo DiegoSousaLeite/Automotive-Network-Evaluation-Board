@@ -57,15 +57,15 @@ QString TestReportModel::getFirstMessageAndRemove() {
 QString TestReportModel::getBoardDescription() const {
 
     switch (boardId) {
-    case JigaTestConstants::ECU1_BOARD_ID:
+    case JigaTestInterface::ECU1_BOARD_ID:
         return "ECU1";
-    case JigaTestConstants::ECU2_BOARD_ID:
+    case JigaTestInterface::ECU2_BOARD_ID:
         return "ECU2";
-    case JigaTestConstants::ECU3_BOARD_ID:
+    case JigaTestInterface::ECU3_BOARD_ID:
         return "ECU3";
-    case JigaTestConstants::ECU4_BOARD_ID:
+    case JigaTestInterface::ECU4_BOARD_ID:
         return "ECU4";
-    case JigaTestConstants::MCU1_BOARD_ID:
+    case JigaTestInterface::MCU1_BOARD_ID:
         return "MCU1";
     default:
         return "Unknown";

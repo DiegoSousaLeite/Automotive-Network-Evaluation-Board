@@ -13,7 +13,7 @@ Q_LOGGING_CATEGORY(usb, "usb.persistence")
 
 PersistenceController* PersistenceController::instance = nullptr;
 
-PersistenceController::PersistenceController(QObject *parent) : QObject(parent),usbDevice(nullptr) {
+PersistenceController::PersistenceController(QObject *parent) : QObject(parent), usbDevice(nullptr), mcuFwUpModel(new MCUFirmwareUpload) {
     libusb_init(&usbContext); // Inicializa o contexto USB
 
     boardList.append(Ecu1Board::getInstance());
@@ -22,14 +22,39 @@ PersistenceController::PersistenceController(QObject *parent) : QObject(parent),
     boardList.append(Ecu4Board::getInstance());
     boardList.append(Mcu1Board::getInstance());
 
-    //fwUpdateModel = FirmwareUpload.getInstance();
-    usbDevice = nullptr;
+    qDebug() << "PersistenceController inicializado. Tamanho de boardList:" << boardList.size();
+    for (Board* boardInfo : boardList) {
+        if (boardInfo) {
+            qDebug() << "Board adicionado. boardId:" << boardInfo->getBoardIdentification() << "commPortId:" << boardInfo->getSerialCommPort().getCommPortId();
+        } else {
+            qDebug() << "Erro: Ponteiro nulo adicionado em boardList.";
+        }
+    }
 
+    if (boardList.isEmpty()) {
+        qDebug() << "Erro: boardList está vazia.";
+    } else {
+        qDebug() << "Não ta vázio";
+    }
+
+    qDebug() << "Inicializando serialComm no construtor ";
+    clearSerialComm();
+
+    mcuFwUpModel = MCUFirmwareUpload::getInstance();
+    ecuFwUpModel = ECUFirmwareUpload::getInstance();
+    usbDevice = nullptr;
 }
 
-
 PersistenceController::~PersistenceController() {
-    libusb_exit(usbContext); // Libera o contexto USB
+
+    qDebug() << "Destruição do PersistenceController iniciada...";
+
+    if (usbContext != nullptr) {
+        libusb_exit(usbContext); // Libera o contexto USB
+    }
+
+    // Limpar a memória alocada para QSerialPort
+    clearSerialComm();
 }
 
 PersistenceController* PersistenceController::getInstance() {
@@ -38,7 +63,6 @@ PersistenceController* PersistenceController::getInstance() {
     }
     return instance;
 }
-
 
 libusb_device* PersistenceController::findUsbDevice(libusb_device **devs, uint16_t vid, uint16_t pid) {
     libusb_device *found = nullptr;
@@ -59,87 +83,184 @@ libusb_device* PersistenceController::findUsbDevice(libusb_device **devs, uint16
     return found;
 }
 
+QSerialPort* PersistenceController::getSerialCommPort(int index) {
+    if (index >= 0 && index < serialComm.size()) {
+        return serialComm[index];
+    }
+    return nullptr;
+}
 
-int PersistenceController::findSerialCommPorts() {
+void PersistenceController::clearSerialComm() {
+    qDebug() << "Limpando serialComm, tamanho atual: " << serialComm.size();
+    for (QSerialPort* port : serialComm) {
+        qDebug() << "Deletando porta serial: " << port->portName();
+        delete port;
+    }
+    serialComm.clear();
+    qDebug() << "serialComm limpo, tamanho atual: " << serialComm.size();
+}
+
+//Está em desuso
+void PersistenceController::addSerialCommPort(QSerialPort* port) {
+    serialComm.push_back(port);
+}
+
+int PersistenceController::getSerialCommSize() const {
+    return serialComm.size();
+}
+
+int PersistenceController::loadSerialCommPorts() {
     int numberOfPorts;
-    QString ecuPortDesc, ecuDescPortName;
-    QString mcuPortDesc, mcuDescPortName;
-    QString retPortDesc, retDescPortName;
-    int portFounds = 0;
+    int ecuBoardFound = 0;
+    int mcuBoardFound = 0;
+    QList<SerialCommPort> ecuPortList;
 
-    // 1- Obter o número de portas
-    numberOfPorts = getTotalNumberOfPorts();
+    qDebug() << "Passou do 1° passo na loadSerialCommPorts";
+    auto ports = QSerialPortInfo::availablePorts();  // Obtém as portas seriais disponíveis
+    numberOfPorts = ports.size();  // Obtém o número de portas
 
-    // 2- Verificar se pelo menos uma porta foi encontrada
+    qDebug() << "Numero de portas: " << numberOfPorts;
+    qDebug() << "Passou do 2° passo na loadSerialCommPorts";
+
+    // Verifica se há portas disponíveis
     if (numberOfPorts <= 0) {
         return numberOfPorts;
     }
 
-    // 3- Obter descrições das propriedades do sistema
-    ecuPortDesc = SystemProperties::getProperty(SystemProperties::ECU_PORT_DESCRIPTION);
-    ecuDescPortName = SystemProperties::getProperty(SystemProperties::ECU_DESC_PORT_NAME);
-    mcuPortDesc = SystemProperties::getProperty(SystemProperties::MCU_PORT_DESCRIPTION);
-    mcuDescPortName = SystemProperties::getProperty(SystemProperties::MCU_DESC_PORT_NAME);
+    qDebug() << "Inicializando serialComm";
+    qDebug() << "Tamanho atual: " << serialComm.size();
+    clearSerialComm();  // Limpa a lista de comunicação serial
 
-    // 4- Verificar se a porta está disponível
-    for (int i = 0; i < numberOfPorts; ++i) {
-        retPortDesc = getPortDescription(i);
-        if (retPortDesc.startsWith(ecuPortDesc) || retPortDesc.startsWith(mcuPortDesc)) {
-            setCommPortFound(portFounds, i);
-            ++portFounds;
-            continue;
-        }
-        retDescPortName = getDescriptivePortName(i);
-        if (retDescPortName.startsWith(ecuDescPortName)) {
-            setCommPortFound(portFounds, i);
-            ++portFounds;
-        } else if (retDescPortName.startsWith(mcuDescPortName)) {
-            setCommPortFound(portFounds, i);
-            ++portFounds;
+
+    int ecu_vid = SystemProperties::getProperty(SystemProperties::ECU_VID).toInt();  // Obtém o VID da ECU
+    int mcu_vid = SystemProperties::getProperty(SystemProperties::MCU_APP_VID).toInt();  // Obtém o VID da MCU
+
+    qDebug() << "Resetando informações das boards";
+    for (Board* boardInfo : boardList) {
+        if (boardInfo != nullptr) {
+            boardInfo->resetBoardData();  // Reseta os dados das placas
+        } else {
+            qDebug() << "Ponteiro de Board nulo";
         }
     }
 
-    return portFounds;
+    qDebug() << "Checando portas de comunicação ECU e MCU";
+    for (int i = 0; i < numberOfPorts; ++i) {
+        qDebug() << "Checando porta" << i;
+        QSerialPort* serialPort = new QSerialPort(ports[i]);
+        serialComm.append(serialPort);  // Adiciona a porta à lista serialComm
+
+        if (ecu_vid == ports[i].vendorIdentifier()) {
+            qDebug() << "ECU VID encontrado para porta" << i;
+            SerialCommPort serialCommPort(ports[i], i);
+            ecuPortList.append(serialCommPort); // Adiciona a porta à lista de ECUs
+            ecuBoardFound++;
+        } else if (mcu_vid == ports[i].vendorIdentifier()) {
+            qDebug() << "MCU VID encontrado para porta" << i;
+            setBoardInformation(i, JigaTestInterface::MCU1_BOARD_ID);  // Configura a informação da placa MCU
+            mcuBoardFound++;
+        }
+    }
+    qDebug() << "serialComm inicializado com" << getSerialCommSize() << "portas";
+
+    qDebug() << "Obtendo todos os últimos índices de ECU";
+    QVector<int> ecuPortLastIndex(ecuBoardFound);
+
+    qDebug() << "Populando o array de índices";
+        for (int i = 0; i < ecuBoardFound; ++i) {
+            if (i < ecuPortList.size()) {
+                for (int j = 0; j < serialComm.size(); ++j) {
+                if (serialComm[j]->portName() == ecuPortList[i].getDescriptivePortName()) {
+                        ecuPortLastIndex[i] = j;
+                        break;
+                    }
+                }
+            } else {
+                qDebug() << "Índice" << i << "fora do limite de ecuPortList";
+                return -1;  // Retorna erro
+            }
+        }
+    std::sort(ecuPortLastIndex.begin(), ecuPortLastIndex.end());  // Ordena os índices
+
+    qDebug() << "Adicionando boards";
+
+    int boardId = 0;
+    for (int i = 0; i < ecuBoardFound; ++i) {
+
+            if (i < ecuPortLastIndex.size()) {
+                for (int j = 0; j < ecuPortList.size(); ++j) {
+                    qDebug() << "Tentando configurar boardId" << boardId << "com portId" << ecuPortList[j].getCommPortId() << "onde ecuPortLastIndex[i] ==" << ecuPortLastIndex[i];
+                    if (ecuPortLastIndex[i] == boardId) {
+                        setBoardInformation(ecuPortList[boardId].getCommPortId(), boardId);  // Configura a informação da placa
+                        boardId++;  // Incrementa o boardId após configurar
+                        break; // Encontramos a correspondência, saímos do loop interno
+                    }
+                }
+            } else {
+                qDebug() << "Índice" << i << "fora do limite de ecuPortLastIndex";
+                    return -1;  // Retorna erro
+            }
+    }
+//    for (int i = 0; i < ecuBoardFound; ++i) {
+
+//            if (i < ecuPortLastIndex.size()) {
+//                for (int j = 0; j < ecuPortList.size(); ++j) {
+//                    if (ecuPortLastIndex[i] == ecuPortList[j].getPortLocationIndex()) {
+//                        setBoardInformation(ecuPortList[j].getCommPortId(), boardId);  // Configura a informação da placa
+//                        boardId++;  // Incrementa o boardId após configurar
+//                        break; // Encontramos a correspondência, saímos do loop interno
+//                    }
+//                }
+//            } else {
+//                qDebug() << "Índice" << i << "fora do limite de ecuPortLastIndex";
+//                    return -1;  // Retorna erro
+//            }
+//    }
+
+
+    qDebug() << "Concluído com" << (ecuBoardFound + mcuBoardFound) << "boards encontradas";
+    return (ecuBoardFound + mcuBoardFound);  // Retorna o número total de placas encontradas
+}
+
+QVector<SerialCommPort*> PersistenceController::findSerialCommPorts() {
+    auto ports = QSerialPortInfo::availablePorts();
+    QVector<SerialCommPort*> serialCommPortList;
+    for (int i = 0; i < ports.size(); ++i) {
+        serialCommPortList.push_back(new SerialCommPort(ports[i], i));
+    }
+    return serialCommPortList;
 }
 
 QVector<SerialCommPort*> PersistenceController::getSerialCommPortInfo() {
-    QVector<QSerialPortInfo> availablePorts = QSerialPortInfo::availablePorts();
-    QVector<SerialCommPort*> serialCommPorts;
-
-    for (int i = 0; i < availablePorts.size(); ++i) {
-        const QSerialPortInfo &info = availablePorts[i];
-        SerialCommPort* port = new SerialCommPort(this);
-        port->setCommPortId(i);  // Passa o índice como identificador
-        port->setDescriptivePortName(info.description());
-        port->setPortDescription(info.manufacturer());
-        port->setSystemPortName(info.portName());
-        serialCommPorts.append(port);
+    auto ports = QSerialPortInfo::availablePorts();
+    QVector<SerialCommPort*> serialCommPortList;
+    for (int i = 0; i < ports.size(); ++i) {
+        SerialCommPort* port = new SerialCommPort();
+        port->setCommPortId(i);
+        port->setDescriptivePortName(ports[i].portName());
+        port->setPortDescription(ports[i].description());
+        port->setSystemPortName(ports[i].systemLocation());
+        serialCommPortList.push_back(port);
     }
-
-    return serialCommPorts;
+    return serialCommPortList;
 }
 
-void PersistenceController::setCommPortFound(int index, int commPortId)
-{
-    // Certifique-se de que o índice é válido
+void PersistenceController::setCommPortFound(int index, int commPortId) {
     if (index >= 0 && index < foundCommPorts.size()) {
         foundCommPorts[index] = commPortId;
     } else if (index == foundCommPorts.size()) {
-        // Se o índice é igual ao tamanho do vetor, adicione um novo elemento
         foundCommPorts.append(commPortId);
     }
 }
 
-int PersistenceController::getCommPortFound(int index) const
-{
+int PersistenceController::getCommPortFound(int index) const {
     if (index >= 0 && index < foundCommPorts.size()) {
         return foundCommPorts[index];
     }
-    return -1;  // Retorne um valor inválido se o índice for fora do intervalo
+    return -1;
 }
 
-bool PersistenceController::loadUsbProgrammer()
-{
+bool PersistenceController::loadUsbProgrammer() {
     libusb_device *device = nullptr;
     libusb_device **devs = nullptr;
     libusb_context *ctx = nullptr;
@@ -180,178 +301,183 @@ bool PersistenceController::loadUsbProgrammer()
     return false;
 }
 
-
 bool PersistenceController::openConnection(int portId, int baudRate) {
-    // Verifica se o índice da porta é válido
-    if (portId < 0 || portId >= serialComm.size()) {
-        qDebug() << "Port ID is out of range.";
+    // Verifica se o portId é válido
+    if (portId >= serialComm.size()) {
         return false;
     }
 
+    qDebug() << "Essa é o port Id: " << portId;
+    qDebug() << "Esse é o baud rate: " << baudRate;
+    qDebug() << "Tamanho do serialComm: " << serialComm.size();
+
     QSerialPort* port = serialComm[portId];
-
-    // Se a porta não estiver aberta, tenta abrir
-    if (!port->isOpen()) {
-        port->setPortName(port->portName()); // Garanta que o nome da porta está definido corretamente
-        port->setBaudRate(baudRate);
-        port->setDataBits(QSerialPort::Data8);
-        port->setParity(QSerialPort::NoParity);
-        port->setStopBits(QSerialPort::OneStop);
-        port->setFlowControl(QSerialPort::NoFlowControl);
-
-        if (!port->open(QIODevice::ReadWrite)) {
-            qDebug() << "Failed to open port" << port->portName() << "with error:" << port->errorString();
-            return false;
-        }
-    } else {
-        // A porta já está aberta, apenas reconfigure se necessário
-        port->setBaudRate(baudRate);
+    if (!port) {
+        qDebug() << "Ponteiro serialComm[portId] é nulo.";
+        return false;
     }
 
-    // A porta foi aberta com sucesso e configurada
-    qDebug() << "Port" << port->portName() << "opened successfully with baud rate" << baudRate;
+    // Verifica se a porta já está aberta
+    if (port->isOpen()) {
+        return true;
+    }
+
+    auto ports = QSerialPortInfo::availablePorts();
+    if (portId >= ports.size()) {
+        qDebug() << "Nao foi aberta no portId >= ports.size()";
+        return false;
+    }
+
+    const QSerialPortInfo& portInfo = ports[portId];
+
+    // Configurações da porta serial
+    port->setBaudRate(baudRate);
+    port->setPortName(portInfo.portName());
+    port->setDataBits(QSerialPort::Data8);
+    port->setParity(QSerialPort::NoParity);
+    port->setStopBits(QSerialPort::OneStop);
+    port->setFlowControl(QSerialPort::NoFlowControl);
+
+    // Tenta abrir a porta
+    if (!port->open(QIODevice::ReadWrite)) {
+        qDebug() << "Nao foi aberta no QIODevice::ReadWrite:" << port->errorString();
+        return false;
+    }
+
+    qDebug() << "Porta aberta com sucesso:" << portInfo.portName();
     return true;
-
 }
 
-bool PersistenceController::openBoardConnection(int boardId, int baudRate)
-{
-    for(Board* boardInfo: boardList){
-        if(boardInfo->getBoardIdentification()==boardId){
-            return openConnection(boardInfo->getCommPortIdentification(),baudRate);
+bool PersistenceController::openBoardConnection(int boardId, int baudrate) {
+    for (Board* boardInfo : boardList) {
+        if (boardInfo->getBoardIdentification() == boardId) {
+            return openConnection(boardInfo->getSerialCommPort().getCommPortId(), baudrate);
         }
     }
     return false;
 }
 
-bool PersistenceController::openBoardConnection(int boardId)
-{
-    int baudrate;
+//bool PersistenceController::openBoardConnection(int boardId) {
+//    qDebug() << "Board Id: " << boardId;
 
-    for(Board* boardInfo: boardList){
-        if(boardInfo->getBoardIdentification()==boardId){
-            baudrate = boardInfo->getBoardBaudRate();
-            return openConnection(boardInfo->getCommPortIdentification(),baudrate);
+//    for (Board* boardInfo : boardList) {
+//        if (boardInfo->getBoardIdentification() == boardId) {
+//            qDebug() << "Abrindo porta com board id" << boardId;
+//            return openConnection(boardInfo->getSerialCommPort().getCommPortId(), boardInfo->getBoardBaudRate());
+//        }
+//    }
+
+//    return false;
+//}
+
+bool PersistenceController::openBoardConnection(int boardId) {
+    qDebug() << "Board Id: " << boardId;
+
+    for (Board* boardInfo : boardList) {
+        if (boardInfo->getBoardIdentification() == boardId) {
+            int commPortId = boardInfo->getSerialCommPort().getCommPortId();
+            int baudRate = boardInfo->getBoardBaudRate();
+            qDebug() << "Abrindo porta com board id" << boardId << "e comm port id" << commPortId;
+
+            if (commPortId < 0 || commPortId >= serialComm.size()) {
+                qDebug() << "Erro: commPortId inválido:" << commPortId;
+                    return false;
+            }
+
+            return openConnection(commPortId, baudRate);
         }
     }
+    qDebug() << "Board id" << boardId << "não encontrado";
     return false;
 }
 
-QString PersistenceController::getSystemPortDescription(int index)
-{
+
+QString PersistenceController::getSystemPortDescription(int index) {
     if (index < 0 || index >= serialComm.size()) {
         qDebug() << "Index out of range in getSystemPortDescription.";
-        return QString();  // Retorna uma QString vazia se o índice não for válido
+        return QString();
     }
 
     QSerialPort* port = serialComm[index];
     if (!port) {
         qDebug() << "Serial port at index" << index << "is null.";
-        return QString();  // Retorna uma QString vazia se o objeto da porta serial for nulo
+        return QString();
     }
 
-    // Retorna o nome do sistema para a porta serial
-    return port->portName();  // 'portName()' retorna o identificador da porta, similar ao 'systemLocation()' usado em QSerialPortInfo
+    return port->portName();
 }
 
 QString PersistenceController::getPortDescription(int index) {
     if (index < 0 || index >= serialComm.size()) {
         qDebug() << "Index is out of range in getPortDescription.";
-        return QString();  // Retorna uma QString vazia se o índice não for válido
+        return QString();
     }
 
     QSerialPort* port = serialComm[index];
     QSerialPortInfo portInfo(*port);
-    return portInfo.description();  // Retorna a descrição humana da porta
+    return portInfo.description();
 }
 
 QString PersistenceController::getDescriptivePortName(int index) {
     if (index < 0 || index >= serialComm.size()) {
         qDebug() << "Index is out of range in getDescriptivePortName.";
-        return QString();  // Retorna uma QString vazia se o índice não for válido
+        return QString();
     }
 
     QSerialPort* port = serialComm[index];
     QSerialPortInfo portInfo(*port);
-    return portInfo.portName();  // Retorna o nome descritivo da porta, geralmente o mesmo que o nome do sistema
+    return portInfo.portName();
 }
 
-QString PersistenceController::getBoardCommPort(int boardId)
-{
-    for(Board* boardInfo : boardList){
-        if(boardInfo->getBoardIdentification() == boardId){
-            return boardInfo->getCommPortName();
+QString PersistenceController::getBoardCommPort(int boardId) {
+    for (Board* boardInfo : boardList) {
+        if (boardInfo->getBoardIdentification() == boardId) {
+            return boardInfo->getSerialCommPort().getSystemPortName();
         }
     }
-
     return QString();
 }
 
-QString PersistenceController::getBoardDescription(int boardId)
-{
-    for(Board* boardInfo : boardList){
-        if(boardInfo->getBoardIdentification() == boardId){
+QString PersistenceController::getBoardDescription(int boardId) {
+    for (Board* boardInfo : boardList) {
+        if (boardInfo->getBoardIdentification() == boardId) {
             return boardInfo->getBoardDescription();
         }
     }
     return QString();
 }
 
-int PersistenceController::getTotalNumberOfPorts()
-{
-    // Usa QSerialPortInfo para obter uma lista de informações sobre portas seriais disponíveis
+int PersistenceController::getTotalNumberOfPorts() {
     QList<QSerialPortInfo> availablePorts = QSerialPortInfo::availablePorts();
-
-    // Retorna o tamanho da lista, que representa o número de portas seriais disponíveis
     return availablePorts.size();
 }
 
 void PersistenceController::serialWrite(int portId, const QString& atCmd, bool endOfLine) {
-    // Verifica se o índice da porta é válido
-    if (portId < 0 || portId >= serialComm.size()) {
-        qDebug() << "Port ID is out of range.";
+    if (portId >= serialComm.size()) {
         return;
     }
-
     QSerialPort* port = serialComm[portId];
-    if (!port->isOpen()) {
-        qDebug() << "Port is not open.";
-        return;
+    if (port->isOpen()) {
+        QTextStream stream(port);
+        if (endOfLine) {
+            stream << atCmd << Qt::endl;
+        } else {
+            stream << atCmd;
+        }
+        stream.flush();
     }
-
-    QString command = atCmd;
-    if (endOfLine) {
-        command.append("\n");  // Adiciona uma nova linha se endOfLine for verdadeiro
-    }
-
-    // Envia o comando para a porta serial
-    qint64 bytesWritten = port->write(command.toUtf8());
-
-    if (bytesWritten == -1) {
-        qDebug() << "Failed to write to the serial port:" << port->errorString();
-    } else if (bytesWritten < command.size()) {
-        qDebug() << "Not all data was written to the serial port.";
-    } else {
-        port->flush();  // Garante que todos os dados sejam enviados
-    }
-
-    // Espera um pequeno delay para garantir que os dados tenham tempo de ser enviados
-    QThread::msleep(50);
 }
 
-void PersistenceController::serialBoardWrite(int boardId, const QString &atCmd, bool endOfLine)
-{
+void PersistenceController::serialBoardWrite(int boardId, const QString &atCmd, bool endOfLine) {
     int commPortID = -1;
 
-    // Identificar a placa e obter o ID da porta de comunicação associada
     for (Board* boardInfo : boardList) {
         if (boardInfo->getBoardIdentification() == boardId) {
-            commPortID = boardInfo->getCommPortIdentification();
+            commPortID = boardInfo->getSerialCommPort().getCommPortId();
             break;
         }
     }
 
-    // Se um ID de porta válido foi encontrado, escreva para a porta serial
     if (commPortID != -1) {
         serialWrite(commPortID, atCmd, endOfLine);
     } else {
@@ -359,13 +485,11 @@ void PersistenceController::serialBoardWrite(int boardId, const QString &atCmd, 
     }
 }
 
-void PersistenceController::closeConnection(int portId)
-{
+void PersistenceController::closeConnection(int portId) {
     if (portId < 0 || portId >= serialComm.size()) {
         qDebug() << "Port ID is out of range.";
         return;
     }
-
 
     QSerialPort* port = serialComm[portId];
     if (port && port->isOpen()) {
@@ -376,12 +500,10 @@ void PersistenceController::closeConnection(int portId)
     }
 }
 
-void PersistenceController::closeBoardConnection(int boardId)
-{
-    for(Board* boardInfo: boardList){
-        //Board found
-        if(boardInfo->getBoardIdentification()==boardId){
-            closeConnection(boardInfo->getCommPortIdentification());
+void PersistenceController::closeBoardConnection(int boardId) {
+    for (Board* boardInfo : boardList) {
+        if (boardInfo->getBoardIdentification() == boardId) {
+            closeConnection(boardInfo->getSerialCommPort().getCommPortId());
             qDebug() << "Connection closed for board ID" << boardId;
             return;
         }
@@ -390,18 +512,14 @@ void PersistenceController::closeBoardConnection(int boardId)
 }
 
 QString PersistenceController::serialRead(int portId) {
-    // Cria um objeto QRegularExpression estático para ser reutilizado.
-    // Isso evita a recompilação da expressão regular em cada chamada da função.
     static QRegularExpression newLineRegex("[\\r\\n]");
 
-    // Verifica se o ID da porta está dentro do intervalo válido.
     if (portId < 0 || portId >= serialComm.size()) {
         qDebug() << "ID da porta está fora do intervalo.";
             return QString();
     }
 
     QSerialPort* port = serialComm[portId];
-    // Verifica se a porta está aberta antes de tentar ler.
     if (!port->isOpen()) {
         qDebug() << "Porta não está aberta.";
         return QString();
@@ -410,13 +528,9 @@ QString PersistenceController::serialRead(int portId) {
     QByteArray newData;
     QString recvStr;
 
-    // Espera até 100 milissegundos para que dados estejam prontos para serem lidos.
     if (port->waitForReadyRead(100)) {
-        // Lê todos os dados disponíveis na porta serial.
         newData = port->readAll();
-        // Converte os dados binários para uma string UTF-8.
         recvStr = QString::fromUtf8(newData);
-        // Remove caracteres de nova linha usando a expressão regular pré-compilada.
         recvStr.remove(newLineRegex);
     } else {
         qDebug() << "Timeout na leitura ou nenhum dado disponível.";
@@ -426,34 +540,37 @@ QString PersistenceController::serialRead(int portId) {
 }
 
 QString PersistenceController::serialBoardRead(int boardId) {
+
     int commPortID = -1;
 
-    // Identifica a placa e obtém o ID da porta de comunicação associada
     for (Board* boardInfo : boardList) {
         if (boardInfo->getBoardIdentification() == boardId) {
-            commPortID = boardInfo->getCommPortIdentification();
+            commPortID = boardInfo->getSerialCommPort().getCommPortId();
             break;
         }
     }
 
-    // Verifica se um ID de porta válido foi encontrado
     if (commPortID != -1) {
         return serialRead(commPortID);
     } else {
         qDebug() << "Board ID" << boardId << "not found or no communication port ID associated with this board.";
-        return QString(); // Retorna uma QString vazia se nenhum ID válido foi encontrado
+        return QString();
     }
 }
 
-int PersistenceController::writeFirmware(const QString& cmdStr) {
-    int exitCode = 1; // Código de saída padrão para erro
+int PersistenceController::writeFirmware(int testId, int boardId, const QString& cmdStr) {
+    int exitCode = 1;
     QString line;
     QProcess process;
 
-    // Configurando o comando a ser executado
     QStringList args;
+#ifdef Q_OS_WIN
     args << "/c" << cmdStr;
     process.start("cmd.exe", args);
+#else
+    args << "-c" << cmdStr;
+    process.start("sh", args);
+#endif
 
     if (!process.waitForStarted()) {
         qDebug() << "Falha ao iniciar o processo.";
@@ -461,78 +578,68 @@ int PersistenceController::writeFirmware(const QString& cmdStr) {
     }
 
     qDebug() << "##########################################################################";
-    addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, "Iniciando o Programa AVRDUDE...", true);
+    addCmdTestMessage(testId, boardId, "Iniciando o Programa AVRDUDE...", true);
 
-    // Espera o processo terminar
-    if (!process.waitForFinished(-1)) { // -1 para esperar indefinidamente
+    if (!process.waitForFinished(-1)) {
         qDebug() << "Processo não finalizado corretamente.";
             return exitCode;
     }
 
-    // Lê a saída de erro padrão
     QString stdError = process.readAllStandardError();
     QStringList errorLines = stdError.split('\n');
 
     for (const QString& errorLine : errorLines) {
         if (!errorLine.isEmpty()) {
             QString cleanedLine = errorLine.trimmed();
-            addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, cleanedLine, false);
+            addCmdTestMessage(testId, boardId, cleanedLine, false);
         }
     }
 
     exitCode = process.exitCode();
     qDebug() << "##########################################################################";
-    qDebug() << "Exited with error code : " << exitCode ;
-    addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, "Finalizando o Programa AVRDUDE...", true);
+    qDebug() << "Exited with error code :" << exitCode;
+    addCmdTestMessage(testId, boardId, "Finalizando o Programa AVRDUDE...", true);
 
     if (exitCode == 0) {
-        line = "Atualização de firmware realizada com sucesso!";
+        line = "Firmware atualizado com sucesso!";
     } else {
         line = "Erro na atualização de firmware!";
     }
 
-    addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, line, true);
+    addCmdTestMessage(testId, boardId, line, true);
     qDebug() << line;
 
     return exitCode;
 }
 
-void PersistenceController::setBoardInformation(int index, int boardId) {
-    // Verifica se o índice da porta está dentro do intervalo válido.
-    if (index < 0 || index >= serialComm.size()) {
+void PersistenceController::setBoardInformation(int portId, int boardId) {
+
+    if (portId < 0 || portId >= serialComm.size()) {
         qDebug() << "Índice da porta está fora do intervalo.";
         return;
     }
 
-    // Itera sobre a lista de placas para encontrar a placa com o ID especificado.
     for (Board* boardInfo : boardList) {
         if (boardInfo->getBoardIdentification() == boardId) {
-            // Define a identificação da porta de comunicação para a placa encontrada.
-            boardInfo->setCommPortIdentification(index);
+            // Obter QSerialPortInfo a partir do QSerialPort
+            QSerialPortInfo portInfo = QSerialPortInfo(*serialComm[portId]);
 
-            // Define o nome da porta de comunicação, que é obtido a partir da lista serialComm.
-            boardInfo->setCommPortName(serialComm[index]->portName());
-
-            qDebug() << "Informação da placa atualizada com sucesso.";
-            return;  // Finaliza a função após a atualização da placa.
+            boardInfo->getSerialCommPort().setSerialCommPort(portInfo, portId);
+            qDebug() << "Set board information for board id" << boardId << "with port id" << portId;
         }
     }
-
-    // Se o loop terminar sem encontrar uma placa correspondente, loga uma mensagem de erro.
-    qDebug() << "ID da placa" << boardId << "não encontrado.";
 }
 
 void PersistenceController::addCmdTestMessage(int testId, int boardId, const QString& testMessage, bool header) {
     QString strMessage;
 
-    // Usa um switch para lidar com diferentes tipos de mensagens de teste.
     switch (testId) {
-    case JigaTestConstants::FIRMWARE_UPLOAD:
+    case JigaTestInterface::MCU_FIRMWARE_UPLOAD:
         if (header) {
             strMessage = QString(CmdMessageConstants::CMD_HDR_FIRM_UPLOAD) + " ";
         }
-        strMessage += testMessage; // Concatena a mensagem de teste ao cabeçalho se necessário.
-        fwUpdateModel->addTestMessage(boardId, strMessage);
+        strMessage += testMessage;
+        mcuFwUpModel->addTestMessage(boardId, strMessage);
         break;
 
     default:
@@ -542,10 +649,9 @@ void PersistenceController::addCmdTestMessage(int testId, int boardId, const QSt
 }
 
 void PersistenceController::setReportProperty(const QString &key, const QString &value) {
-    reportProperties[key] = value;  // Define a propriedade no QMap
+    reportProperties[key] = value;
 }
 
 QString PersistenceController::getReportProperty(const QString &key) const {
-    return reportProperties.value(key);  // Retorna o valor associado à chave
+    return reportProperties.value(key);
 }
-

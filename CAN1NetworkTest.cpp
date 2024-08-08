@@ -8,35 +8,35 @@ CAN1NetworkTest::CAN1NetworkTest() {
     TestReportModel* tModel;
 
     // Test model for ECU1
-    tModel = new TestReportModel(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ECU1_BOARD_ID);
-    tModel->addIndividualTest(JigaTestConstants::CAN1_ECU2_ITEST);
-    tModel->addIndividualTest(JigaTestConstants::CAN1_ECU3_ITEST);
-    tModel->addIndividualTest(JigaTestConstants::CAN1_ECU4_ITEST);
+    tModel = new TestReportModel(JigaTestInterface::CAN1_NETWORK_TEST, JigaTestInterface::ECU1_BOARD_ID);
+    tModel->addIndividualTest(JigaTestInterface::CAN1_ECU2_ITEST);
+    tModel->addIndividualTest(JigaTestInterface::CAN1_ECU3_ITEST);
+    tModel->addIndividualTest(JigaTestInterface::CAN1_ECU4_ITEST);
     testReportModel.push_back(tModel);
 
     // Test report for ECU2
-    tModel = new TestReportModel(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ECU2_BOARD_ID);
-    tModel->addIndividualTest(JigaTestConstants::CAN1_ECU1_ITEST);
-    tModel->addIndividualTest(JigaTestConstants::CAN1_ECU3_ITEST);
-    tModel->addIndividualTest(JigaTestConstants::CAN1_ECU4_ITEST);
+    tModel = new TestReportModel(JigaTestInterface::CAN1_NETWORK_TEST, JigaTestInterface::ECU2_BOARD_ID);
+    tModel->addIndividualTest(JigaTestInterface::CAN1_ECU1_ITEST);
+    tModel->addIndividualTest(JigaTestInterface::CAN1_ECU3_ITEST);
+    tModel->addIndividualTest(JigaTestInterface::CAN1_ECU4_ITEST);
     testReportModel.push_back(tModel);
 
     // Test report for ECU3
-    tModel = new TestReportModel(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ECU3_BOARD_ID);
-    tModel->addIndividualTest(JigaTestConstants::CAN1_ECU1_ITEST);
-    tModel->addIndividualTest(JigaTestConstants::CAN1_ECU2_ITEST);
-    tModel->addIndividualTest(JigaTestConstants::CAN1_ECU4_ITEST);
+    tModel = new TestReportModel(JigaTestInterface::CAN1_NETWORK_TEST, JigaTestInterface::ECU3_BOARD_ID);
+    tModel->addIndividualTest(JigaTestInterface::CAN1_ECU1_ITEST);
+    tModel->addIndividualTest(JigaTestInterface::CAN1_ECU2_ITEST);
+    tModel->addIndividualTest(JigaTestInterface::CAN1_ECU4_ITEST);
     testReportModel.push_back(tModel);
 
     // Test report for ECU4
-    tModel = new TestReportModel(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ECU4_BOARD_ID);
-    tModel->addIndividualTest(JigaTestConstants::CAN1_ECU1_ITEST);
-    tModel->addIndividualTest(JigaTestConstants::CAN1_ECU2_ITEST);
-    tModel->addIndividualTest(JigaTestConstants::CAN1_ECU3_ITEST);
+    tModel = new TestReportModel(JigaTestInterface::CAN1_NETWORK_TEST, JigaTestInterface::ECU4_BOARD_ID);
+    tModel->addIndividualTest(JigaTestInterface::CAN1_ECU1_ITEST);
+    tModel->addIndividualTest(JigaTestInterface::CAN1_ECU2_ITEST);
+    tModel->addIndividualTest(JigaTestInterface::CAN1_ECU3_ITEST);
     testReportModel.push_back(tModel);
 
     // Test report for ALL
-    tModel = new TestReportModel(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ALL_BOARDS_ID);
+    tModel = new TestReportModel(JigaTestInterface::CAN1_NETWORK_TEST, JigaTestInterface::ALL_BOARDS_ID);
     testReportModel.push_back(tModel);
 }
 

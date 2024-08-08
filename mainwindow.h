@@ -11,6 +11,7 @@
 #include "EcuBusinessController.h"
 #include "EcuFrameController.h"
 #include "McuFrameController.h"
+#include "RCWebcam.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -32,13 +33,19 @@ private:
     void showVirtualIO();
     void onFirmwareUpdateButtonClicked();
     void onMasterResetButtonClicked();
+    void onECU3CANBusButtonClicked();
+    void onECU4CANBusButtonClicked();
+    void onLoadWebCamButtonClicked();
     static void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg); // Método para configurar o console
 
 
     void onCleanConsoleButtonClicked();
 
 signals:
+    //IDEIAS
     void resetFinished();
+    void ecu3CANBusFinished();
+    void ecu4CANBusFinished();
 
 public slots:
     void pageFirmware();

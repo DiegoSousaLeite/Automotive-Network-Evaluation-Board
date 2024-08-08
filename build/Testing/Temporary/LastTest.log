@@ -1,0 +1,249 @@
+Start testing: Aug 07 11:03 -03
+----------------------------------------------------------
+1/1 Testing: TestPersistenceController
+1/1 Test: TestPersistenceController
+Command: "/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/tests/TestPersistenceController"
+Directory: /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/tests
+"TestPersistenceController" start time: Aug 07 11:03 -03
+Output:
+----------------------------------------------------------
+[==========] Running 4 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 3 tests from PersistenceControllerTest
+[ RUN      ] PersistenceControllerTest.LoadSerialCommPorts
+Ecu1Board constructor called
+PersistenceController inicializado. Tamanho de boardList: 5
+Board adicionado. boardId: 0 commPortId: -7
+Board adicionado. boardId: 1 commPortId: -7
+Board adicionado. boardId: 2 commPortId: -7
+Board adicionado. boardId: 3 commPortId: -7
+Board adicionado. boardId: 4 commPortId: -7
+Não ta vázio
+Inicializando serialComm no construtor 
+Limpando serialComm, tamanho atual:  0
+serialComm limpo, tamanho atual:  0
+Passou do 1° passo na loadSerialCommPorts
+Numero de portas:  4
+Passou do 2° passo na loadSerialCommPorts
+Inicializando serialComm
+Tamanho atual:  0
+Limpando serialComm, tamanho atual:  0
+serialComm limpo, tamanho atual:  0
+Resetando informações das boards
+Checando portas de comunicação ECU e MCU
+Checando porta 0
+ECU VID encontrado para porta 0
+Colocando o portID no construtor do SerialCommPort:  0
+O último caractere da portLocation não é um dígito:  "cu.QCYMelobudsANC"
+Checando porta 1
+ECU VID encontrado para porta 1
+Colocando o portID no construtor do SerialCommPort:  1
+O último caractere da portLocation não é um dígito:  "tty.QCYMelobudsANC"
+Checando porta 2
+ECU VID encontrado para porta 2
+Colocando o portID no construtor do SerialCommPort:  2
+O último caractere da portLocation não é um dígito:  "cu.Bluetooth-Incoming-Port"
+Checando porta 3
+ECU VID encontrado para porta 3
+Colocando o portID no construtor do SerialCommPort:  3
+O último caractere da portLocation não é um dígito:  "tty.Bluetooth-Incoming-Port"
+serialComm inicializado com 4 portas
+Obtendo todos os últimos índices de ECU
+Populando o array de índices
+Adicionando boards
+Tentando configurar boardId 0 com portId 0 onde ecuPortLastIndex[i] == 0
+Set board information for board id 0 with port id 0
+Tentando configurar boardId 1 com portId 0 onde ecuPortLastIndex[i] == 1
+Set board information for board id 1 with port id 1
+Tentando configurar boardId 2 com portId 0 onde ecuPortLastIndex[i] == 2
+Set board information for board id 2 with port id 2
+Tentando configurar boardId 3 com portId 0 onde ecuPortLastIndex[i] == 3
+Set board information for board id 3 with port id 3
+Concluído com 4 boards encontradas
+[       OK ] PersistenceControllerTest.LoadSerialCommPorts (8 ms)
+[ RUN      ] PersistenceControllerTest.GetCommPortFound
+[       OK ] PersistenceControllerTest.GetCommPortFound (0 ms)
+[ RUN      ] PersistenceControllerTest.OpenConnection
+Essa é o port Id:  2
+Esse é o baud rate:  115200
+Tamanho do serialComm:  4
+Porta aberta com sucesso: "cu.Bluetooth-Incoming-Port"
+[       OK ] PersistenceControllerTest.OpenConnection (5 ms)
+[----------] 3 tests from PersistenceControllerTest (14 ms total)
+
+[----------] 1 test from EcuBusinessControllerTest
+[ RUN      ] EcuBusinessControllerTest.LoadBoard
+PersistenceController inicializado. Tamanho de boardList: 5
+Board adicionado. boardId: 0 commPortId: 0
+Board adicionado. boardId: 1 commPortId: 1
+Board adicionado. boardId: 2 commPortId: 2
+Board adicionado. boardId: 3 commPortId: 3
+Board adicionado. boardId: 4 commPortId: -7
+Não ta vázio
+Inicializando serialComm no construtor 
+Limpando serialComm, tamanho atual:  0
+serialComm limpo, tamanho atual:  0
+Chamando loadSerialCommPorts...
+Passou do 1° passo na loadSerialCommPorts
+Numero de portas:  4
+Passou do 2° passo na loadSerialCommPorts
+Inicializando serialComm
+Tamanho atual:  0
+Limpando serialComm, tamanho atual:  0
+serialComm limpo, tamanho atual:  0
+Resetando informações das boards
+Checando portas de comunicação ECU e MCU
+Checando porta 0
+ECU VID encontrado para porta 0
+Colocando o portID no construtor do SerialCommPort:  0
+O último caractere da portLocation não é um dígito:  "cu.QCYMelobudsANC"
+Checando porta 1
+ECU VID encontrado para porta 1
+Colocando o portID no construtor do SerialCommPort:  1
+O último caractere da portLocation não é um dígito:  "tty.QCYMelobudsANC"
+Checando porta 2
+ECU VID encontrado para porta 2
+Colocando o portID no construtor do SerialCommPort:  2
+O último caractere da portLocation não é um dígito:  "cu.Bluetooth-Incoming-Port"
+Checando porta 3
+ECU VID encontrado para porta 3
+Colocando o portID no construtor do SerialCommPort:  3
+O último caractere da portLocation não é um dígito:  "tty.Bluetooth-Incoming-Port"
+serialComm inicializado com 4 portas
+Obtendo todos os últimos índices de ECU
+Populando o array de índices
+Adicionando boards
+Tentando configurar boardId 0 com portId 0 onde ecuPortLastIndex[i] == 0
+Set board information for board id 0 with port id 0
+Tentando configurar boardId 1 com portId 0 onde ecuPortLastIndex[i] == 1
+Set board information for board id 1 with port id 1
+Tentando configurar boardId 2 com portId 0 onde ecuPortLastIndex[i] == 2
+Set board information for board id 2 with port id 2
+Tentando configurar boardId 3 com portId 0 onde ecuPortLastIndex[i] == 3
+Set board information for board id 3 with port id 3
+Concluído com 4 boards encontradas
+Número de portas disponíveis: 4
+Board Id:  3
+Abrindo porta com board id 3 e comm port id 3
+Essa é o port Id:  3
+Esse é o baud rate:  115200
+Tamanho do serialComm:  4
+Nao foi aberta no QIODevice::ReadWrite: "Resource busy"
+Tentativa 1 Porta 0
+Porta aberta: false
+Erro: Porta 0 não pôde ser aberta!
+Tentativa 1 Porta 1
+Porta aberta: false
+Erro: Porta 1 não pôde ser aberta!
+Tentativa 1 Porta 2
+Porta aberta: false
+Erro: Porta 2 não pôde ser aberta!
+Tentativa 1 Porta 3
+Porta aberta: false
+Erro: Porta 3 não pôde ser aberta!
+Board Id:  3
+Abrindo porta com board id 3 e comm port id 3
+Essa é o port Id:  3
+Esse é o baud rate:  115200
+Tamanho do serialComm:  4
+Nao foi aberta no QIODevice::ReadWrite: "Resource busy"
+Tentativa 2 Porta 0
+Porta aberta: false
+Erro: Porta 0 não pôde ser aberta!
+Tentativa 2 Porta 1
+Porta aberta: false
+Erro: Porta 1 não pôde ser aberta!
+Tentativa 2 Porta 2
+Porta aberta: false
+Erro: Porta 2 não pôde ser aberta!
+Tentativa 2 Porta 3
+Porta aberta: false
+Erro: Porta 3 não pôde ser aberta!
+Board Id:  3
+Abrindo porta com board id 3 e comm port id 3
+Essa é o port Id:  3
+Esse é o baud rate:  115200
+Tamanho do serialComm:  4
+Nao foi aberta no QIODevice::ReadWrite: "Resource busy"
+Tentativa 3 Porta 0
+Porta aberta: false
+Erro: Porta 0 não pôde ser aberta!
+Tentativa 3 Porta 1
+Porta aberta: false
+Erro: Porta 1 não pôde ser aberta!
+Tentativa 3 Porta 2
+Porta aberta: false
+Erro: Porta 2 não pôde ser aberta!
+Tentativa 3 Porta 3
+Porta aberta: false
+Erro: Porta 3 não pôde ser aberta!
+Board Id:  3
+Abrindo porta com board id 3 e comm port id 3
+Essa é o port Id:  3
+Esse é o baud rate:  115200
+Tamanho do serialComm:  4
+Nao foi aberta no QIODevice::ReadWrite: "Resource busy"
+Tentativa 4 Porta 0
+Porta aberta: false
+Erro: Porta 0 não pôde ser aberta!
+Tentativa 4 Porta 1
+Porta aberta: false
+Erro: Porta 1 não pôde ser aberta!
+Tentativa 4 Porta 2
+Porta aberta: false
+Erro: Porta 2 não pôde ser aberta!
+Tentativa 4 Porta 3
+Porta aberta: false
+Erro: Porta 3 não pôde ser aberta!
+Board Id:  3
+Abrindo porta com board id 3 e comm port id 3
+Essa é o port Id:  3
+Esse é o baud rate:  115200
+Tamanho do serialComm:  4
+Nao foi aberta no QIODevice::ReadWrite: "Resource busy"
+Tentativa 5 Porta 0
+Porta aberta: false
+Erro: Porta 0 não pôde ser aberta!
+Tentativa 5 Porta 1
+Porta aberta: false
+Erro: Porta 1 não pôde ser aberta!
+Tentativa 5 Porta 2
+Porta aberta: false
+Erro: Porta 2 não pôde ser aberta!
+Tentativa 5 Porta 3
+Porta aberta: false
+Erro: Porta 3 não pôde ser aberta!
+Retornando valor: 2
+/Users/sousadiego/Documents/ws-Qt/ANEB_2/tests/test.cpp:32: Failure
+Expected equality of these values:
+  result
+    Which is: 2
+  ErrorCodeInterface::SUCCESS
+    Which is: 0
+
+[  FAILED  ] EcuBusinessControllerTest.LoadBoard (5 ms)
+[----------] 1 test from EcuBusinessControllerTest (5 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 2 test suites ran. (19 ms total)
+[  PASSED  ] 3 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] EcuBusinessControllerTest.LoadBoard
+
+ 1 FAILED TEST
+Destruição do PersistenceController iniciada...
+Limpando serialComm, tamanho atual:  4
+Deletando porta serial:  "cu.QCYMelobudsANC"
+Deletando porta serial:  "tty.QCYMelobudsANC"
+Deletando porta serial:  "cu.Bluetooth-Incoming-Port"
+Deletando porta serial:  "tty.Bluetooth-Incoming-Port"
+serialComm limpo, tamanho atual:  0
+<end of output>
+Test time =   0.60 sec
+----------------------------------------------------------
+Test Failed.
+"TestPersistenceController" end time: Aug 07 11:03 -03
+"TestPersistenceController" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Aug 07 11:03 -03

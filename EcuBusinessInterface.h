@@ -37,7 +37,7 @@ public:
 //    virtual int loadAllSerialCommPorts() = 0;
 //    virtual int uploadFirmware(int board_id) = 0;
 //    virtual int uploadFirmware(int port_id, const QString &pathToFile) = 0;
-    virtual void addCmdTestMessage(int test_id, int board_id, const QString &testMessage, bool header) = 0;
+   virtual void addCmdTestMessage(int test_id, int board_id, const QString &testMessage, bool header) = 0;
 };
 
 #endif // ECUBUSINESSINTERFACE_H

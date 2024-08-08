@@ -7,6 +7,16 @@ RepBusinessController::RepBusinessController(QObject *parent)
     psController = PersistenceController::getInstance();
 }
 
+void RepBusinessController::setReportProperty(const QMap<QString, QString> &propFile)
+{
+    reportProperties = propFile;
+}
+
+QString RepBusinessController::getReportProperty(const QString &key) const
+{
+     return reportProperties.value(key);
+}
+
 void RepBusinessController::startTestResultMonitor(int testId, int boardId) {
     TimeOutMonitor *timeOutThread = new TimeOutMonitor(this);  // Assegura gerenciamento de memória adequado
     timeOutThread->setBoardID(boardId);
@@ -14,25 +24,25 @@ void RepBusinessController::startTestResultMonitor(int testId, int boardId) {
     timeOutThread->addTimeOutListener(this);
 
     switch(testId) {
-    case JigaTestConstants::DIGITAL_INPUT_TEST:
-        timeOutThread->setTimeOut(JigaTestConstants::DIGITAL_INPUT_TEST_TIMEOUT);
+    case JigaTestInterface::DIGITAL_INPUT_TEST:
+        timeOutThread->setTimeOut(JigaTestInterface::DIGITAL_INPUT_TEST_TIMEOUT);
         break;
-    case JigaTestConstants::ANALOG_INPUT_TEST:
-        timeOutThread->setTimeOut(JigaTestConstants::ANALOG_INPUT_TEST_TIMEOUT);
+    case JigaTestInterface::ANALOG_INPUT_TEST:
+        timeOutThread->setTimeOut(JigaTestInterface::ANALOG_INPUT_TEST_TIMEOUT);
         break;
-    case JigaTestConstants::ANALOG_OUTPUT_TEST:
-        timeOutThread->setTimeOut(JigaTestConstants::ANALOG_OUTPUT_TEST_TIMEOUT);
+    case JigaTestInterface::ANALOG_OUTPUT_TEST:
+        timeOutThread->setTimeOut(JigaTestInterface::ANALOG_OUTPUT_TEST_TIMEOUT);
         break;
-    case JigaTestConstants::LOOPBACK_CAN_TEST:
-    case JigaTestConstants::CAN1_NETWORK_TEST:
-    case JigaTestConstants::CAN2_NETWORK_TEST:
-        timeOutThread->setTimeOut(JigaTestConstants::CAN_NETWORK_TEST_TIMEOUT);
+    case JigaTestInterface::CAN_LOOPBACK_TEST:
+    case JigaTestInterface::CAN1_NETWORK_TEST:
+    case JigaTestInterface::CAN2_NETWORK_TEST:
+        timeOutThread->setTimeOut(JigaTestInterface::CAN_NETWORK_TEST_TIMEOUT);
         break;
-    case JigaTestConstants::LIN_NETWORK_TEST:
-        timeOutThread->setTimeOut(JigaTestConstants::LIN_NETWORK_TEST_TIMEOUT);
+    case JigaTestInterface::LIN_NETWORK_TEST:
+        timeOutThread->setTimeOut(JigaTestInterface::LIN_NETWORK_TEST_TIMEOUT);
         break;
-    case JigaTestConstants::MCU_GET_CANBUS_TEST:
-        timeOutThread->setTimeOut(JigaTestConstants::MCU_CANBUS_TEST_TIMEOUT);
+    case JigaTestInterface::MCU_GET_CANBUS_TEST:
+        timeOutThread->setTimeOut(JigaTestInterface::MCU_CANBUS_TEST_TIMEOUT);
         break;
     default:
         qWarning() << "Test ID not recognized";
@@ -55,28 +65,28 @@ void RepBusinessController::getTestResult(int testId, int boardId) {
     }
 
     switch (testId) {
-    case JigaTestConstants::DIGITAL_INPUT_TEST:
+    case JigaTestInterface::DIGITAL_INPUT_TEST:
         checkDigitalInputReport(boardId, recvStr);
         break;
-    case JigaTestConstants::ANALOG_INPUT_TEST:
+    case JigaTestInterface::ANALOG_INPUT_TEST:
         checkAnalogInputReport(boardId, recvStr);
         break;
-    case JigaTestConstants::ANALOG_OUTPUT_TEST:
+    case JigaTestInterface::ANALOG_OUTPUT_TEST:
         checkAnalogOutputReport(boardId, recvStr);
         break;
-    case JigaTestConstants::LOOPBACK_CAN_TEST:
+    case JigaTestInterface::CAN_LOOPBACK_TEST:
         checkLBCanNetworkReport(boardId, recvStr);
         break;
-    case JigaTestConstants::CAN1_NETWORK_TEST:
+    case JigaTestInterface::CAN1_NETWORK_TEST:
         checkC1CanNetworkReport(boardId, recvStr);
         break;
-    case JigaTestConstants::CAN2_NETWORK_TEST:
+    case JigaTestInterface::CAN2_NETWORK_TEST:
         checkC2CanNetworkReport(boardId, recvStr);
         break;
-    case JigaTestConstants::LIN_NETWORK_TEST:
+    case JigaTestInterface::LIN_NETWORK_TEST:
         checkLinNetworkReport(boardId, recvStr);
         break;
-    case JigaTestConstants::MCU_GET_CANBUS_TEST:
+    case JigaTestInterface::MCU_GET_CANBUS_TEST:
         checkMcuGetCanBusReport(recvStr);
         break;
     default:
@@ -89,125 +99,312 @@ void RepBusinessController::getTestResult(int testId, int boardId) {
 
 void RepBusinessController::checkDigitalInputReport(int boardId, const QString &recvStr)
 {
-    QVector<int> testResult;
     int code = getTestReportCode(recvStr);
     QString boardDesc = psController->getBoardDescription(boardId);
-    QString testMessage;
 
-    if(code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE){
+    if (code ==  EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
         return;
     }
 
-    //Checking code number
-    testResult = UtilsConversion::parseBinary(code);
+    QVector<int> testResult = UtilsConversion::parseBinary(code);
 
-    for (int i = 0; i < testResult.size(); i++) {
-        if(testResult[i] == 1){
-            testMessage = boardDesc + "->DIN#" + QString::number(i+1) + ": lida com sucesso!";
-            qDebug() << testMessage;
+    for (int i = 0; i < testResult.size(); ++i) {
+        QString testMessage;
+        if (testResult[i] == 1) {
+            testMessage = boardDesc + "->DIN#" + QString::number(i + 1) + ": lida com sucesso!";
             switch (boardId) {
-            case JigaTestConstants::ECU1_BOARD_ID:
-                diInputModel->setIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::DIN1_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+            case JigaTestInterface::ECU1_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::DIN1_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 2:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::DIN2_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 3:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::DIN3_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 4:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::DIN4_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
                 break;
-            case JigaTestConstants::ECU2_BOARD_ID:
-                diInputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::DIN2_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+            case JigaTestInterface::ECU2_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::DIN1_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 2:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::DIN2_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 3:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::DIN3_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 4:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::DIN4_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
                 break;
-            case JigaTestConstants::ECU3_BOARD_ID:
-                diInputModel->setIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::DIN3_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+            case JigaTestInterface::ECU3_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::DIN1_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 2:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::DIN2_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 3:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::DIN3_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 4:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::DIN4_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
                 break;
-            case JigaTestConstants::ECU4_BOARD_ID:
-                diInputModel->setIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::DIN4_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
-                break;
-            default:
-                qDebug() << "Unknown board ID:" << boardId;
+            case JigaTestInterface::ECU4_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::DIN1_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 2:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::DIN2_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 3:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::DIN3_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 4:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::DIN4_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
                 break;
             }
         } else {
-            testMessage = boardDesc + "->DIN#" + QString::number(i+1) + ": erro de leitura!";
-            qDebug() << testMessage;
+            testMessage = boardDesc + "->DIN#" + QString::number(i + 1) + ": erro de leitura!";
             switch (boardId) {
-            case JigaTestConstants::ECU1_BOARD_ID:
-                diInputModel->setIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::DIN1_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+            case JigaTestInterface::ECU1_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::DIN1_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 2:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::DIN2_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 3:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::DIN3_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 4:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::DIN4_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
                 break;
-            case JigaTestConstants::ECU2_BOARD_ID:
-                diInputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::DIN2_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+            case JigaTestInterface::ECU2_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::DIN1_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 2:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::DIN2_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 3:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::DIN3_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 4:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::DIN4_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
                 break;
-            case JigaTestConstants::ECU3_BOARD_ID:
-                diInputModel->setIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::DIN3_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+            case JigaTestInterface::ECU3_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::DIN1_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 2:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::DIN2_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 3:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::DIN3_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 4:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::DIN4_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
                 break;
-            case JigaTestConstants::ECU4_BOARD_ID:
-                diInputModel->setIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::DIN4_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
-                break;
-            default:
-                qDebug() << "Unknown board ID:" << boardId;
+            case JigaTestInterface::ECU4_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::DIN1_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 2:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::DIN2_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 3:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::DIN3_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 4:
+                    diInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::DIN4_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
                 break;
             }
         }
+        // Adding the message
+        addCmdTestMessage(JigaTestInterface::DIGITAL_INPUT_TEST, boardId, testMessage, true);
     }
-
-    addCmdTestMessage(JigaTestConstants::DIGITAL_INPUT_TEST,boardId,testMessage,true);
 
 }
 
 void RepBusinessController::checkAnalogInputReport(int boardId, const QString &recvStr)
 {
-    QVector<int> testResult;
     int code = getTestReportCode(recvStr);
-    QString boardDesc = psController->getBoardDescription(boardId);
-    QString testMessage;
-
     if (code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
         return;
     }
 
-    // Checking code number
-    testResult = UtilsConversion::parseBinary(code);
+    QVector<int> testResult = UtilsConversion::parseBinary(code);
+    QString boardDesc = psController->getBoardDescription(boardId);
 
-    for (int i = 0; i < testResult.size(); i++) {
+    for (int i = 0; i < testResult.size(); ++i) {
+        QString testMessage;
         if (testResult[i] == 1) {
-            testMessage = boardDesc + "->AIN#" + QString::number(i+1) + ": lida com sucesso!";
-            qDebug() << testMessage;
+            testMessage = boardDesc + "->AIN#" + QString::number(i + 1) + ": lida com sucesso!";
             switch (boardId) {
-            case JigaTestConstants::ECU1_BOARD_ID:
-                anInputModel->setIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::AIN1_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+            case JigaTestInterface::ECU1_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AIN1_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 2:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AIN2_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 3:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AIN3_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 4:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AIN4_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
                 break;
-            case JigaTestConstants::ECU2_BOARD_ID:
-                anInputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::AIN2_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+            case JigaTestInterface::ECU2_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AIN1_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 2:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AIN2_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 3:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AIN3_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 4:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AIN4_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
                 break;
-            case JigaTestConstants::ECU3_BOARD_ID:
-                anInputModel->setIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::AIN3_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+            case JigaTestInterface::ECU3_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::AIN1_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 2:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::AIN2_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 3:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::AIN3_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 4:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::AIN4_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
                 break;
-            case JigaTestConstants::ECU4_BOARD_ID:
-                anInputModel->setIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::AIN4_INPUT_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
-                break;
-            default:
-                qDebug() << "Unknown board ID:" << boardId;
+            case JigaTestInterface::ECU4_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::AIN1_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 2:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::AIN2_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 3:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::AIN3_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case 4:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::AIN4_INPUT_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
                 break;
             }
         } else {
-            testMessage = boardDesc + "->AIN#" + QString::number(i+1) + ": erro de leitura!";
-            qDebug() << testMessage;
+            testMessage = boardDesc + "->AIN#" + QString::number(i + 1) + ": erro de leitura!";
             switch (boardId) {
-            case JigaTestConstants::ECU1_BOARD_ID:
-                anInputModel->setIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::AIN1_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+            case JigaTestInterface::ECU1_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AIN1_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 2:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AIN2_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 3:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AIN3_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 4:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AIN4_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
                 break;
-            case JigaTestConstants::ECU2_BOARD_ID:
-                anInputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::AIN2_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+            case JigaTestInterface::ECU2_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AIN1_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 2:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AIN2_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 3:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AIN3_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 4:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AIN4_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
                 break;
-            case JigaTestConstants::ECU3_BOARD_ID:
-                anInputModel->setIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::AIN3_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+            case JigaTestInterface::ECU3_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::AIN1_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 2:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::AIN2_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 3:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::AIN3_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 4:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::AIN4_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
                 break;
-            case JigaTestConstants::ECU4_BOARD_ID:
-                anInputModel->setIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::AIN4_INPUT_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
-                break;
-            default:
-                qDebug() << "Unknown board ID:" << boardId;
+            case JigaTestInterface::ECU4_BOARD_ID:
+                switch (i + 1) {
+                case 1:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::AIN1_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 2:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::AIN2_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 3:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::AIN3_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case 4:
+                    anInputModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::AIN4_INPUT_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
                 break;
             }
         }
+        // Adding the message
+        addCmdTestMessage(JigaTestInterface::ANALOG_INPUT_TEST, boardId, testMessage, true);
     }
-
-    addCmdTestMessage(JigaTestConstants::DIGITAL_INPUT_TEST,boardId, testMessage, true);
 }
 
 void RepBusinessController::checkAnalogOutputReport(int boardId, const QString &recvStr)
@@ -228,55 +425,134 @@ void RepBusinessController::checkAnalogOutputReport(int boardId, const QString &
     if (testResult[0] == 1) {
         testMessage = boardDesc + "->AOUT: lida com sucesso!";
         //qDebug() << testMessage;
-        if (boardId == JigaTestConstants::ECU1_BOARD_ID) {
-            anOutputModel->setIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::AOUT1_LDR_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
-        } else if (boardId == JigaTestConstants::ECU2_BOARD_ID) {
-            anOutputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::AOUT2_LOOP_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+        if (boardId == JigaTestInterface::ECU1_BOARD_ID) {
+            anOutputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AOUT1_LDR_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+        } else if (boardId == JigaTestInterface::ECU2_BOARD_ID) {
+            anOutputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AOUT2_LOOP_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
         }
     } else {
         testMessage = boardDesc + "->AOUT: erro de leitura!";
         //qDebug() << testMessage;
-        if (boardId == JigaTestConstants::ECU1_BOARD_ID) {
-            anOutputModel->setIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::AOUT1_LDR_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
-        } else if (boardId == JigaTestConstants::ECU2_BOARD_ID) {
-            anOutputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::AOUT2_LOOP_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+        if (boardId == JigaTestInterface::ECU1_BOARD_ID) {
+            anOutputModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AOUT1_LDR_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+        } else if (boardId == JigaTestInterface::ECU2_BOARD_ID) {
+            anOutputModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AOUT2_LOOP_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
         }
     }
 
-    addCmdTestMessage(JigaTestConstants::ANALOG_OUTPUT_TEST, boardId, testMessage, true);
+    addCmdTestMessage(JigaTestInterface::ANALOG_OUTPUT_TEST, boardId, testMessage, true);
 }
 
-void RepBusinessController::checkLBCanNetworkReport(int boardId, const QString &recvStr)
+void RepBusinessController::checkCanInitNetworkReport(int boardId, const QString &recvStr)
 {
-    QVector<int> testResult;
     int code = getTestReportCode(recvStr);
-    QString boardDesc = psController->getBoardDescription(boardId);
-    QString testMessage;
-
     if (code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
         qDebug() << "Error to read report code!";
         return;
     }
 
-    // Checking code number
-    testResult = UtilsConversion::parseBinary(code);
-
-    if (boardId == JigaTestConstants::ECU2_BOARD_ID) {
-        if (testResult[1] == 1) {
-            testMessage = boardDesc + "->CAN2 (Loopback): Teste executado com sucesso!";
-            anOutputModel->setIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::AOUT1_LDR_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
-        } else {
-            testMessage = boardDesc + "->CAN2 (Loopback): Erro de execução do teste!";
-        }
-        addCmdTestMessage(JigaTestConstants::LOOPBACK_CAN_TEST, boardId, testMessage, true);
-    }
+    QVector<int> testResult = UtilsConversion::parseBinary(code);
+    QString boardDesc = psController->getBoardDescription(boardId);
+    QString testMessage;
 
     if (testResult[0] == 1) {
-        testMessage = boardDesc + "->CAN1 (Loopback): Teste executado com sucesso!";
+        switch (boardId) {
+        case JigaTestInterface::ECU1_BOARD_ID:
+            testMessage = boardDesc + "->CAN1 inicializada com sucesso!";
+            canInitModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::ICAN1_ECU1_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+            break;
+        case JigaTestInterface::ECU2_BOARD_ID:
+            testMessage = boardDesc + "->CAN1/CAN2 inicializadas com sucesso!";
+            canInitModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::ICAN1_ECU2_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+            canInitModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::ICAN2_ECU2_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+            break;
+        case JigaTestInterface::ECU3_BOARD_ID:
+            testMessage = boardDesc + "->CAN1 inicializada com sucesso!";
+            canInitModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::ICAN1_ECU3_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+            break;
+        case JigaTestInterface::ECU4_BOARD_ID:
+            testMessage = boardDesc + "->CAN1 inicializada com sucesso!";
+            canInitModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::ICAN1_ECU4_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+            break;
+        }
     } else {
-        testMessage = boardDesc + "->CAN1 (Loopback): Erro de execução do teste!";
+        switch (boardId) {
+        case JigaTestInterface::ECU1_BOARD_ID:
+            testMessage = boardDesc + "->CAN1 erro de inicialização!";
+            canInitModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::ICAN1_ECU1_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+            break;
+        case JigaTestInterface::ECU2_BOARD_ID:
+            testMessage = boardDesc + "->CAN1/CAN2 erro de inicialização!";
+            canInitModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::ICAN1_ECU2_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+            canInitModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::ICAN2_ECU2_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+            break;
+        case JigaTestInterface::ECU3_BOARD_ID:
+            testMessage = boardDesc + "->CAN1 erro de inicialização!";
+            canInitModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::ICAN1_ECU3_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+            break;
+        case JigaTestInterface::ECU4_BOARD_ID:
+            testMessage = boardDesc + "->CAN1 erro de inicialização!";
+            canInitModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::ICAN1_ECU4_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+            break;
+        }
     }
-    addCmdTestMessage(JigaTestConstants::LOOPBACK_CAN_TEST, boardId, testMessage, true);
+    addCmdTestMessage(JigaTestInterface::CAN_INIT_TEST, boardId, testMessage, true);
+}
+
+void RepBusinessController::checkLBCanNetworkReport(int boardId, const QString &recvStr)
+{
+    int code = getTestReportCode(recvStr);
+    if (code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
+        qDebug() << "Error to read report code!";
+        return;
+    }
+
+    QVector<int> testResult = UtilsConversion::parseBinary(code);
+    QString boardDesc = psController->getBoardDescription(boardId);
+    QString testMessage;
+
+    if (testResult[0] == 1) {
+        switch (boardId) {
+        case JigaTestInterface::ECU1_BOARD_ID:
+            testMessage = boardDesc + "->CAN1: teste de loopback realizado com sucesso!";
+            canLoopbackModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::LBC1_ECU1_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+            break;
+        case JigaTestInterface::ECU2_BOARD_ID:
+            testMessage = boardDesc + "->CAN1/CAN2: testes de loopback realizados com sucesso!";
+            canLoopbackModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::LBC1_ECU2_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+            canLoopbackModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::LBC2_ECU2_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+            break;
+        case JigaTestInterface::ECU3_BOARD_ID:
+            testMessage = boardDesc + "->CAN1: teste de loopback realizado com sucesso!";
+            canLoopbackModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::LBC1_ECU3_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+            break;
+        case JigaTestInterface::ECU4_BOARD_ID:
+            testMessage = boardDesc + "->CAN1: teste de loopback realizado com sucesso!";
+            canLoopbackModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::LBC1_ECU4_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+            break;
+        }
+    } else {
+        switch (boardId) {
+        case JigaTestInterface::ECU1_BOARD_ID:
+            testMessage = boardDesc + "->CAN1: erro na execução do teste de loopback!";
+            canLoopbackModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::LBC1_ECU1_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+            break;
+        case JigaTestInterface::ECU2_BOARD_ID:
+            testMessage = boardDesc + "->CAN1/CAN2: erro na execução do teste de loopback!";
+            canLoopbackModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::LBC1_ECU2_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+            canLoopbackModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::LBC2_ECU2_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+            break;
+        case JigaTestInterface::ECU3_BOARD_ID:
+            testMessage = boardDesc + "->CAN1: erro na execução do teste de loopback!";
+            canLoopbackModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::LBC1_ECU3_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+            break;
+        case JigaTestInterface::ECU4_BOARD_ID:
+            testMessage = boardDesc + "->CAN1: erro na execução do teste de loopback!";
+            canLoopbackModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::LBC1_ECU4_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+            break;
+        }
+    }
+    addCmdTestMessage(JigaTestInterface::CAN_LOOPBACK_TEST, boardId, testMessage, true);
 
 }
 
@@ -284,136 +560,246 @@ void RepBusinessController::checkLBCanNetworkReport(int boardId, const QString &
 
 void RepBusinessController::checkC1CanNetworkReport(int boardId, const QString &recvStr)
 {
-    QVector<int> testResult;
     int code = getTestReportCode(recvStr);
-    QString boardDesc = psController->getBoardDescription(boardId);
-    QString testMessage;
-
     if (code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
         qDebug() << "Error to read report code!";
         return;
     }
 
-    // Checking code number
-    testResult = UtilsConversion::parseBinary(code);
+    QVector<int> testResult = UtilsConversion::parseBinary(code);
+    QString boardDesc = psController->getBoardDescription(boardId);
+    QString testMessage;
 
     switch (boardId) {
-    case JigaTestConstants::ECU1_BOARD_ID:
-        for (int i = 0; i < testResult.size() - 1; i++) {
+    case JigaTestInterface::ECU1_BOARD_ID:
+        for (int i = 0; i < (testResult.size() - 1); ++i) {
             if (testResult[i] == 1) {
-                testMessage = boardDesc + "->CAN1: recebida mensagem de ECU" + QString::number(i + 2);
+                testMessage = QString("%1->CAN1: recebida mensagem de ECU%2").arg(boardDesc).arg(i + 2);
+                switch (i + 1) {
+                case JigaTestInterface::ECU2_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::CAN1_ECU2_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU3_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::CAN1_ECU3_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU4_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::CAN1_ECU4_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
             } else {
-                testMessage = boardDesc + "->CAN1: erro de mensagem de ECU" + QString::number(i + 2);
+                testMessage = QString("%1->CAN1: erro de mensagem de ECU%2").arg(boardDesc).arg(i + 2);
+                switch (i + 1) {
+                case JigaTestInterface::ECU2_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::CAN1_ECU2_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU3_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::CAN1_ECU3_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU4_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::CAN1_ECU4_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
             }
-            addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, boardId, testMessage, true);
+            addCmdTestMessage(JigaTestInterface::CAN1_NETWORK_TEST, boardId, testMessage, true);
         }
         break;
 
-    case JigaTestConstants::ECU2_BOARD_ID: {
-        int offset = 1;
-        for (int i = 0; i < testResult.size() - 1; i++) {
+    case JigaTestInterface::ECU2_BOARD_ID:
+        for (int i = 0, offset = 1; i < (testResult.size() - 1); ++i) {
             if (testResult[i] == 1) {
-                testMessage = boardDesc + "->CAN1: recebida mensagem de ECU" + QString::number(i + offset);
+                testMessage = QString("%1->CAN1: recebida mensagem de ECU%2").arg(boardDesc).arg(i + offset);
+                switch (i + offset - 1) {
+                case JigaTestInterface::ECU1_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN1_ECU1_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU3_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN1_ECU3_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU4_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN1_ECU4_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
             } else {
-                testMessage = boardDesc + "->CAN1: erro de mensagem de ECU" + QString::number(i + offset);
+                testMessage = QString("%1->CAN1: erro de mensagem de ECU%2").arg(boardDesc).arg(i + offset);
+                switch (i + offset - 1) {
+                case JigaTestInterface::ECU1_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN1_ECU1_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU3_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN1_ECU3_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU4_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN1_ECU4_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
             }
-            if (i <= 0) {
-                offset = 2;
-            }
-            addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, boardId, testMessage, true);
-        }
-    } break;
-
-    case JigaTestConstants::ECU3_BOARD_ID: {
-        int offset = 1;
-        for (int i = 0; i < testResult.size() - 1; i++) {
-            if (testResult[i] == 1) {
-                testMessage = boardDesc + "->CAN1: recebida mensagem de ECU" + QString::number(i + offset);
-            } else {
-                testMessage = boardDesc + "->CAN1: erro de mensagem de ECU" + QString::number(i + offset);
-            }
-            if (i >= 1) {
-                offset = 2;
-            }
-            addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, boardId, testMessage, true);
-        }
-    } break;
-
-    case JigaTestConstants::ECU4_BOARD_ID:
-        for (int i = 0; i < testResult.size() - 1; i++) {
-            if (testResult[i] == 1) {
-                testMessage = boardDesc + "->CAN1: recebida mensagem de ECU" + QString::number(i + 1);
-            } else {
-                testMessage = boardDesc + "->CAN1: erro de mensagem de ECU" + QString::number(i + 1);
-            }
-            addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, boardId, testMessage, true);
+            if (i == 0) offset = 2;
+            addCmdTestMessage(JigaTestInterface::CAN1_NETWORK_TEST, boardId, testMessage, true);
         }
         break;
 
-    default:
-        qDebug() << "Unknown board ID:" << boardId;
+    case JigaTestInterface::ECU3_BOARD_ID:
+        for (int i = 0, offset = 1; i < (testResult.size() - 1); ++i) {
+            if (testResult[i] == 1) {
+                testMessage = QString("%1->CAN1: recebida mensagem de ECU%2").arg(boardDesc).arg(i + offset);
+                switch (i + offset - 1) {
+                case JigaTestInterface::ECU1_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN1_ECU1_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU2_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN1_ECU2_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU4_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN1_ECU4_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
+            } else {
+                testMessage = QString("%1->CAN1: erro de mensagem de ECU%2").arg(boardDesc).arg(i + offset);
+                switch (i + offset - 1) {
+                case JigaTestInterface::ECU1_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN1_ECU1_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU2_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN1_ECU2_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU4_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN1_ECU4_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
+            }
+            if (i >= 1) offset = 2;
+            addCmdTestMessage(JigaTestInterface::CAN1_NETWORK_TEST, boardId, testMessage, true);
+        }
+        break;
+
+    case JigaTestInterface::ECU4_BOARD_ID:
+        for (int i = 0; i < (testResult.size() - 1); ++i) {
+            if (testResult[i] == 1) {
+                testMessage = QString("%1->CAN1: recebida mensagem de ECU%2").arg(boardDesc).arg(i + 1);
+                switch (i) {
+                case JigaTestInterface::ECU1_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN1_ECU1_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU2_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN1_ECU2_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU3_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN1_ECU3_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
+            } else {
+                testMessage = QString("%1->CAN1: erro de mensagem de ECU%2").arg(boardDesc).arg(i + 1);
+                switch (i) {
+                case JigaTestInterface::ECU1_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN1_ECU1_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU2_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN1_ECU2_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU3_BOARD_ID:
+                    c1NetworkModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN1_ECU3_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
+            }
+            addCmdTestMessage(JigaTestInterface::CAN1_NETWORK_TEST, boardId, testMessage, true);
+        }
         break;
     }
 }
 
 void RepBusinessController::checkC2CanNetworkReport(int boardId, const QString &recvStr) {
-    QVector<int> testResult;
     int code = getTestReportCode(recvStr);
-    QString boardDesc = psController->getBoardDescription(boardId);
-    QString testMessage;
-
     if (code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
         qDebug() << "Error to read report code!";
         return;
     }
 
-    // Verificando código numérico
-    testResult = UtilsConversion::parseBinary(code);
+    QVector<int> testResult = UtilsConversion::parseBinary(code);
+    QString boardDesc = psController->getBoardDescription(boardId);
+    QString testMessage;
 
     switch (boardId) {
-    case JigaTestConstants::ECU2_BOARD_ID: {
-        for (int i = 0; i < (testResult.size() - 2); i++) {
+    case JigaTestInterface::ECU2_BOARD_ID:
+        for (int i = 0; i < (testResult.size() - 2); ++i) {
             if (testResult[i] == 1) {
-                testMessage = boardDesc + "->CAN2: recebida mensagem de ECU" + QString::number(i + 3);
+                testMessage = QString("%1->CAN2: mensagem recebida da ECU%2").arg(boardDesc).arg(i + 3);
+                switch (i + 2) {
+                case JigaTestInterface::ECU3_BOARD_ID:
+                    c2NetworkModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN2_ECU3_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU4_BOARD_ID:
+                    c2NetworkModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN2_ECU4_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
             } else {
-                testMessage = boardDesc + "->CAN2: erro de mensagem de ECU" + QString::number(i + 3);
+                testMessage = QString("%1->CAN2: erro de mensagem da ECU%2").arg(boardDesc).arg(i + 3);
+                switch (i + 2) {
+                case JigaTestInterface::ECU3_BOARD_ID:
+                    c2NetworkModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN2_ECU3_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU4_BOARD_ID:
+                    c2NetworkModel->setIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN2_ECU4_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
             }
-            addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, boardId, testMessage, true);
+            addCmdTestMessage(JigaTestInterface::CAN2_NETWORK_TEST, boardId, testMessage, true);
         }
-    }
-    break;
+        break;
 
-    case JigaTestConstants::ECU3_BOARD_ID: {
-        int offset = 2;
-        for (int i = 0; i < (testResult.size() - 2); i++) {
+    case JigaTestInterface::ECU3_BOARD_ID:
+        for (int i = 0, offset = 2; i < (testResult.size() - 2); ++i) {
             if (testResult[i] == 1) {
-                testMessage = boardDesc + "->CAN1: recebida mensagem de ECU" + QString::number(i + offset);
+                testMessage = QString("%1->CAN2: mensagem recebida da ECU%2").arg(boardDesc).arg(i + offset);
+                switch (i + offset - 1) {
+                case JigaTestInterface::ECU2_BOARD_ID:
+                    c2NetworkModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN2_ECU2_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU4_BOARD_ID:
+                    c2NetworkModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN2_ECU4_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
             } else {
-                testMessage = boardDesc + "->CAN1: erro de mensagem de ECU" + QString::number(i + offset);
+                testMessage = QString("%1->CAN2: erro de mensagem da ECU%2").arg(boardDesc).arg(i + offset);
+                switch (i + offset - 1) {
+                case JigaTestInterface::ECU2_BOARD_ID:
+                    c2NetworkModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN2_ECU2_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU4_BOARD_ID:
+                    c2NetworkModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN2_ECU4_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
             }
-            if (i <= 0) {
-                offset = 3;
-            }
-            addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, boardId, testMessage, true);
+            if (i == 0) offset = 3;
+            addCmdTestMessage(JigaTestInterface::CAN2_NETWORK_TEST, boardId, testMessage, true);
         }
-    }
-    break;
+        break;
 
-    case JigaTestConstants::ECU4_BOARD_ID: {
-        for (int i = 0; i < (testResult.size() - 2); i++) {
+    case JigaTestInterface::ECU4_BOARD_ID:
+        for (int i = 0; i < (testResult.size() - 2); ++i) {
             if (testResult[i] == 1) {
-                testMessage = boardDesc + "->CAN1: recebida mensagem de ECU" + QString::number(i + 2);
+                testMessage = QString("%1->CAN2: mensagem recebida da ECU%2").arg(boardDesc).arg(i + 2);
+                switch (i + 1) {
+                case JigaTestInterface::ECU2_BOARD_ID:
+                    c2NetworkModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN2_ECU2_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU3_BOARD_ID:
+                    c2NetworkModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN2_ECU3_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                    break;
+                }
             } else {
-                testMessage = boardDesc + "->CAN1: erro de mensagem de ECU" + QString::number(i + 2);
+                testMessage = QString("%1->CAN2: erro de mensagem da ECU%2").arg(boardDesc).arg(i + 2);
+                switch (i + 1) {
+                case JigaTestInterface::ECU2_BOARD_ID:
+                    c2NetworkModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN2_ECU2_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                case JigaTestInterface::ECU3_BOARD_ID:
+                    c2NetworkModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN2_ECU3_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                    break;
+                }
             }
-            addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, boardId, testMessage, true);
+            addCmdTestMessage(JigaTestInterface::CAN2_NETWORK_TEST, boardId, testMessage, true);
         }
-    }
-    break;
-
-    default:
-        qDebug() << "Unknown board ID:" << boardId;
-    break;
+        break;
     }
 }
 
@@ -435,86 +821,27 @@ void RepBusinessController::checkLinNetworkReport(int boardId, const QString &re
     for (int i = 0; i < (lnSize - 2); i++) {
     if (testResult[i] == 1) {
             testMessage = boardDesc + "->LIN: Mensagem lida com sucesso!";
-            if (boardId == JigaTestConstants::ECU3_BOARD_ID) {
-                lnNetworkModel->setIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::LIN1_ECU3_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
-            } else if (boardId == JigaTestConstants::ECU4_BOARD_ID) {
-                lnNetworkModel->setIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::LIN1_ECU4_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+            if (boardId == JigaTestInterface::ECU3_BOARD_ID) {
+                lnNetworkModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::LIN1_ECU3_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+            } else if (boardId == JigaTestInterface::ECU4_BOARD_ID) {
+                lnNetworkModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::LIN1_ECU4_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
             }
     } else {
             testMessage = boardDesc + "->LIN: Erro na leitura da mensagem!";
-            if (boardId == JigaTestConstants::ECU3_BOARD_ID) {
-                lnNetworkModel->setIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::LIN1_ECU3_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
-            } else if (boardId == JigaTestConstants::ECU4_BOARD_ID) {
-                lnNetworkModel->setIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::LIN1_ECU4_ITEST, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+            if (boardId == JigaTestInterface::ECU3_BOARD_ID) {
+                lnNetworkModel->setIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::LIN1_ECU3_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+            } else if (boardId == JigaTestInterface::ECU4_BOARD_ID) {
+                lnNetworkModel->setIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::LIN1_ECU4_ITEST, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
             }
     }
-    addCmdTestMessage(JigaTestConstants::LIN_NETWORK_TEST, boardId, testMessage, true);
+    addCmdTestMessage(JigaTestInterface::LIN_NETWORK_TEST, boardId, testMessage, true);
     }
-}
-
-void RepBusinessController::showCommTestReport() {
-    int testResult;
-    QString reportMessage;
-
-    // Verificando Teste de Comunicação - ECU1
-    testResult = commTestModel->getIndividualTestResult(JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::COMM_ECU1_ITEST);
-    if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
-    reportMessage = psController->getReportProperty("com.ecu1.err");
-    } else {
-    reportMessage = QString("%1 com a ECU1 realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
-    }
-    addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::ECU1_BOARD_ID, reportMessage, true);
-
-    // Verificando Teste de Comunicação - ECU2
-    testResult = commTestModel->getIndividualTestResult(JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::COMM_ECU2_ITEST);
-    if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
-    reportMessage = psController->getReportProperty("com.ecu2.err");
-    } else {
-    reportMessage = QString("%1 com a ECU2 realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
-    }
-    addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::ECU2_BOARD_ID, reportMessage, true);
-
-    // Verificando Teste de Comunicação - ECU3
-    testResult = commTestModel->getIndividualTestResult(JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::COMM_ECU3_ITEST);
-    if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
-    reportMessage = psController->getReportProperty("com.ecu3.err");
-    } else {
-    reportMessage = QString("%1 com a ECU3 realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
-    }
-    addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::ECU3_BOARD_ID, reportMessage, true);
-
-    // Verificando Teste de Comunicação - ECU4
-    testResult = commTestModel->getIndividualTestResult(JigaTestConstants::ECU4_BOARD_ID, JigaTestConstants::COMM_ECU4_ITEST);
-    if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
-    reportMessage = psController->getReportProperty("com.ecu4.err");
-    } else {
-    reportMessage = QString("%1 com a ECU4 realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
-    }
-    addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::ECU4_BOARD_ID, reportMessage, true);
-
-    // Verificando Teste de Comunicação - PROG
-    testResult = commTestModel->getIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID, JigaTestConstants::COMM_PROG_ITEST);
-    if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
-    reportMessage = psController->getReportProperty("com.prog.err");
-    } else {
-    reportMessage = QString("%1 com o PROG realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
-    }
-    addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::MCU1_BOARD_ID, reportMessage, true);
-
-    // Verificando Teste de Comunicação - MCU1
-    testResult = commTestModel->getIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID, JigaTestConstants::COMM_MCU1_ITEST);
-    if (testResult == JigaTestConstants::ERROR_TO_EXECUTE_TEST) {
-    reportMessage = psController->getReportProperty("com.mcu1.err");
-    } else {
-    reportMessage = QString("%1 com o PROG realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
-    }
-    addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, JigaTestConstants::MCU1_BOARD_ID, reportMessage, true);
 }
 
 void RepBusinessController::checkMcuGetCanBusReport(const QString &recvStr) {
     QVector<int> testResult;
     int code = getTestReportCode(recvStr);
-    QString boardDesc = psController->getBoardDescription(JigaTestConstants::MCU1_BOARD_ID);
+    QString boardDesc = psController->getBoardDescription(JigaTestInterface::MCU1_BOARD_ID);
     QString testMessage;
 
     if (code == EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {
@@ -529,21 +856,347 @@ void RepBusinessController::checkMcuGetCanBusReport(const QString &recvStr) {
     // ECU3 - CANBUS1
     if (testResult[0] == 0) {
     testMessage = boardDesc + "-> ECU3 conectada no CANBUS1!";
-    Ecu3Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_1);
+    Ecu3Board::getInstance()->setCanbus(JigaTestInterface::ECU_CANBUS_1);
     } else {
     testMessage = boardDesc + "-> ECU3 conectada no CANBUS2!";
-    Ecu3Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_2);
+    Ecu3Board::getInstance()->setCanbus(JigaTestInterface::ECU_CANBUS_2);
     }
-    addCmdTestMessage(JigaTestConstants::MCU_GET_CANBUS_TEST, JigaTestConstants::MCU1_BOARD_ID, testMessage, true);
+    addCmdTestMessage(JigaTestInterface::MCU_GET_CANBUS_TEST, JigaTestInterface::MCU1_BOARD_ID, testMessage, true);
 
     // ECU4 - CANBUS1 or CANBUS2
     if (testResult[1] == 0) {
     testMessage = boardDesc + "-> ECU4 conectada no CANBUS1!";
-    Ecu4Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_1);
+    Ecu4Board::getInstance()->setCanbus(JigaTestInterface::ECU_CANBUS_1);
     } else {
     testMessage = boardDesc + "-> ECU4 conectada no CANBUS2!";
-    Ecu4Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_2);
+    Ecu4Board::getInstance()->setCanbus(JigaTestInterface::ECU_CANBUS_2);
     }
-    addCmdTestMessage(JigaTestConstants::MCU_GET_CANBUS_TEST, JigaTestConstants::MCU1_BOARD_ID, testMessage, true);
-    mcu1InterModel->setIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID, JigaTestConstants::MCU_GET_CANBUS_ITEST, JigaTestConstants::SUCCESS_EXECUTE_TEST);
+    addCmdTestMessage(JigaTestInterface::MCU_GET_CANBUS_TEST, JigaTestInterface::MCU1_BOARD_ID, testMessage, true);
+    mcu1InterModel->setIndividualTestResult(JigaTestInterface::MCU1_BOARD_ID, JigaTestInterface::MCU_GET_CANBUS_ITEST, JigaTestInterface::SUCCESS_EXECUTE_TEST);
 }
+
+void RepBusinessController::showCommunicationTestReport() {
+    int testResult;
+    QString reportMessage;
+
+    // Verificando Teste de Comunicação - ECU1
+    testResult = commTestModel->getIndividualTestResult(JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::COMM_ECU1_ITEST);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+    reportMessage = psController->getReportProperty("com.ecu1.err");
+    } else {
+    reportMessage = QString("%1 com a ECU1 realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
+    }
+    addCmdTestMessage(JigaTestInterface::COMMUNICATION_TEST, JigaTestInterface::ECU1_BOARD_ID, reportMessage, true);
+
+    // Verificando Teste de Comunicação - ECU2
+    testResult = commTestModel->getIndividualTestResult(JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::COMM_ECU2_ITEST);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+    reportMessage = psController->getReportProperty("com.ecu2.err");
+    } else {
+    reportMessage = QString("%1 com a ECU2 realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
+    }
+    addCmdTestMessage(JigaTestInterface::COMMUNICATION_TEST, JigaTestInterface::ECU2_BOARD_ID, reportMessage, true);
+
+    // Verificando Teste de Comunicação - ECU3
+    testResult = commTestModel->getIndividualTestResult(JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::COMM_ECU3_ITEST);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+    reportMessage = psController->getReportProperty("com.ecu3.err");
+    } else {
+    reportMessage = QString("%1 com a ECU3 realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
+    }
+    addCmdTestMessage(JigaTestInterface::COMMUNICATION_TEST, JigaTestInterface::ECU3_BOARD_ID, reportMessage, true);
+
+    // Verificando Teste de Comunicação - ECU4
+    testResult = commTestModel->getIndividualTestResult(JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::COMM_ECU4_ITEST);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+    reportMessage = psController->getReportProperty("com.ecu4.err");
+    } else {
+    reportMessage = QString("%1 com a ECU4 realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
+    }
+    addCmdTestMessage(JigaTestInterface::COMMUNICATION_TEST, JigaTestInterface::ECU4_BOARD_ID, reportMessage, true);
+
+    // Verificando Teste de Comunicação - PROG
+    testResult = commTestModel->getIndividualTestResult(JigaTestInterface::MCU1_BOARD_ID, JigaTestInterface::COMM_PROG_ITEST);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+    reportMessage = psController->getReportProperty("com.prog.err");
+    } else {
+    reportMessage = QString("%1 com o PROG realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
+    }
+    addCmdTestMessage(JigaTestInterface::COMMUNICATION_TEST, JigaTestInterface::MCU1_BOARD_ID, reportMessage, true);
+
+    // Verificando Teste de Comunicação - MCU1
+    testResult = commTestModel->getIndividualTestResult(JigaTestInterface::MCU1_BOARD_ID, JigaTestInterface::COMM_MCU1_ITEST);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+    reportMessage = psController->getReportProperty("com.mcu1.err");
+    } else {
+    reportMessage = QString("%1 com o PROG realizado com sucesso!").arg(CmdMessageConstants::CMD_MSG_COMMUNICATION);
+    }
+    addCmdTestMessage(JigaTestInterface::COMMUNICATION_TEST, JigaTestInterface::MCU1_BOARD_ID, reportMessage, true);
+}
+
+void RepBusinessController::showDigitalInputTestReport()
+{
+    int testResult;
+    QString reportMessage;
+
+    struct TestDetails {
+    int boardId;
+    int testId;
+    QString errorMsg;
+    QString successMsg;
+    };
+
+    QVector<TestDetails> testDetails = {
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::DIN1_INPUT_ITEST, SystemProperties::REP_DIN1T_ECU1_ERR, "ECU1 DIN#1 lida com sucesso!"},
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::DIN2_INPUT_ITEST, SystemProperties::REP_DIN2T_ECU1_ERR, "ECU1 DIN#2 lida com sucesso!"},
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::DIN3_INPUT_ITEST, SystemProperties::REP_DIN3T_ECU1_ERR, "ECU1 DIN#3 lida com sucesso!"},
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::DIN4_INPUT_ITEST, SystemProperties::REP_DIN4T_ECU1_ERR, "ECU1 DIN#4 lida com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::DIN1_INPUT_ITEST, SystemProperties::REP_DIN1T_ECU2_ERR, "ECU2 DIN#1 lida com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::DIN2_INPUT_ITEST, SystemProperties::REP_DIN2T_ECU2_ERR, "ECU2 DIN#2 lida com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::DIN3_INPUT_ITEST, SystemProperties::REP_DIN3T_ECU2_ERR, "ECU2 DIN#3 lida com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::DIN4_INPUT_ITEST, SystemProperties::REP_DIN4T_ECU2_ERR, "ECU2 DIN#4 lida com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::DIN1_INPUT_ITEST, SystemProperties::REP_DIN1T_ECU3_ERR, "ECU3 DIN#1 lida com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::DIN2_INPUT_ITEST, SystemProperties::REP_DIN2T_ECU3_ERR, "ECU3 DIN#2 lida com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::DIN3_INPUT_ITEST, SystemProperties::REP_DIN3T_ECU3_ERR, "ECU3 DIN#3 lida com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::DIN4_INPUT_ITEST, SystemProperties::REP_DIN4T_ECU3_ERR, "ECU3 DIN#4 lida com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::DIN1_INPUT_ITEST, SystemProperties::REP_DIN1T_ECU4_ERR, "ECU4 DIN#1 lida com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::DIN2_INPUT_ITEST, SystemProperties::REP_DIN2T_ECU4_ERR, "ECU4 DIN#2 lida com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::DIN3_INPUT_ITEST, SystemProperties::REP_DIN3T_ECU4_ERR, "ECU4 DIN#3 lida com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::DIN4_INPUT_ITEST, SystemProperties::REP_DIN4T_ECU4_ERR, "ECU4 DIN#4 lida com sucesso!"}
+    };
+
+    for (const auto& detail : testDetails) {
+    testResult = diInputModel->getIndividualTestResult(detail.boardId, detail.testId);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+            reportMessage = psController->getReportProperty(detail.errorMsg);
+    } else {
+             reportMessage = QString(CmdMessageConstants::CMD_MSG_DIGITAL_INPUT) + ": " + detail.successMsg;
+    }
+    addCmdTestMessage(JigaTestInterface::DIGITAL_INPUT_TEST, detail.boardId, reportMessage, true);
+    }
+}
+
+void RepBusinessController::showAnalogInputTestReport() {
+    int testResult;
+    QString reportMessage;
+
+    struct TestDetails {
+    int boardId;
+    int testId;
+    QString errorMsg;
+    QString successMsg;
+    };
+
+    QVector<TestDetails> testDetails = {
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AIN1_INPUT_ITEST, SystemProperties::REP_AIN1T_ECU1_ERR, "ECU1 AIN#1 lida com sucesso!"},
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AIN2_INPUT_ITEST, SystemProperties::REP_AIN2T_ECU1_ERR, "ECU1 AIN#2 lida com sucesso!"},
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AIN3_INPUT_ITEST, SystemProperties::REP_AIN3T_ECU1_ERR, "ECU1 AIN#3 lida com sucesso!"},
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AIN4_INPUT_ITEST, SystemProperties::REP_AIN4T_ECU1_ERR, "ECU1 AIN#4 lida com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AIN1_INPUT_ITEST, SystemProperties::REP_AIN1T_ECU2_ERR, "ECU2 AIN#1 lida com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AIN2_INPUT_ITEST, SystemProperties::REP_AIN2T_ECU2_ERR, "ECU2 AIN#2 lida com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AIN3_INPUT_ITEST, SystemProperties::REP_AIN3T_ECU2_ERR, "ECU2 AIN#3 lida com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AIN4_INPUT_ITEST, SystemProperties::REP_AIN4T_ECU2_ERR, "ECU2 AIN#4 lida com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::AIN1_INPUT_ITEST, SystemProperties::REP_AIN1T_ECU3_ERR, "ECU3 AIN#1 lida com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::AIN2_INPUT_ITEST, SystemProperties::REP_AIN2T_ECU3_ERR, "ECU3 AIN#2 lida com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::AIN3_INPUT_ITEST, SystemProperties::REP_AIN3T_ECU3_ERR, "ECU3 AIN#3 lida com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::AIN4_INPUT_ITEST, SystemProperties::REP_AIN4T_ECU3_ERR, "ECU3 AIN#4 lida com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::AIN1_INPUT_ITEST, SystemProperties::REP_AIN1T_ECU4_ERR, "ECU4 AIN#1 lida com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::AIN2_INPUT_ITEST, SystemProperties::REP_AIN2T_ECU4_ERR, "ECU4 AIN#2 lida com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::AIN3_INPUT_ITEST, SystemProperties::REP_AIN3T_ECU4_ERR, "ECU4 AIN#3 lida com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::AIN4_INPUT_ITEST, SystemProperties::REP_AIN4T_ECU4_ERR, "ECU4 AIN#4 lida com sucesso!"}
+    };
+
+    for (const auto& detail : testDetails) {
+    testResult = anInputModel->getIndividualTestResult(detail.boardId, detail.testId);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+             reportMessage = psController->getReportProperty(detail.errorMsg);
+    } else {
+             reportMessage = QString(CmdMessageConstants::CMD_MSG_ANALOG_INPUT) + ": " + detail.successMsg;
+    }
+    addCmdTestMessage(JigaTestInterface::ANALOG_INPUT_TEST, detail.boardId, reportMessage, true);
+    }
+}
+
+void RepBusinessController::showAnalogOutputTestReport() {
+    int testResult;
+    QString reportMessage;
+
+    struct TestDetails {
+    int boardId;
+    int testId;
+    QString errorMsg;
+    QString successMsg;
+    };
+
+    QVector<TestDetails> testDetails = {
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::AOUT1_LDR_ITEST, SystemProperties::REP_ANOUT_ECU1_ERR, "AOUT#1 realizado com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::AOUT2_LOOP_ITEST, SystemProperties::REP_ANOUT_ECU2_ERR, "AOUT#2 realizado com sucesso!"}
+    };
+
+    for (const auto& detail : testDetails) {
+    testResult = anOutputModel->getIndividualTestResult(detail.boardId, detail.testId);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+             reportMessage = psController->getReportProperty(detail.errorMsg);
+    } else {
+             reportMessage = QString(CmdMessageConstants::CMD_MSG_ANALOG_OUTPUT) + " " + anOutputModel->getBoardDescription(detail.boardId) + " " + detail.successMsg;
+    }
+    addCmdTestMessage(JigaTestInterface::ANALOG_OUTPUT_TEST, detail.boardId, reportMessage, true);
+    }
+}
+
+void RepBusinessController::showCanInitTestReport() {
+    int testResult;
+    QString reportMessage;
+
+    struct TestDetails {
+    int boardId;
+    int testId;
+    QString errorMsg;
+    QString successMsg;
+    };
+
+    QVector<TestDetails> testDetails = {
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::ICAN1_ECU1_ITEST, SystemProperties::REP_CANIT_ECU1_ERR, "CAN1 da ECU1 realizado com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::ICAN1_ECU2_ITEST, SystemProperties::REP_CANIT_ECU2C1_ERR, "CAN1 da ECU2 realizado com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::ICAN2_ECU2_ITEST, SystemProperties::REP_CANIT_ECU2C2_ERR, "CAN2 da ECU2 realizado com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::ICAN1_ECU3_ITEST, SystemProperties::REP_CANIT_ECU3_ERR, "CAN1 da ECU3 realizado com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::ICAN1_ECU4_ITEST, SystemProperties::REP_CANIT_ECU4_ERR, "CAN1 da ECU4 realizado com sucesso!"}
+    };
+
+    for (const auto& detail : testDetails) {
+    testResult = canInitModel->getIndividualTestResult(detail.boardId, detail.testId);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+             reportMessage = psController->getReportProperty(detail.errorMsg);
+    } else {
+             reportMessage = QString(CmdMessageConstants::CMD_MSG_CAN_INIT) + detail.successMsg;
+    }
+    addCmdTestMessage(JigaTestInterface::CAN_INIT_TEST, detail.boardId, reportMessage, true);
+    }
+}
+
+void RepBusinessController::showCanLoopbackTestReport() {
+    int testResult;
+    QString reportMessage;
+
+    struct TestDetails {
+    int boardId;
+    int testId;
+    QString errorMsg;
+    QString successMsg;
+    };
+
+    QVector<TestDetails> testDetails = {
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::LBC1_ECU1_ITEST, SystemProperties::REP_CAN1L_ECU1_ERR, "CAN1 da ECU1 realizado com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::LBC1_ECU2_ITEST, SystemProperties::REP_CAN1L_ECU2_ERR, "CAN1 da ECU2 realizado com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::LBC2_ECU2_ITEST, SystemProperties::REP_CAN2L_ECU2_ERR, "CAN2 da ECU2 realizado com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::LBC1_ECU3_ITEST, SystemProperties::REP_CAN1L_ECU3_ERR, "CAN1 da ECU3 realizado com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::LBC1_ECU4_ITEST, SystemProperties::REP_CAN1L_ECU4_ERR, "CAN1 da ECU4 realizado com sucesso!"}
+    };
+
+    for (const auto& detail : testDetails) {
+    testResult = canLoopbackModel->getIndividualTestResult(detail.boardId, detail.testId);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+             reportMessage = psController->getReportProperty(detail.errorMsg);
+    } else {
+             reportMessage = QString(CmdMessageConstants::CMD_MSG_LOOPBACK_CAN) + detail.successMsg;
+    }
+    addCmdTestMessage(JigaTestInterface::CAN_LOOPBACK_TEST, detail.boardId, reportMessage, true);
+    }
+}
+
+void RepBusinessController::showCan1NetworkTestReport() {
+    int testResult;
+    QString reportMessage;
+
+    struct TestDetails {
+    int boardId;
+    int testId;
+    QString errorMsg;
+    QString successMsg;
+    };
+
+    QVector<TestDetails> testDetails = {
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::CAN1_ECU2_ITEST, SystemProperties::REP_CAN1T_EC12_ERR, "ECU1 recebeu mensagem da ECU2 com sucesso!"},
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::CAN1_ECU3_ITEST, SystemProperties::REP_CAN1T_EC13_ERR, "ECU1 recebeu mensagem da ECU3 com sucesso!"},
+        {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::CAN1_ECU4_ITEST, SystemProperties::REP_CAN1T_EC14_ERR, "ECU1 recebeu mensagem da ECU4 com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN1_ECU1_ITEST, SystemProperties::REP_CAN1T_EC21_ERR, "ECU2 recebeu mensagem da ECU1 com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN1_ECU3_ITEST, SystemProperties::REP_CAN1T_EC23_ERR, "ECU2 recebeu mensagem da ECU3 com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN1_ECU4_ITEST, SystemProperties::REP_CAN1T_EC24_ERR, "ECU2 recebeu mensagem da ECU4 com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN1_ECU1_ITEST, SystemProperties::REP_CAN1T_EC31_ERR, "ECU3 recebeu mensagem da ECU1 com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN1_ECU2_ITEST, SystemProperties::REP_CAN1T_EC32_ERR, "ECU3 recebeu mensagem da ECU2 com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN1_ECU4_ITEST, SystemProperties::REP_CAN1T_EC34_ERR, "ECU3 recebeu mensagem da ECU4 com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN1_ECU1_ITEST, SystemProperties::REP_CAN1T_EC41_ERR, "ECU4 recebeu mensagem da ECU1 com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN1_ECU2_ITEST, SystemProperties::REP_CAN1T_EC42_ERR, "ECU4 recebeu mensagem da ECU2 com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN1_ECU3_ITEST, SystemProperties::REP_CAN1T_EC43_ERR, "ECU4 recebeu mensagem da ECU3 com sucesso!"}
+    };
+
+    for (const auto& detail : testDetails) {
+    testResult = c1NetworkModel->getIndividualTestResult(detail.boardId, detail.testId);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+             reportMessage = psController->getReportProperty(detail.errorMsg);
+    } else {
+             reportMessage = QString(CmdMessageConstants::CMD_MSG_CAN1_NETWORK) + ": " + detail.successMsg;
+    }
+    addCmdTestMessage(JigaTestInterface::CAN1_NETWORK_TEST, detail.boardId, reportMessage, true);
+    }
+}
+
+void RepBusinessController::showCan2NetworkTestReport() {
+    int testResult;
+    QString reportMessage;
+
+    struct TestDetails {
+    int boardId;
+    int testId;
+    QString errorMsg;
+    QString successMsg;
+    };
+
+    QVector<TestDetails> testDetails = {
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN2_ECU3_ITEST, SystemProperties::REP_CAN2T_EC23_ERR, "ECU2 recebeu a mensagem da ECU3 com sucesso!"},
+        {JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::CAN2_ECU4_ITEST, SystemProperties::REP_CAN2T_EC24_ERR, "ECU2 recebeu a mensagem da ECU4 com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN2_ECU2_ITEST, SystemProperties::REP_CAN2T_EC32_ERR, "ECU3 recebeu a mensagem da ECU2 com sucesso!"},
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::CAN2_ECU4_ITEST, SystemProperties::REP_CAN2T_EC34_ERR, "ECU3 recebeu a mensagem da ECU4 com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN2_ECU2_ITEST, SystemProperties::REP_CAN2T_EC42_ERR, "ECU4 recebeu a mensagem da ECU2 com sucesso!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::CAN2_ECU3_ITEST, SystemProperties::REP_CAN2T_EC43_ERR, "ECU4 recebeu a mensagem da ECU3 com sucesso!"}
+    };
+
+    for (const auto& detail : testDetails) {
+    testResult = c2NetworkModel->getIndividualTestResult(detail.boardId, detail.testId);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+             reportMessage = psController->getReportProperty(detail.errorMsg);
+    } else {
+             reportMessage = QString(CmdMessageConstants::CMD_MSG_CAN2_NETWORK) + ": " + detail.successMsg;
+    }
+    addCmdTestMessage(JigaTestInterface::CAN2_NETWORK_TEST, detail.boardId, reportMessage, true);
+    }
+}
+
+void RepBusinessController::showLinNetworkTestReport() {
+    int testResult;
+    QString reportMessage;
+
+    struct TestDetails {
+    int boardId;
+    int testId;
+    QString errorMsg;
+    QString successMsg;
+    };
+
+    QVector<TestDetails> testDetails = {
+        {JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::LIN1_ECU3_ITEST, SystemProperties::REP_LINNT_EC34_ERR, "ECU3 recebeu mensagem LIN da ECU4!"},
+        {JigaTestInterface::ECU4_BOARD_ID, JigaTestInterface::LIN1_ECU4_ITEST, SystemProperties::REP_LINNT_EC43_ERR, "ECU4 recebeu mensagem LIN da ECU3!"}
+    };
+
+    for (const auto& detail : testDetails) {
+    testResult = lnNetworkModel->getIndividualTestResult(detail.boardId, detail.testId);
+    if (testResult == JigaTestInterface::ERROR_TO_EXECUTE_TEST) {
+             reportMessage = psController->getReportProperty(detail.errorMsg);
+    } else {
+             reportMessage = QString(CmdMessageConstants::CMD_MSG_LIN_NETWORK) + ": " + detail.successMsg;
+    }
+    addCmdTestMessage(JigaTestInterface::LIN_NETWORK_TEST, detail.boardId, reportMessage, true);
+    }
+}
+
+

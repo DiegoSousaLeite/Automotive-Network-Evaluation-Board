@@ -1,0 +1,5 @@
+-I/opt/homebrew/opt/libusb/include/libusb-1.0
+-I/Users/sousadiego/Documents/ws-Qt/ANEB_2
+-o
+/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/tests/__/moc_GetTestReport.cpp
+/Users/sousadiego/Documents/ws-Qt/ANEB_2/GetTestReport.h

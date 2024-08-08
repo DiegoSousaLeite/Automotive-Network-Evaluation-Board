@@ -2,36 +2,59 @@
 #define SERIALCOMMPORT_H
 
 #include <QString>
-#include <QObject>
+#include <QSerialPort>
+#include <QSerialPortInfo>
+#include "ErrorCodeInterface.h"
+#include <QDebug>
+#include <QString>
 
-class SerialCommPort : public QObject
-{
-    Q_OBJECT
+class SerialCommPort {
+private:
+    int port_id;
+    QString portDesc;
+    QString descPortName;
+    QString systemPortName;
+    QString portLocation;
+    int vid;
+    int pid;
+    int portLocLastId;
+
+
 
 public:
-    explicit SerialCommPort(QObject *parent = nullptr);
-    SerialCommPort(int portId, const QString &portDescription, QObject *parent = nullptr);
+    SerialCommPort();
+    SerialCommPort(QSerialPortInfo& serialPort, int port_id);
+    SerialCommPort(int portId, QString portDescription);
 
-    int getCommPortId() const;
     void setCommPortId(int portId);
+    int getCommPortId() const;
 
+    void setPortDescription(QString portDescription);
     QString getPortDescription() const;
-    void setPortDescription(const QString &portDescription);
 
+    void setDescriptivePortName(QString descPortName);
     QString getDescriptivePortName() const;
-    void setDescriptivePortName(const QString &descPortName);
 
+    void setSystemPortName(QString systemPortName);
     QString getSystemPortName() const;
-    void setSystemPortName(const QString &systemPortName);
+
+    void setLocation(QString location);
+    QString getLocation() const;
+
+    void setVendorID(int vid);
+    int getVendorID() const;
+
+    void setProductID(int pid);
+    int getProductID() const;
+
+    int getPortLocationIndex() const;
 
     void printSerialCommPortInfo() const;
     QString toString() const;
 
-private:
-    int commPortID;
-    QString portDescription;
-    QString descPortName;
-    QString systemPortName;
+    void setSerialCommPort(QSerialPortInfo& serialPort, int port_id);
+
+    void init();
 };
 
 #endif // SERIALCOMMPORT_H

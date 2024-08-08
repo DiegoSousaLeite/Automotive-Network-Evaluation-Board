@@ -7,6 +7,7 @@ public:
     static constexpr int ERR_PORT_NOT_FOUND   = 1;
     static constexpr int ERR_PORT_NOT_OPPENED = 2;
     static constexpr int ERR_BOARD_NOT_ACK    = 3;
+    static constexpr int ERR_INVALID_PORT     = -7;
 
 };
 

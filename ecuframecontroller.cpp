@@ -23,58 +23,64 @@ void EcuFrameController::setupModels() {
     c1NetworkModel->addChangeListeners(this);
     c2NetworkModel->addChangeListeners(this);
     lnNetworkModel->addChangeListeners(this);
-    fwUpdateModel->addChangeListeners(this);
+    mcuFwUpModel->addChangeListeners(this);
     mcu1TestModel->addChangeListeners(this);
 }
 
 void EcuFrameController::executeTest(int testId, int boardId) {
-
+    // Verifica se o controlador de negócios 'bsController' foi inicializado
     if (bsController == nullptr) {
         qDebug() << "Erro: bsController não inicializado";
-            return;
+        return;
     }
 
+    // Verifica se o modelo de teste de comunicação 'commTestModel' foi inicializado
     if (commTestModel == nullptr) {
         qDebug() << "Erro: commTestModel não inicializado";
-            return;
+        return;
     }
 
     int boardLoaded;
     bool testStarted;
     QString testMessage;
 
-    // 1 - Resetting conditions
+    // 1 - Reseta o modelo de teste para o ID fornecido
     this->resetTestModel(testId);
 
-    // 2 - Adding message to start the test
-    if (boardId == JigaTestConstants::MCU1_BOARD_ID) {
+    // 2 - Adiciona uma mensagem de início de teste com base no ID da placa
+    if (boardId == JigaTestInterface::MCU1_BOARD_ID) {  // 4
         testMessage = " iniciada!";
     } else {
         testMessage = " iniciado!";
     }
-
     this->addHeaderTestMessage(testId, boardId, testMessage);
 
-    // 3 - Load board information
+    qDebug() << "Chamando loadBoard";
+
+    // 3 - Carrega as informações da placa usando o controlador de negócios
     boardLoaded = bsController->loadBoard(testId, boardId);
+
+    // Verifica se o carregamento da placa foi bem-sucedido
     if (boardLoaded != ErrorCodeInterface::SUCCESS) {
         testMessage = CmdMessageConstants::MSG_UNAVAILABLE_SERIAL_PORT;
         bsController->addCmdTestMessage(testId, boardId, testMessage, true);
         return;
     }
 
-    // 4 - Start individual board test
+    // 4 - Inicia o teste individual da placa
     testStarted = bsController->startIndividualBoardTest(testId, boardId);
+
+    // Verifica se o teste começou corretamente
     if (!testStarted) {
-        // Error to execute the test
+        // Erro ao executar o teste
         testMessage = CmdMessageConstants::MSG_ERROR_TO_RUN_TEST + commTestModel->getBoardDescription(boardId);
         bsController->addCmdTestMessage(testId, boardId, testMessage, true);
-        commTestModel->setTestResult(boardId, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
+        commTestModel->setTestResult(boardId, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
     } else {
-        waitReportTestTimeOut(testId, 0, boardId);
+        waitReportTestTimeOut(testId, 0, boardId);  // Aguarda o tempo limite do teste
     }
 
-    // 5 - Adding message to end the test
+    // 5 - Adiciona uma mensagem de fim de teste
     this->addHeaderTestMessage(testId, boardId, " finalizado!");
 }
 
@@ -94,66 +100,85 @@ void EcuFrameController::executeTest(int test_id)
 
     //2 - Adding message to start the test
     testMessage = " iniciado!";
-    addHeaderTestMessage(test_id,JigaTestConstants::ALL_BOARDS_ID,testMessage);
+    addHeaderTestMessage(test_id,JigaTestInterface::ALL_BOARDS_ID,testMessage);
 
     //3 - Load board information
     numberOfBoards = bsController->loadAllBoards(test_id);
     if(numberOfBoards==0){
         testMessage = CmdMessageConstants::MSG_UNAVAILABLE_SERIAL_PORT;
-        bsController->addCmdTestMessage(test_id,JigaTestConstants::ALL_BOARDS_ID,testMessage,true);
+        bsController->addCmdTestMessage(test_id,JigaTestInterface::ALL_BOARDS_ID,testMessage,true);
         return;
     }
 
     //4 - Start collective board test
     switch (test_id) {
-    case JigaTestConstants::ANALOG_OUTPUT_TEST:
+    case JigaTestInterface::ANALOG_OUTPUT_TEST:
         executeAnalogOutputTest();
         break;
-    case JigaTestConstants::LIN_NETWORK_TEST:
+    case JigaTestInterface::LIN_NETWORK_TEST:
         executeLinNetworkTest();
         break;
-    case JigaTestConstants::CAN_INIT_TEST:
+    case JigaTestInterface::CAN_INIT_TEST:
         executeCanInitTest();
         break;
-    case JigaTestConstants::CAN1_NETWORK_TEST:
+    case JigaTestInterface::CAN1_NETWORK_TEST:
         executeCan1NetworkTest();
         break;
-    case JigaTestConstants::CAN2_NETWORK_TEST:
+    case JigaTestInterface::CAN2_NETWORK_TEST:
         executeCan2NetworkTest();
         break;
-    case JigaTestConstants::COMMUNICATION_TEST:
+    case JigaTestInterface::COMMUNICATION_TEST:
         executeCommunicationTest();
         break;
-    case JigaTestConstants::DIGITAL_INPUT_TEST:
+    case JigaTestInterface::DIGITAL_INPUT_TEST:
         executeDigitalInputTest();
         break;
-    case JigaTestConstants::ANALOG_INPUT_TEST:
+    case JigaTestInterface::ANALOG_INPUT_TEST:
         executeAnalogInputTest();
         break;
-    case JigaTestConstants::LOOPBACK_CAN_TEST:
+    case JigaTestInterface::CAN_LOOPBACK_TEST:
         executeLoopbackCanTest();
         break;
     default:
         qDebug() << "Unknown test ID:" << test_id;
         break;
     }
-    addHeaderTestMessage(test_id,JigaTestConstants::ALL_BOARDS_ID," finalizado!");
+    addHeaderTestMessage(test_id,JigaTestInterface::ALL_BOARDS_ID," finalizado!");
 }
 
 void EcuFrameController::executeTestReport(int test_id)
 {
-    if (!rpController) {
-        qWarning() << "Report controller not set.";
-        return;
-    }
-
     switch (test_id) {
-    case JigaTestConstants::COMMUNICATION_TEST:
-        rpController->showCommTestReport();
+    case JigaTestInterface::COMMUNICATION_TEST:
+        rpController->showCommunicationTestReport();
+        break;
+    case JigaTestInterface::DIGITAL_INPUT_TEST:
+        rpController->showDigitalInputTestReport();
+        break;
+    case JigaTestInterface::ANALOG_INPUT_TEST:
+        rpController->showAnalogInputTestReport();
+        break;
+    case JigaTestInterface::ANALOG_OUTPUT_TEST:
+        rpController->showAnalogOutputTestReport();
+        break;
+    case JigaTestInterface::CAN_INIT_TEST:
+        rpController->showCanInitTestReport();
+        break;
+    case JigaTestInterface::CAN_LOOPBACK_TEST:
+        rpController->showCanLoopbackTestReport();
+        break;
+    case JigaTestInterface::CAN1_NETWORK_TEST:
+        rpController->showCan1NetworkTestReport();
+        break;
+    case JigaTestInterface::CAN2_NETWORK_TEST:
+        rpController->showCan2NetworkTestReport();
+        break;
+    case JigaTestInterface::LIN_NETWORK_TEST:
+        rpController->showLinNetworkTestReport();
         break;
     default:
-        qWarning() << "Unknown test ID for report:" << test_id;
-        break;
+        qWarning() << "Test ID não reconhecido:" << test_id;
+            break;
     }
 }
 
@@ -162,25 +187,19 @@ void EcuFrameController::executeCommunicationTest()
     QString testMessage;
     bool testStarted;
 
-    auto testBoard = [&](int boardID) {
-        testStarted = bsController->startIndividualBoardTest(JigaTestConstants::COMMUNICATION_TEST,boardID);
-        if (!testStarted) {
-            commTestModel->setTestResult(boardID, JigaTestConstants::ERROR_TO_EXECUTE_TEST);
-            testMessage = QString(CmdMessageConstants::CMD_ERROR_TEST_EXECUTION) + " (" + commTestModel->getBoardDescription(boardID) + ")";
-            bsController->addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, boardID, testMessage, true);
-        } else {
-            commTestModel->setTestResult(boardID,JigaTestConstants::SUCCESS_EXECUTE_TEST);
-            testMessage = QString(CmdMessageConstants::CMD_SUCCESS_TEST_EXECUTION) + " (" + commTestModel->getBoardDescription(boardID) + ")";
-            bsController->addCmdTestMessage(JigaTestConstants::COMMUNICATION_TEST, boardID, testMessage, true);
-        }
-    };
-
-    // Iterating through each board
-    testBoard(JigaTestConstants::ECU1_BOARD_ID);
-    testBoard(JigaTestConstants::ECU2_BOARD_ID);
-    testBoard(JigaTestConstants::ECU3_BOARD_ID);
-    testBoard(JigaTestConstants::ECU4_BOARD_ID);
-    testBoard(JigaTestConstants::MCU1_BOARD_ID);
+    for (int i = 0; i < JigaTestInterface::MAX_NUMBER_ECUS; ++i) {
+            testStarted = bsController->startIndividualBoardTest(JigaTestInterface::COMMUNICATION_TEST, i);
+            if (!testStarted) {
+                // Error to execute the test
+                commTestModel->setTestResult(i, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                testMessage = QString(CmdMessageConstants::CMD_ERROR_TEST_EXECUTION) + " (" + commTestModel->getBoardDescription(i) + ")";
+                bsController->addCmdTestMessage(JigaTestInterface::COMMUNICATION_TEST, i, testMessage, true);
+            } else {
+                commTestModel->setTestResult(i, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                testMessage = QString(CmdMessageConstants::CMD_SUCCESS_TEST_EXECUTION) + " (" + commTestModel->getBoardDescription(i) + ")";
+                bsController->addCmdTestMessage(JigaTestInterface::COMMUNICATION_TEST, i, testMessage, true);
+            }
+    }
 }
 
 void EcuFrameController::executeCan1NetworkTest() {
@@ -198,14 +217,14 @@ void EcuFrameController::executeCan1NetworkTest() {
     };
 
     // Trying to set CANBUS1 FOR ECUs
-    if (!handleTest(JigaTestConstants::MCU_SEL_CANBUS1_TEST, JigaTestConstants::MCU1_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ECU4_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ECU3_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ECU2_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ECU1_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::MCU_SEL_CANBUS1_TEST, JigaTestInterface::MCU1_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN1_NETWORK_TEST, JigaTestInterface::ECU4_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN1_NETWORK_TEST, JigaTestInterface::ECU3_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN1_NETWORK_TEST, JigaTestInterface::ECU2_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN1_NETWORK_TEST, JigaTestInterface::ECU1_BOARD_ID)) return;
 
-    bsController->addCmdTestMessage(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_TEST_RESULT, true);
-    waitReportTestTimeOut(JigaTestConstants::CAN1_NETWORK_TEST, JigaTestConstants::CAN_NETWORK_TEST_OFFSET, JigaTestConstants::ALL_BOARDS_ID);
+    bsController->addCmdTestMessage(JigaTestInterface::CAN1_NETWORK_TEST, JigaTestInterface::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_TEST_RESULT, true);
+    waitReportTestTimeOut(JigaTestInterface::CAN1_NETWORK_TEST, JigaTestInterface::CAN_NETWORK_TEST_OFFSET, JigaTestInterface::ALL_BOARDS_ID);
 }
 
 
@@ -225,39 +244,37 @@ void EcuFrameController::executeCan2NetworkTest()
     };
 
     // Trying to set CANBUS2 FOR ECUs
-    if (!handleTest(JigaTestConstants::MCU_SEL_CANBUS2_TEST, JigaTestConstants::MCU1_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::CAN2_NETWORK_TEST, JigaTestConstants::ECU4_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::CAN2_NETWORK_TEST, JigaTestConstants::ECU3_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::CAN2_NETWORK_TEST, JigaTestConstants::ECU2_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::CAN2_NETWORK_TEST, JigaTestConstants::ECU1_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::MCU_SEL_CANBUS2_TEST, JigaTestInterface::MCU1_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN2_NETWORK_TEST, JigaTestInterface::ECU4_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN2_NETWORK_TEST, JigaTestInterface::ECU3_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN2_NETWORK_TEST, JigaTestInterface::ECU2_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN2_NETWORK_TEST, JigaTestInterface::ECU1_BOARD_ID)) return;
 
-    bsController->addCmdTestMessage(JigaTestConstants::CAN2_NETWORK_TEST, JigaTestConstants::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_TEST_RESULT, true);
-    waitReportTestTimeOut(JigaTestConstants::CAN2_NETWORK_TEST, JigaTestConstants::CAN_NETWORK_TEST_OFFSET, JigaTestConstants::ALL_BOARDS_ID);
+    bsController->addCmdTestMessage(JigaTestInterface::CAN2_NETWORK_TEST, JigaTestInterface::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_TEST_RESULT, true);
+    waitReportTestTimeOut(JigaTestInterface::CAN2_NETWORK_TEST, JigaTestInterface::CAN_NETWORK_TEST_OFFSET, JigaTestInterface::ALL_BOARDS_ID);
 }
 
 void EcuFrameController::executeDigitalInputTest() {
-    auto handleTest = [this](int testId, int boardId) {
-        QString testMessage;
-        bool testStarted = bsController->startIndividualBoardTest(testId, boardId);
-        if (!testStarted) {
-            testMessage = QString(CmdMessageConstants::MSG_ERROR_TO_RUN_TEST) + commTestModel->getBoardDescription(boardId);
-            bsController->addCmdTestMessage(testId, boardId, testMessage, true);
-            diInputModel->setTestResult(boardId, EcuBusinessInterface::ERROR_COMMUNICATION_TEST);
-        } else {
-            testMessage = QString(CmdMessageConstants::MSG_SUCCESS_START_TEST) + " (" + commTestModel->getBoardDescription(boardId) + ")";
-            bsController->addCmdTestMessage(testId, boardId, testMessage, true);
-        }
-        return testStarted;
-    };
+    QString testMessage;
+    bool testStarted;
 
-    if (!handleTest(JigaTestConstants::DIGITAL_INPUT_TEST, JigaTestConstants::ECU1_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::DIGITAL_INPUT_TEST, JigaTestConstants::ECU2_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::DIGITAL_INPUT_TEST, JigaTestConstants::ECU3_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::DIGITAL_INPUT_TEST, JigaTestConstants::ECU4_BOARD_ID)) return;
-
-    bsController->addCmdTestMessage(JigaTestConstants::DIGITAL_INPUT_TEST, JigaTestConstants::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_DIGITAL_TEST, true);
-    waitReportTestTimeOut(JigaTestConstants::DIGITAL_INPUT_TEST, JigaTestConstants::DIGITAL_INPUT_TEST_OFFSET,JigaTestConstants::ALL_BOARDS_ID);
+    for (int i = 0; i < JigaTestInterface::MAX_NUMBER_ECUS; ++i) {
+            testStarted = bsController->startIndividualBoardTest(JigaTestInterface::DIGITAL_INPUT_TEST, i);
+            if (!testStarted) {
+                // Error to execute the test
+                diInputModel->setTestResult(i, JigaTestInterface::ERROR_TO_EXECUTE_TEST);
+                testMessage = QString(CmdMessageConstants::CMD_ERROR_TEST_EXECUTION) + " (" + diInputModel->getBoardDescription(i) + ")";
+                bsController->addCmdTestMessage(JigaTestInterface::DIGITAL_INPUT_TEST, i, testMessage, true);
+            } else {
+                diInputModel->setTestResult(i, JigaTestInterface::SUCCESS_EXECUTE_TEST);
+                testMessage = QString(CmdMessageConstants::CMD_SUCCESS_TEST_EXECUTION) + " (" + diInputModel->getBoardDescription(i) + ")";
+                bsController->addCmdTestMessage(JigaTestInterface::DIGITAL_INPUT_TEST, i, testMessage, true);
+            }
+    }
+    bsController->addCmdTestMessage(JigaTestInterface::DIGITAL_INPUT_TEST, JigaTestInterface::ALL_BOARDS_ID,CmdMessageConstants::MSG_WAITING_DIGITAL_TEST, true);
+    waitReportTestTimeOut(JigaTestInterface::DIGITAL_INPUT_TEST, JigaTestInterface::DIGITAL_INPUT_TEST_OFFSET, JigaTestInterface::ALL_BOARDS_ID);
 }
+
 
 void EcuFrameController::executeAnalogOutputTest()
 {
@@ -275,11 +292,11 @@ void EcuFrameController::executeAnalogOutputTest()
         }
     };
 
-    if (!handleTest(JigaTestConstants::ANALOG_OUTPUT_TEST, JigaTestConstants::ECU2_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::ANALOG_OUTPUT_TEST, JigaTestConstants::ECU1_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::ANALOG_OUTPUT_TEST, JigaTestInterface::ECU2_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::ANALOG_OUTPUT_TEST, JigaTestInterface::ECU1_BOARD_ID)) return;
 
-    bsController->addCmdTestMessage(JigaTestConstants::ANALOG_OUTPUT_TEST, JigaTestConstants::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_TEST_RESULT, true);
-    waitReportTestTimeOut(JigaTestConstants::ANALOG_OUTPUT_TEST, JigaTestConstants::ANALOG_OUTPUT_TEST_OFFSET,JigaTestConstants::ALL_BOARDS_ID);
+    bsController->addCmdTestMessage(JigaTestInterface::ANALOG_OUTPUT_TEST, JigaTestInterface::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_TEST_RESULT, true);
+    waitReportTestTimeOut(JigaTestInterface::ANALOG_OUTPUT_TEST, JigaTestInterface::ANALOG_OUTPUT_TEST_OFFSET,JigaTestInterface::ALL_BOARDS_ID);
 }
 
 void EcuFrameController::executeLinNetworkTest()
@@ -299,13 +316,13 @@ void EcuFrameController::executeLinNetworkTest()
     };
 
     // Testing for ECU3
-    if (!handleTest(JigaTestConstants::LIN_NETWORK_TEST, JigaTestConstants::ECU3_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::LIN_NETWORK_TEST, JigaTestInterface::ECU3_BOARD_ID)) return;
 
     // Testing for ECU4
-    if (!handleTest(JigaTestConstants::LIN_NETWORK_TEST, JigaTestConstants::ECU4_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::LIN_NETWORK_TEST, JigaTestInterface::ECU4_BOARD_ID)) return;
 
-    bsController->addCmdTestMessage(JigaTestConstants::LIN_NETWORK_TEST, JigaTestConstants::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_TEST_RESULT, true);
-    waitReportTestTimeOut(JigaTestConstants::LIN_NETWORK_TEST, JigaTestConstants::LIN_NETWORK_TEST_OFFSET,JigaTestConstants::ALL_BOARDS_ID);
+    bsController->addCmdTestMessage(JigaTestInterface::LIN_NETWORK_TEST, JigaTestInterface::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_TEST_RESULT, true);
+    waitReportTestTimeOut(JigaTestInterface::LIN_NETWORK_TEST, JigaTestInterface::LIN_NETWORK_TEST_OFFSET,JigaTestInterface::ALL_BOARDS_ID);
 }
 
 void EcuFrameController::executeCanInitTest()
@@ -328,10 +345,10 @@ void EcuFrameController::executeCanInitTest()
     };
 
     // Execute test for ECU1 to ECU4
-    if (!handleTest(JigaTestConstants::CAN_INIT_TEST, JigaTestConstants::ECU1_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::CAN_INIT_TEST, JigaTestConstants::ECU2_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::CAN_INIT_TEST, JigaTestConstants::ECU3_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::CAN_INIT_TEST, JigaTestConstants::ECU4_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN_INIT_TEST, JigaTestInterface::ECU1_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN_INIT_TEST, JigaTestInterface::ECU2_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN_INIT_TEST, JigaTestInterface::ECU3_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN_INIT_TEST, JigaTestInterface::ECU4_BOARD_ID)) return;
 }
 
 void EcuFrameController::executeLoopbackCanTest()
@@ -344,7 +361,7 @@ void EcuFrameController::executeLoopbackCanTest()
         if (!testStarted) {
             testMessage = QString(CmdMessageConstants::MSG_ERROR_TO_RUN_TEST) + commTestModel->getBoardDescription(boardId);
             bsController->addCmdTestMessage(testId, boardId, testMessage, true);
-            lbNetworkModel->setTestResult(boardId, JigaTestConstants::LOOPBACK_CAN_TEST);
+            lbNetworkModel->setTestResult(boardId, JigaTestInterface::CAN_LOOPBACK_TEST);
             return false;
         } else {
             bsController->addCmdTestMessage(testId, boardId, CmdMessageConstants::MSG_SUCCESS_START_TEST, true);
@@ -353,14 +370,14 @@ void EcuFrameController::executeLoopbackCanTest()
     };
 
     // Execute loopback test for each ECU
-    if (!handleTest(JigaTestConstants::LOOPBACK_CAN_TEST, JigaTestConstants::ECU1_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::LOOPBACK_CAN_TEST, JigaTestConstants::ECU2_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::LOOPBACK_CAN_TEST, JigaTestConstants::ECU3_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::LOOPBACK_CAN_TEST, JigaTestConstants::ECU4_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN_LOOPBACK_TEST, JigaTestInterface::ECU1_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN_LOOPBACK_TEST, JigaTestInterface::ECU2_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN_LOOPBACK_TEST, JigaTestInterface::ECU3_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::CAN_LOOPBACK_TEST, JigaTestInterface::ECU4_BOARD_ID)) return;
 
     // Message indicating waiting for results after all tests initiated
-    bsController->addCmdTestMessage(JigaTestConstants::LOOPBACK_CAN_TEST, JigaTestConstants::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_TEST_RESULT, true);
-    waitReportTestTimeOut(JigaTestConstants::LOOPBACK_CAN_TEST, JigaTestConstants::CAN_NETWORK_TEST_OFFSET,JigaTestConstants::ALL_BOARDS_ID);
+    bsController->addCmdTestMessage(JigaTestInterface::CAN_LOOPBACK_TEST, JigaTestInterface::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_TEST_RESULT, true);
+    waitReportTestTimeOut(JigaTestInterface::CAN_LOOPBACK_TEST, JigaTestInterface::CAN_NETWORK_TEST_OFFSET,JigaTestInterface::ALL_BOARDS_ID);
 }
 
 void EcuFrameController::executeAnalogInputTest()
@@ -382,101 +399,125 @@ void EcuFrameController::executeAnalogInputTest()
     };
 
     // Execute test for all designated ECUs
-    if (!handleTest(JigaTestConstants::ANALOG_INPUT_TEST, JigaTestConstants::ECU1_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::ANALOG_INPUT_TEST, JigaTestConstants::ECU2_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::ANALOG_INPUT_TEST, JigaTestConstants::ECU3_BOARD_ID)) return;
-    if (!handleTest(JigaTestConstants::ANALOG_INPUT_TEST, JigaTestConstants::ECU4_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::ANALOG_INPUT_TEST, JigaTestInterface::ECU1_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::ANALOG_INPUT_TEST, JigaTestInterface::ECU2_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::ANALOG_INPUT_TEST, JigaTestInterface::ECU3_BOARD_ID)) return;
+    if (!handleTest(JigaTestInterface::ANALOG_INPUT_TEST, JigaTestInterface::ECU4_BOARD_ID)) return;
 
     // After all tests have started, send a message indicating that the system is waiting for results
-    bsController->addCmdTestMessage(JigaTestConstants::ANALOG_INPUT_TEST, JigaTestConstants::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_ANALOG_TEST, true);
+    bsController->addCmdTestMessage(JigaTestInterface::ANALOG_INPUT_TEST, JigaTestInterface::ALL_BOARDS_ID, CmdMessageConstants::MSG_WAITING_ANALOG_TEST, true);
 
     // Implement waiting for the test report based on a timeout specified in constants
-    waitReportTestTimeOut(JigaTestConstants::ANALOG_INPUT_TEST, JigaTestConstants::ANALOG_INPUT_TEST_OFFSET,JigaTestConstants::ALL_BOARDS_ID);
+    waitReportTestTimeOut(JigaTestInterface::ANALOG_INPUT_TEST, JigaTestInterface::ANALOG_INPUT_TEST_OFFSET,JigaTestInterface::ALL_BOARDS_ID);
 }
 
 
 
 
-void EcuFrameController::executeFirmwareUpload(int board_id) {
+void EcuFrameController::executeFirmwareUpload(int board_id, int processor_id) {
     int retVal;
     QString testMessage;
 
     // 1 - Resetting conditions
-    resetTestModel(JigaTestConstants::FIRMWARE_UPLOAD);
+    resetTestModel(JigaTestInterface::ECU_FIRMWARE_UPLOAD);
 
     // 2 - Adding message to start the test
-    testMessage = " iniciado!";
-    addHeaderTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, testMessage);
+    testMessage = " iniciada!";
+    addHeaderTestMessage(JigaTestInterface::ECU_FIRMWARE_UPLOAD, board_id, testMessage);
 
     // 3 - Load the serial communication ports
-    retVal = bsController->loadAllSerialCommPorts();
+    retVal = bsController->loadSerialCommPorts();
     if (retVal <= 0) {
-        testMessage = CmdMessageConstants::MSG_UNAVAILABLE_SERIAL_PORT;
-                      bsController->addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, board_id, testMessage, true);
-        return;
+            testMessage = CmdMessageConstants::MSG_UNAVAILABLE_SERIAL_PORT;
+            bsController->addCmdTestMessage(JigaTestInterface::ECU_FIRMWARE_UPLOAD, board_id, testMessage, true);
+            return;
     }
 
     // Checking board id
-    if (board_id == JigaTestConstants::ALL_BOARDS_ID) {
-        // Iterating over all board IDs
-        const QList<int> boardIds = {JigaTestConstants::ECU1_BOARD_ID, JigaTestConstants::ECU2_BOARD_ID, JigaTestConstants::ECU3_BOARD_ID, JigaTestConstants::ECU4_BOARD_ID};
-        for (int id : boardIds) {
-            //Sending External Reset TimeOut
-            bsController->startIndividualBoardTest(JigaTestConstants::MCU_RST_ATT_TEST, JigaTestConstants::MCU1_BOARD_ID);
-            //Start firmware upload
-            bsController->uploadFirmware(id);
-        }
+    if (board_id == JigaTestInterface::ALL_BOARDS_ID) {
+            // Iterating over all board IDs
+            const QList<int> boardIds = {JigaTestInterface::ECU1_BOARD_ID, JigaTestInterface::ECU2_BOARD_ID, JigaTestInterface::ECU3_BOARD_ID, JigaTestInterface::ECU4_BOARD_ID};
+            for (int id : boardIds) {
+                // Sending External Reset TimeOut
+                bsController->startIndividualBoardTest(JigaTestInterface::MCU_RST_ATT_TEST, JigaTestInterface::MCU1_BOARD_ID);
+                // Start firmware upload
+                bsController->uploadFirmware(id, processor_id);
+            }
     } else {
-        //Sending External Reset TimeOut
-        bsController->startIndividualBoardTest(JigaTestConstants::MCU_RST_ATT_TEST, JigaTestConstants::MCU1_BOARD_ID);
-         //Start firmware upload
-        bsController->uploadFirmware(board_id);
+            // Sending External Reset TimeOut
+            bsController->startIndividualBoardTest(JigaTestInterface::MCU_RST_ATT_TEST, JigaTestInterface::MCU1_BOARD_ID);
+            // Start firmware upload
+            bsController->uploadFirmware(board_id, processor_id);
     }
 
     // Adding message to finish the test
-    addHeaderTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, board_id, " finalizado!");
+    addHeaderTestMessage(JigaTestInterface::ECU_FIRMWARE_UPLOAD, board_id, " finalizada!");
 }
 
-void EcuFrameController::executeFirmwareUpload(int port_id, const QString &pathToHexFile)
-{
-    int retVal;
-    QString testMessage;
+//void EcuFrameController::executeFirmwareUpload(int port_id, const QString &pathToHexFile)
+//{
+//    int retVal;
+//    QString testMessage;
 
-    // 1 - Resetting conditions
-    resetTestModel(JigaTestConstants::FIRMWARE_UPLOAD);
+//    // 1 - Resetting conditions
+//    resetTestModel(JigaTestInterface::FIRMWARE_UPLOAD);
 
-    // 2 - Adding message to start the test
-    testMessage = "iniciada!";
-    addHeaderTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, testMessage);
+//    // 2 - Adding message to start the test
+//    testMessage = "iniciada!";
+//    addHeaderTestMessage(JigaTestInterface::FIRMWARE_UPLOAD, JigaTestInterface::MCU1_BOARD_ID, testMessage);
 
-    // 3 - Load the serial communication ports
-    retVal = bsController->loadAllSerialCommPorts();
-    if (retVal <= 0) {
-        testMessage = CmdMessageConstants::MSG_UNAVAILABLE_SERIAL_PORT;
-                      bsController->addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, testMessage, true);
-        return;
-    }
+//    // 3 - Load the serial communication ports
+//    retVal = bsController->loadAllSerialCommPorts();
+//    if (retVal <= 0) {
+//        testMessage = CmdMessageConstants::MSG_UNAVAILABLE_SERIAL_PORT;
+//                      bsController->addCmdTestMessage(JigaTestInterface::FIRMWARE_UPLOAD, JigaTestInterface::MCU1_BOARD_ID, testMessage, true);
+//        return;
+//    }
 
-    // 4 - Sending External Reset TimeOut
-    bsController->startIndividualBoardTest(JigaTestConstants::MCU_RST_ATT_TEST, JigaTestConstants::MCU1_BOARD_ID);
+//    // 4 - Sending External Reset TimeOut
+//    bsController->startIndividualBoardTest(JigaTestInterface::MCU_RST_ATT_TEST, JigaTestInterface::MCU1_BOARD_ID);
 
-    // 5 - Start firmware upload
-    if (!bsController->uploadFirmware(port_id, pathToHexFile)) {
-        testMessage = "Falha ao carregar o firmware";
-        bsController->addCmdTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, testMessage, true);
-        return;
-    }
+//    // 5 - Start firmware upload
+//    if (!bsController->uploadFirmware(port_id, pathToHexFile)) {
+//        testMessage = "Falha ao carregar o firmware";
+//        bsController->addCmdTestMessage(JigaTestInterface::FIRMWARE_UPLOAD, JigaTestInterface::MCU1_BOARD_ID, testMessage, true);
+//        return;
+//    }
 
-    // 6 - Adding message to finish the test
-    addHeaderTestMessage(JigaTestConstants::FIRMWARE_UPLOAD, JigaTestConstants::MCU1_BOARD_ID, "finalizada!");
-}
+//    // 6 - Adding message to finish the test
+//    addHeaderTestMessage(JigaTestInterface::FIRMWARE_UPLOAD, JigaTestInterface::MCU1_BOARD_ID, "finalizada!");
+//}
 
 void EcuFrameController::setEcuBusinessController(EcuBusinessController bsInterface)
 {
     this->bsController = &bsInterface;
 }
 
-QVector<SerialCommPort *> EcuFrameController::getSerialCommPortsInfo()
+void EcuFrameController::executeFindSerialPortTest()
+{
+    int retVal;
+    QString testMessage;
+
+    // 1 - Resetting conditions
+    resetTestModel(JigaTestInterface::FIND_SERIAL_PORT_TEST);
+
+    // 2 - Adding message to start the test
+    testMessage = " iniciada!";
+    addHeaderTestMessage(JigaTestInterface::FIND_SERIAL_PORT_TEST, JigaTestInterface::ALL_BOARDS_ID, testMessage);
+
+    // 3 - Find all serial comm ports
+    retVal = bsController->findSerialCommPorts();
+    if (retVal < 0) {
+            testMessage = CmdMessageConstants::MSG_UNAVAILABLE_SERIAL_PORT;
+            bsController->addCmdTestMessage(JigaTestInterface::FIND_SERIAL_PORT_TEST, JigaTestInterface::ALL_BOARDS_ID, testMessage, true);
+            return;
+    }
+
+    // Adding message to finish the test
+    addHeaderTestMessage(JigaTestInterface::FIND_SERIAL_PORT_TEST, JigaTestInterface::ALL_BOARDS_ID, " finalizada!");
+}
+
+QVector<SerialCommPort*> EcuFrameController::getSerialCommPortsInfo()
 {
     return bsController->getSerialCommPortsInfo();
 }

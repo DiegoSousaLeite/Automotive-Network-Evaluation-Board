@@ -14,9 +14,11 @@
 #include "CAN2NetworkTest.h"
 #include "CommunicationTest.h"
 #include "DigitalInputTest.h"
-#include "FirmwareUpload.h"
+#include "MCUFirmwareUpload.h"
+#include "ecufirmwareupload.h"
+#include "findserialporttest.h"
 #include "LinNetworkTest.h"
-#include "LoopbackCanTest.h"
+#include "CANLoopbackTest.h"
 #include "MCUInterfaceTest.h"
 #include "CANInitTest.h"
 #include "IFrameListener.h"
@@ -36,11 +38,13 @@ public:
     AnalogInputTest *anInputModel;
     AnalogOutputTest *anOutputModel;
     CANInitTest *canInitModel;
-    LoopbackCanTest *lbNetworkModel;
+    CANLoopbackTest *lbNetworkModel;
     CAN1NetworkTest *c1NetworkModel;
     CAN2NetworkTest *c2NetworkModel;
     LinNetworkTest *lnNetworkModel;
-    FirmwareUpload *fwUpdateModel;
+    MCUFirmwareUpload *mcuFwUpModel;
+    ECUFirmwareUpload *ecuFwUpModel;
+    FindSerialPortTest *findSerialModel;
     MCUInterfaceTest *mcu1TestModel;
 
     void addChangeListener(IFrameListener* listener) override;
@@ -50,7 +54,7 @@ protected:
     void resetTestModel(int test_id);
     void addHeaderTestMessage(int test_id, int board_id, const QString &testMessage);
     void waitReportTestTimeout(int test_id, int offset);
-    virtual void executeFirmwareUpload(int board_id) = 0;
+    //virtual void executeFirmwareUpload(int board_id) = 0;
     // void addFrameView(RCFrame *jigaFrame);
     void setReportController(ReportControllerInterface *rpController);
     ReportControllerInterface *rpController;

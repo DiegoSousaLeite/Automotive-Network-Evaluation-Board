@@ -20,11 +20,14 @@ public:
     int loadBoard(int testId, int boardId);
     int loadAllBoards(int testId);
     bool loadSerialCommPort(int boardId);
-    int loadAllSerialCommPorts();
+    int loadSerialCommPorts();
     void setReportController(RepBusinessController *rpController);
-    int uploadFirmware(int boardId);
-    int uploadFirmware(int portId, const QString &pathToHexFile);
+//    int uploadFirmware(int boardId);
+//    int uploadFirmware(int portId, const QString &pathToHexFile);
+    int uploadFirmware(int boardId, int processorId);
     QVector<SerialCommPort*> getSerialCommPortsInfo();
+    int findSerialCommPorts();
+
 
 private:
 

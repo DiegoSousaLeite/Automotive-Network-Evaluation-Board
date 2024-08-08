@@ -5,7 +5,7 @@ Mcu1Board* Mcu1Board::instance = nullptr;
 
 Mcu1Board::Mcu1Board() {
     int ecuBaudRate = Environment::getInt("ecu.app.baudrate", 115200);
-    setBoardIdentification(JigaTestConstants::MCU1_BOARD_ID);
+    setBoardIdentification(JigaTestInterface::MCU1_BOARD_ID);
     setBoardDescription("MCU1");
     setBoardBaudRate(ecuBaudRate);
 }

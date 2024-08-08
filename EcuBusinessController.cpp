@@ -4,6 +4,7 @@
 
 EcuBusinessController::EcuBusinessController(QObject *parent)
     : BusinessController(parent), repController(nullptr){
+    psController = new PersistenceController();
 
 }
 
@@ -21,42 +22,42 @@ bool EcuBusinessController::startIndividualBoardTest(int testId, int boardId) {
             if (startTestExecution(testId, boardId)) {
 
                 switch (testId) {
-                case JigaTestConstants::CAN_INIT_TEST:
-                case JigaTestConstants::MCU_RST_ACT_TEST:
-                case JigaTestConstants::MCU_RST_DAC_TEST:
-                case JigaTestConstants::MCU_RST_ATT_TEST:
-                case JigaTestConstants::COMMUNICATION_TEST:
-                case JigaTestConstants::MCU_IDENT_PORT_TEST:
-                case JigaTestConstants::MCU_SEL_CANBUS1_TEST:
-                case JigaTestConstants::MCU_SEL_CANBUS2_TEST:
-                case JigaTestConstants::MCU_TOG_ECU3BUS_TEST:
-                case JigaTestConstants::MCU_TOG_ECU4BUS_TEST:
+                case JigaTestInterface::CAN_INIT_TEST:
+                case JigaTestInterface::MCU_RST_ACT_TEST:
+                case JigaTestInterface::MCU_RST_DAC_TEST:
+                case JigaTestInterface::MCU_RST_ATT_TEST:
+                case JigaTestInterface::COMMUNICATION_TEST:
+                case JigaTestInterface::MCU_IDENT_PORT_TEST:
+                case JigaTestInterface::MCU_SEL_CANBUS1_TEST:
+                case JigaTestInterface::MCU_SEL_CANBUS2_TEST:
+                case JigaTestInterface::MCU_TOG_ECU3BUS_TEST:
+                case JigaTestInterface::MCU_TOG_ECU4BUS_TEST:
                     testMessage = commPort + ":" + CmdMessageConstants::MSG_SUCCESS_CLOSE_SERIAL_PORT;
                     addCmdTestMessage(testId, boardId, testMessage, false);
                     psController->closeBoardConnection(boardId);
 
                     switch (testId) {
-                    case JigaTestConstants::MCU_RST_ATT_TEST :
-                        mcu1InterModel->setIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID,JigaTestConstants::MCU_RST_ATT_ITEST,JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                    case JigaTestInterface::MCU_RST_ATT_TEST :
+                        mcu1InterModel->setIndividualTestResult(JigaTestInterface::MCU1_BOARD_ID,JigaTestInterface::MCU_RST_ATT_ITEST,JigaTestInterface::SUCCESS_EXECUTE_TEST);
                         break;
 
-                    case JigaTestConstants::MCU_SEL_CANBUS1_TEST:
-                        Ecu3Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_1);
-                        Ecu4Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_1);
-                        mcu1InterModel->setIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID,JigaTestConstants::MCU_SEL_CANBUS1_ITEST,JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                    case JigaTestInterface::MCU_SEL_CANBUS1_TEST:
+                        Ecu3Board::getInstance()->setCanbus(JigaTestInterface::ECU_CANBUS_1);
+                        Ecu4Board::getInstance()->setCanbus(JigaTestInterface::ECU_CANBUS_1);
+                        mcu1InterModel->setIndividualTestResult(JigaTestInterface::MCU1_BOARD_ID,JigaTestInterface::MCU_SEL_CANBUS1_ITEST,JigaTestInterface::SUCCESS_EXECUTE_TEST);
                         break;
-                    case JigaTestConstants::MCU_SEL_CANBUS2_TEST:
-                        Ecu3Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_2);
-                        Ecu4Board::getInstance()->setCanbus(JigaTestConstants::ECU_CANBUS_2);
-                        mcu1InterModel->setIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID,JigaTestConstants::MCU_SEL_CANBUS2_ITEST,JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                    case JigaTestInterface::MCU_SEL_CANBUS2_TEST:
+                        Ecu3Board::getInstance()->setCanbus(JigaTestInterface::ECU_CANBUS_2);
+                        Ecu4Board::getInstance()->setCanbus(JigaTestInterface::ECU_CANBUS_2);
+                        mcu1InterModel->setIndividualTestResult(JigaTestInterface::MCU1_BOARD_ID,JigaTestInterface::MCU_SEL_CANBUS2_ITEST,JigaTestInterface::SUCCESS_EXECUTE_TEST);
                         break;
-                    case JigaTestConstants::MCU_TOG_ECU3BUS_TEST:
+                    case JigaTestInterface::MCU_TOG_ECU3BUS_TEST:
                         Ecu3Board::getInstance()->toggleCanBus();
-                        mcu1InterModel->setIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID,JigaTestConstants::MCU_TOG_ECU3BUS_ITEST,JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                        mcu1InterModel->setIndividualTestResult(JigaTestInterface::MCU1_BOARD_ID,JigaTestInterface::MCU_TOG_ECU3BUS_ITEST,JigaTestInterface::SUCCESS_EXECUTE_TEST);
                         break;
-                    case JigaTestConstants::MCU_TOG_ECU4BUS_TEST:
+                    case JigaTestInterface::MCU_TOG_ECU4BUS_TEST:
                         Ecu4Board::getInstance()->toggleCanBus();
-                        mcu1InterModel->setIndividualTestResult(JigaTestConstants::MCU1_BOARD_ID,JigaTestConstants::MCU_TOG_ECU4BUS_ITEST,JigaTestConstants::SUCCESS_EXECUTE_TEST);
+                        mcu1InterModel->setIndividualTestResult(JigaTestInterface::MCU1_BOARD_ID,JigaTestInterface::MCU_TOG_ECU4BUS_ITEST,JigaTestInterface::SUCCESS_EXECUTE_TEST);
                         break;
                     default:
                         break;
@@ -92,183 +93,181 @@ int EcuBusinessController::loadBoard(int testId, int boardId) {
     QString recvStr;
     bool portOpened;
     bool endOfLine = true;
-    int retVal = 0;
-    int baudrate = (boardId == JigaTestConstants::MCU1_BOARD_ID) ? QString(SystemProperties::MCU_APP_BAUDRATE).toInt() : QString(SystemProperties::ECU_APP_BAUDRATE).toInt();
-    int numberOfPorts = QSerialPortInfo::availablePorts().count();
+    int retVal = -1;
+    qDebug() << "Chamando loadSerialCommPorts...";
 
+    int numberOfPorts = psController->loadSerialCommPorts();  // Carrega as portas seriais disponíveis
+
+    qDebug() << "Número de portas disponíveis:" << numberOfPorts;
+
+        // Verifica se há portas seriais disponíveis
     if (numberOfPorts <= 0) {
-        return ErrorCodeInterface::ERR_PORT_NOT_FOUND;
+        qDebug() << "Erro: Nenhuma porta encontrada!";
+        return ErrorCodeInterface::ERR_PORT_NOT_FOUND;  // Retorna erro de porta não encontrada
     }
 
+    // Tenta abrir conexão com a placa várias vezes
     for (int i = 0; i < EcuBusinessInterface::MAX_NUMBER_ATTEMPTS; i++) {
+        portOpened = psController->openBoardConnection(boardId);  // Tenta abrir a conexão da placa
         for (int j = 0; j < numberOfPorts; j++) {
-            portOpened = psController->openBoardConnection(j, baudrate);
-            if(portOpened == true){
-                psController->serialWrite(j, AtCommandConstants::AT_BI_CMD, endOfLine);
-                QThread::msleep(10);
-                recvStr = psController->serialRead(j);
+            qDebug() << "Tentativa" << i+1 << "Porta" << j;
+            qDebug() << "Porta aberta:" << portOpened;
 
+            // Verifica se a porta foi aberta com sucesso
+            if (portOpened) {
+                psController->serialWrite(j, AtCommandConstants::AT_BI_CMD, endOfLine);  // Envia comando AT
+                QThread::msleep(10);  // Aguarda 10 milissegundos
+                recvStr = psController->serialBoardRead(boardId);  // Lê a resposta da placa
+                qDebug() << "Resposta recebida:" << recvStr;
+
+                // Verifica a resposta da placa com base no ID da placa
                 switch (boardId) {
-                case JigaTestConstants::ECU1_BOARD_ID:
+                case JigaTestInterface::ECU1_BOARD_ID:
                     if (recvStr.toUpper() == AtCommandConstants::AT_ECU1_OK) {
-                        commPort = psController->getSystemPortDescription(j);
+                        commPort = Ecu1Board::getInstance()->getSerialCommPort().getDescriptivePortName();
                         testMessage = QString("%1: %2%3").arg(commPort, CmdMessageConstants::MSG_BOARD_ON_SERIAL_PORT, "ECU1");
-                        psController->setBoardInformation(j, boardId);
-                        psController->closeConnection(j);
-                        return ErrorCodeInterface::SUCCESS;
+                        addCmdTestMessage(testId, boardId, testMessage, true);
+                        psController->closeConnection(boardId);  // Fecha a conexão da placa
+                        return ErrorCodeInterface::SUCCESS;  // Retorna sucesso
+                    } else if (recvStr.toUpper() == AtCommandConstants::AT_ECU1_ERR) {
+                        retVal = ErrorCodeInterface::ERR_BOARD_NOT_ACK;  // Erro de placa não reconhecida
+                        break;
                     }
                     break;
-                case JigaTestConstants::ECU2_BOARD_ID:
+                case JigaTestInterface::ECU2_BOARD_ID:
                     if (recvStr.toUpper() == AtCommandConstants::AT_ECU2_OK) {
-                        commPort = psController->getSystemPortDescription(j);
+                        commPort = Ecu2Board::getInstance()->getSerialCommPort().getDescriptivePortName();
                         testMessage = QString("%1: %2%3").arg(commPort, CmdMessageConstants::MSG_BOARD_ON_SERIAL_PORT, "ECU2");
-                        addCmdTestMessage(testId, boardId, testMessage, false);
-                        psController->setBoardInformation(j, boardId);
-                        psController->closeConnection(j);
+                        addCmdTestMessage(testId, boardId, testMessage, true);
+                        psController->closeConnection(boardId);
                         return ErrorCodeInterface::SUCCESS;
+                    }else if(recvStr.toUpper() == AtCommandConstants::AT_ECU2_ERR){
+                        retVal = ErrorCodeInterface::ERR_BOARD_NOT_ACK;
+                        break;
                     }
                     break;
-                case JigaTestConstants::ECU3_BOARD_ID:
+                case JigaTestInterface::ECU3_BOARD_ID:
                     if (recvStr.toUpper() == AtCommandConstants::AT_ECU3_OK) {
                         commPort = psController->getSystemPortDescription(j);
                         testMessage = QString("%1: %2%3").arg(commPort, CmdMessageConstants::MSG_BOARD_ON_SERIAL_PORT, "ECU3");
-                        addCmdTestMessage(testId, boardId, testMessage, false);
-                        psController->setBoardInformation(j, boardId);
-                        psController->closeConnection(j);
+                        addCmdTestMessage(testId, boardId, testMessage, true);
+                        psController->closeConnection(boardId);
                         return ErrorCodeInterface::SUCCESS;
+                    }else if(recvStr.toUpper() == AtCommandConstants::AT_ECU3_ERR){
+                        retVal = ErrorCodeInterface::ERR_BOARD_NOT_ACK;
+                        break;
                     }
                     break;
-                case JigaTestConstants::ECU4_BOARD_ID:
+                case JigaTestInterface::ECU4_BOARD_ID:
                     if (recvStr.toUpper() == AtCommandConstants::AT_ECU4_OK) {
                         commPort = psController->getSystemPortDescription(j);
                         testMessage = QString("%1: %2%3").arg(commPort, CmdMessageConstants::MSG_BOARD_ON_SERIAL_PORT, "ECU4");
-                        addCmdTestMessage(testId, boardId, testMessage, false);
-                        psController->setBoardInformation(j, boardId);
-                        psController->closeConnection(j);
+                        addCmdTestMessage(testId, boardId, testMessage, true);
+                        psController->closeConnection(boardId);
                         return ErrorCodeInterface::SUCCESS;
+                    }else if(recvStr.toUpper() == AtCommandConstants::AT_ECU4_ERR){
+                        retVal = ErrorCodeInterface::ERR_BOARD_NOT_ACK;
+                        break;
                     }
                     break;
-                case JigaTestConstants::MCU1_BOARD_ID:
+                case JigaTestInterface::MCU1_BOARD_ID:
                     if (recvStr.toUpper() == AtCommandConstants::AT_MCU1_OK) {
                         commPort = psController->getSystemPortDescription(j);
                         testMessage = QString("%1: %2%3").arg(commPort, CmdMessageConstants::MSG_BOARD_ON_SERIAL_PORT, "MCU1");
-                        addCmdTestMessage(testId, boardId, testMessage, false);
-                        psController->setBoardInformation(j, boardId);
-                        psController->closeConnection(j);
+                        qDebug() << "Mensagem de teste:" << testMessage;
+                        addCmdTestMessage(testId, boardId, testMessage, true);
+                        psController->closeConnection(boardId);
                         return ErrorCodeInterface::SUCCESS;
+                    }else if(recvStr.toUpper() == AtCommandConstants::AT_MCU1_ERR){
+                        retVal = ErrorCodeInterface::ERR_BOARD_NOT_ACK;
+                        break;
                     }
                     break;
                 default:
-                    retVal = ErrorCodeInterface::ERR_BOARD_NOT_ACK;
+                    qDebug() << "Erro: ID da placa não reconhecido!" << boardId;
+                    retVal = ErrorCodeInterface::ERR_BOARD_NOT_ACK;  // Erro de placa não reconhecida
                     break;
                 }
-                psController->closeConnection(j);
+                psController->closeConnection(boardId);  // Fecha a conexão da placa
             } else {
-                retVal = ErrorCodeInterface::ERR_PORT_NOT_OPPENED;
+                qDebug() << "Erro: Porta" << j << "não pôde ser aberta!";
+                retVal = ErrorCodeInterface::ERR_PORT_NOT_OPPENED;  // Erro de porta não aberta
             }
         }
     }
 
-    return retVal;
+    qDebug() << "Retornando valor:" << retVal;
+    return retVal;  // Retorna o valor final (sucesso ou erro)
 }
+
 
 int EcuBusinessController::loadAllBoards(int testId)
 {
     int numberOfBoards = 0;
 
-    if(loadBoard(testId,JigaTestConstants::ECU1_BOARD_ID)==ErrorCodeInterface::SUCCESS){
+    if(loadBoard(testId,JigaTestInterface::ECU1_BOARD_ID)==ErrorCodeInterface::SUCCESS){
         numberOfBoards++;
     }
-    if(loadBoard(testId,JigaTestConstants::ECU2_BOARD_ID)==ErrorCodeInterface::SUCCESS){
+    if(loadBoard(testId,JigaTestInterface::ECU2_BOARD_ID)==ErrorCodeInterface::SUCCESS){
         numberOfBoards++;
     }
-    if(loadBoard(testId,JigaTestConstants::ECU3_BOARD_ID)==ErrorCodeInterface::SUCCESS){
+    if(loadBoard(testId,JigaTestInterface::ECU3_BOARD_ID)==ErrorCodeInterface::SUCCESS){
         numberOfBoards++;
     }
-    if(loadBoard(testId,JigaTestConstants::ECU4_BOARD_ID)==ErrorCodeInterface::SUCCESS){
+    if(loadBoard(testId,JigaTestInterface::ECU4_BOARD_ID)==ErrorCodeInterface::SUCCESS){
         numberOfBoards++;
     }
-    if(loadBoard(testId,JigaTestConstants::MCU1_BOARD_ID)==ErrorCodeInterface::SUCCESS){
+    if(loadBoard(testId,JigaTestInterface::MCU1_BOARD_ID)==ErrorCodeInterface::SUCCESS){
         numberOfBoards++;
     }
     return numberOfBoards;
 }
 
 bool EcuBusinessController::loadSerialCommPort(int boardId) {
+    int numberOfPorts, portFounds;
 
-    int numberOfPorts = psController->getTotalNumberOfPorts();
+    // 1-Getting number of ports
+    numberOfPorts = psController->getTotalNumberOfPorts();
+
+    // 2-Check if at least one port was found
     if (numberOfPorts <= 0) {
         return false;
     }
 
-    QString recvStr;
-    QString portDesc;
-    //QString descPortName;
+    // 3 - Load Serial Comm Ports
+    portFounds = psController->loadSerialCommPorts();
 
-    // Definindo descrições baseadas no id da placa
-    switch (boardId) {
-    case JigaTestConstants::ECU1_BOARD_ID:
-    case JigaTestConstants::ECU2_BOARD_ID:
-    case JigaTestConstants::ECU3_BOARD_ID:
-    case JigaTestConstants::ECU4_BOARD_ID:
-        portDesc = SystemProperties::getPortDescription(boardId) + QString::number(boardId);
-        //descPortName = SystemProperties::ECU_DESC_PORT_NAME;
-        break;
-    case JigaTestConstants::MCU1_BOARD_ID:
-        portDesc = SystemProperties::getPortDescription(boardId);
-        //descPortName = SystemProperties::MCU_DESC_PORT_NAME;
-        break;
-    }
-
-    // Verificando as descrições das portas
-    for (int i = 0; i < numberOfPorts; i++) {
-        for (int j = 0; j < EcuBusinessInterface::MAX_NUMBER_ATTEMPTS; j++) {
-            recvStr = psController->getPortDescription(i);
-
-            if(!(recvStr.toLower() == portDesc.toLower())){
-            }else{
-                switch(boardId){
-                case JigaTestConstants::ECU1_BOARD_ID:
-                    psController->setBoardInformation(i, JigaTestConstants::ECU1_BOARD_ID);
+    // 4 - Check if the board comm port was found
+    if (portFounds > 0) {
+        for (const Board* boardInfo : boardList) {
+            if (boardInfo->getBoardIdentification() == boardId) {
+                if (boardInfo->getSerialCommPort().getCommPortId() !=ErrorCodeInterface::ERR_INVALID_PORT) {
                     return true;
-                case JigaTestConstants::ECU2_BOARD_ID:
-                    psController->setBoardInformation(i, JigaTestConstants::ECU2_BOARD_ID);
-                    return true;
-                case JigaTestConstants::ECU3_BOARD_ID:
-                    psController->setBoardInformation(i, JigaTestConstants::ECU3_BOARD_ID);
-                    return true;
-                case JigaTestConstants::ECU4_BOARD_ID:
-                    psController->setBoardInformation(i, JigaTestConstants::ECU4_BOARD_ID);
-                    return true;
-                case JigaTestConstants::MCU1_BOARD_ID:
-                    psController->setBoardInformation(i, JigaTestConstants::MCU1_BOARD_ID);
-                    return true;
-                default:
-                    break;
                 }
             }
         }
     }
+
     return false;
 }
 
-int EcuBusinessController::loadAllSerialCommPorts()
+int EcuBusinessController::loadSerialCommPorts()
 {
     int numberOfPorts = 0;
 
-    if(loadSerialCommPort(JigaTestConstants::ECU1_BOARD_ID)){
+    if(loadSerialCommPort(JigaTestInterface::ECU1_BOARD_ID)){
         numberOfPorts++;
     }
-    if(loadSerialCommPort(JigaTestConstants::ECU2_BOARD_ID)){
+    if(loadSerialCommPort(JigaTestInterface::ECU2_BOARD_ID)){
         numberOfPorts++;
     }
-    if(loadSerialCommPort(JigaTestConstants::ECU3_BOARD_ID)){
+    if(loadSerialCommPort(JigaTestInterface::ECU3_BOARD_ID)){
         numberOfPorts++;
     }
-    if(loadSerialCommPort(JigaTestConstants::ECU4_BOARD_ID)){
+    if(loadSerialCommPort(JigaTestInterface::ECU4_BOARD_ID)){
         numberOfPorts++;
     }
-    if(loadSerialCommPort(JigaTestConstants::MCU1_BOARD_ID)){
+    if(loadSerialCommPort(JigaTestInterface::MCU1_BOARD_ID)){
         numberOfPorts++;
     }
 
@@ -288,52 +287,52 @@ bool EcuBusinessController::startTestExecution(int testId, int boardId) {
     // Define command based on testId
     QString command;
     switch (testId) {
-    case JigaTestConstants::COMMUNICATION_TEST:
-    case JigaTestConstants::MCU_IDENT_PORT_TEST:
+    case JigaTestInterface::COMMUNICATION_TEST:
+    case JigaTestInterface::MCU_IDENT_PORT_TEST:
         command = AtCommandConstants::AT_BI_CMD;
         break;
-    case JigaTestConstants::DIGITAL_INPUT_TEST:
+    case JigaTestInterface::DIGITAL_INPUT_TEST:
         command = AtCommandConstants::AT_DI_CMD;
         break;
-    case JigaTestConstants::ANALOG_INPUT_TEST:
+    case JigaTestInterface::ANALOG_INPUT_TEST:
         command = AtCommandConstants::AT_AI_CMD;
         break;
-    case JigaTestConstants::ANALOG_OUTPUT_TEST:
+    case JigaTestInterface::ANALOG_OUTPUT_TEST:
         command = AtCommandConstants::AT_AO_CMD;
         break;
-    case JigaTestConstants::CAN_INIT_TEST:
+    case JigaTestInterface::CAN_INIT_TEST:
         command = AtCommandConstants::AT_CS_CMD;
         break;
-    case JigaTestConstants::LOOPBACK_CAN_TEST:
+    case JigaTestInterface::CAN_LOOPBACK_TEST:
         command = AtCommandConstants::AT_CL_CMD;
         break;
-    case JigaTestConstants::CAN1_NETWORK_TEST:
-    case JigaTestConstants::MCU_SEL_CANBUS1_TEST:
+    case JigaTestInterface::CAN1_NETWORK_TEST:
+    case JigaTestInterface::MCU_SEL_CANBUS1_TEST:
         command = AtCommandConstants::AT_C1_CMD;
         break;
-    case JigaTestConstants::CAN2_NETWORK_TEST:
-    case JigaTestConstants::MCU_SEL_CANBUS2_TEST:
+    case JigaTestInterface::CAN2_NETWORK_TEST:
+    case JigaTestInterface::MCU_SEL_CANBUS2_TEST:
         command = AtCommandConstants::AT_C2_CMD;
         break;
-    case JigaTestConstants::LIN_NETWORK_TEST:
+    case JigaTestInterface::LIN_NETWORK_TEST:
         command = AtCommandConstants::AT_LN_CMD;
         break;
-    case JigaTestConstants::MCU_RST_ACT_TEST:
+    case JigaTestInterface::MCU_RST_ACT_TEST:
         command = AtCommandConstants::AT_RU_CMD;
         break;
-    case JigaTestConstants::MCU_RST_DAC_TEST:
+    case JigaTestInterface::MCU_RST_DAC_TEST:
         command = AtCommandConstants::AT_RD_CMD;
         break;
-    case JigaTestConstants::MCU_RST_ATT_TEST:
+    case JigaTestInterface::MCU_RST_ATT_TEST:
         command = AtCommandConstants::AT_RT_CMD;
         break;
-    case JigaTestConstants::MCU_GET_CANBUS_TEST:
+    case JigaTestInterface::MCU_GET_CANBUS_TEST:
         command = AtCommandConstants::AT_SB_CMD;
         break;
-    case JigaTestConstants::MCU_TOG_ECU3BUS_TEST:
+    case JigaTestInterface::MCU_TOG_ECU3BUS_TEST:
         command = AtCommandConstants::AT_SU_CMD;
         break;
-    case JigaTestConstants::MCU_TOG_ECU4BUS_TEST:
+    case JigaTestInterface::MCU_TOG_ECU4BUS_TEST:
         command = AtCommandConstants::AT_SD_CMD;
         break;
     }
@@ -351,36 +350,41 @@ void EcuBusinessController::setReportController(RepBusinessController *rpControl
     this->repController = rpController;
 }
 
-int EcuBusinessController::uploadFirmware(int boardId) {
+int EcuBusinessController::uploadFirmware(int boardId, int processorId)
+{
     QString appHexFile, avrdudeEXE, avrdudeCONF;
     QString optPROG, optBOOT1;
-    QString cmdAppUpHEX;
+    QString cmdAppUpHEX, cmdBaudRate;
     int retVal;
 
-    // 2 - printing board information
-    appHexFile = SystemProperties::getProperty(SystemProperties::USER_DIRECTORY)
-                 + SystemProperties::getProperty(SystemProperties::ECU_DIRECTORY);
+    // 2 - Printing board information
+    appHexFile = SystemProperties::getProperty(SystemProperties::USER_DIRECTORY) + SystemProperties::getProperty(SystemProperties::ECU_DIRECTORY);
 
     switch (boardId) {
-    case JigaTestConstants::ECU1_BOARD_ID: {
-        appHexFile = SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "1";
+    case JigaTestInterface::ECU1_BOARD_ID:
+        appHexFile += SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "1";
         break;
-    }
-    case JigaTestConstants::ECU2_BOARD_ID: {
-        appHexFile = SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "2";
+    case JigaTestInterface::ECU2_BOARD_ID:
+        appHexFile += SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "2";
         break;
-    }
-    case JigaTestConstants::ECU3_BOARD_ID: {
-        appHexFile = SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "3";
+    case JigaTestInterface::ECU3_BOARD_ID:
+        appHexFile += SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "3";
         break;
-    }
-    case JigaTestConstants::ECU4_BOARD_ID: {
-        appHexFile = SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "4";
+    case JigaTestInterface::ECU4_BOARD_ID:
+        appHexFile += SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "4";
         break;
-    }
-    default: {
+    default:
         return 1;
     }
+
+    // 3 - Selecting baudrate according to processor
+    switch (processorId) {
+    case JigaTestInterface::ECU_OLD_BOOTLOADER:
+        cmdBaudRate = SystemProperties::getProperty(SystemProperties::ECU_OLD_PROG_BAUDRATE);
+        break;
+    case JigaTestInterface::ECU_NEW_BOOTLOADER:
+        cmdBaudRate = SystemProperties::getProperty(SystemProperties::ECU_NEW_PROG_BAUDRATE);
+        break;
     }
 
     avrdudeEXE = SystemProperties::getProperty(SystemProperties::USER_DIRECTORY)
@@ -389,48 +393,114 @@ int EcuBusinessController::uploadFirmware(int boardId) {
                   + SystemProperties::getProperty(SystemProperties::AVRDUDE_CONFIG);
 
     optPROG = SystemProperties::getProperty(SystemProperties::ECU_OPT_PROG)
-              + SystemProperties::getProperty(SystemProperties::ECU_PROG_BAUDRATE)
-              + " -P" + psController->getBoardCommPort(boardId);
+              + cmdBaudRate + " -P" + psController->getBoardCommPort(boardId);
     optBOOT1 = SystemProperties::getProperty(SystemProperties::MCU_OPT_BOOT1);
 
-    // 2 - Building the command string
-    cmdAppUpHEX = QString("%1 -C %2 %3 %4 %5:i")
-                      .arg(avrdudeEXE, avrdudeCONF, optPROG, optBOOT1, appHexFile);
+    // 4 - Building the command string
+    cmdAppUpHEX = avrdudeEXE + " -C" + avrdudeCONF + " " + optPROG + " " + optBOOT1 + appHexFile + ":i";
     qDebug() << cmdAppUpHEX;
 
-    // Upgrading firmware
-    retVal = psController->writeFirmware(cmdAppUpHEX);
+    // 5 - Upload firmware
+    retVal = psController->writeFirmware(JigaTestInterface::ECU_FIRMWARE_UPLOAD, boardId, cmdAppUpHEX);
 
     return retVal;
 }
 
-int EcuBusinessController::uploadFirmware(int portId, const QString &pathToHexFile) {
-    if (!QFile::exists(pathToHexFile)) {
-        qDebug() << "Invalid path to hex file:" << pathToHexFile;
-        return -1;
-    }
+//int EcuBusinessController::uploadFirmware(int boardId) {
+//    QString appHexFile, avrdudeEXE, avrdudeCONF;
+//    QString optPROG, optBOOT1;
+//    QString cmdAppUpHEX;
+//    int retVal;
 
-    QString userDir = QDir::homePath();
-    QString avrdudeExe = userDir + "/avrdude"; // Adjust the path as necessary
-    QString avrdudeConf = userDir + "/avrdude.conf"; // Adjust the path as necessary
+//    // 2 - printing board information
+//    appHexFile = SystemProperties::getProperty(SystemProperties::USER_DIRECTORY)
+//                 + SystemProperties::getProperty(SystemProperties::ECU_DIRECTORY);
 
-    QString portDesc = psController->getSystemPortDescription(portId);
-    QString optProg = "-cstk500v1 -b19200 -P" + portDesc; // Example programmer options
-    QString optBoot1 = "-U flash:w:";
+//    switch (boardId) {
+//    case JigaTestInterface::ECU1_BOARD_ID: {
+//        appHexFile = SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "1";
+//        break;
+//    }
+//    case JigaTestInterface::ECU2_BOARD_ID: {
+//        appHexFile = SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "2";
+//        break;
+//    }
+//    case JigaTestInterface::ECU3_BOARD_ID: {
+//        appHexFile = SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "3";
+//        break;
+//    }
+//    case JigaTestInterface::ECU4_BOARD_ID: {
+//        appHexFile = SystemProperties::getProperty(SystemProperties::ECU_APPLICATION) + "4";
+//        break;
+//    }
+//    default: {
+//        return 1;
+//    }
+//    }
 
-    QString cmdAppUpHex = QString("%1 -C %2 %3 %4%5:i").arg(avrdudeExe, avrdudeConf, optProg, optBoot1, pathToHexFile);
-    qDebug() << "Command to execute:" << cmdAppUpHex;
+//    avrdudeEXE = SystemProperties::getProperty(SystemProperties::USER_DIRECTORY)
+//                 + SystemProperties::getProperty(SystemProperties::AVRDUDE_PROGRAM);
+//    avrdudeCONF = SystemProperties::getProperty(SystemProperties::USER_DIRECTORY)
+//                  + SystemProperties::getProperty(SystemProperties::AVRDUDE_CONFIG);
 
-    QProcess process;
-    process.start(cmdAppUpHex);
-    if (!process.waitForFinished()) {
-        qDebug() << "Error executing avrdude:" << process.errorString();
-        return -1;
-    }
+//    optPROG = SystemProperties::getProperty(SystemProperties::ECU_OPT_PROG)
+//              + SystemProperties::getProperty(SystemProperties::ECU_PROG_BAUDRATE)
+//              + " -P" + psController->getBoardCommPort(boardId);
+//    optBOOT1 = SystemProperties::getProperty(SystemProperties::MCU_OPT_BOOT1);
 
-    return process.exitCode(); // Return the exit code from avrdude
-}
+//    // 2 - Building the command string
+//    cmdAppUpHEX = QString("%1 -C %2 %3 %4 %5:i")
+//                      .arg(avrdudeEXE, avrdudeCONF, optPROG, optBOOT1, appHexFile);
+//    qDebug() << cmdAppUpHEX;
+
+//    // Upgrading firmware
+//    retVal = psController->writeFirmware(cmdAppUpHEX);
+
+//    return retVal;
+//}
+
+//int EcuBusinessController::uploadFirmware(int portId, const QString &pathToHexFile) {
+//    if (!QFile::exists(pathToHexFile)) {
+//        qDebug() << "Invalid path to hex file:" << pathToHexFile;
+//        return -1;
+//    }
+
+//    QString userDir = QDir::homePath();
+//    QString avrdudeExe = userDir + "/avrdude"; // Adjust the path as necessary
+//    QString avrdudeConf = userDir + "/avrdude.conf"; // Adjust the path as necessary
+
+//    QString portDesc = psController->getSystemPortDescription(portId);
+//    QString optProg = "-cstk500v1 -b19200 -P" + portDesc; // Example programmer options
+//    QString optBoot1 = "-U flash:w:";
+
+//    QString cmdAppUpHex = QString("%1 -C %2 %3 %4%5:i").arg(avrdudeExe, avrdudeConf, optProg, optBoot1, pathToHexFile);
+//    qDebug() << "Command to execute:" << cmdAppUpHex;
+
+//    QProcess process;
+//    process.start(cmdAppUpHex);
+//    if (!process.waitForFinished()) {
+//        qDebug() << "Error executing avrdude:" << process.errorString();
+//        return -1;
+//    }
+
+//    return process.exitCode(); // Return the exit code from avrdude
+//}
 
 QVector<SerialCommPort*> EcuBusinessController::getSerialCommPortsInfo() {
     return psController->getSerialCommPortInfo();
+}
+
+int EcuBusinessController::findSerialCommPorts()
+{
+    QVector<SerialCommPort*> serialCommPorts = psController->findSerialCommPorts();
+
+    if (!serialCommPorts.isEmpty()) {
+        for (SerialCommPort* port : serialCommPorts) {
+            if (port != nullptr) {
+                port->printSerialCommPortInfo();
+            }
+        }
+    }
+
+    return JigaTestInterface::SUCCESS_EXECUTE_TEST;
 }

@@ -25,7 +25,6 @@ signals:
 
 private:
     McuBusinessController* bsController;
-    FrameController* fwUpdateModel;
 };
 
 #endif // MCUFRAMECONTROLLER_H
