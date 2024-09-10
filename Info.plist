@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDisplayName</key>
+    <string>ANEB_2</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.example.ANEB_2</string>
+    <key>CFBundleVersion</key>
+    <string>1.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Este aplicativo precisa acessar a câmera para capturar fotos e vídeos.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Este aplicativo precisa acessar o microfone para gravar áudio.</string>
+</dict>
+</plist>

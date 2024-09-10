@@ -46,6 +46,7 @@ signals:
     void resetFinished();
     void ecu3CANBusFinished();
     void ecu4CANBusFinished();
+    void firmwareUploadFinished();
 
 public slots:
     void pageFirmware();

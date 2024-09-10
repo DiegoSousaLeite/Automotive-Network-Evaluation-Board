@@ -16,6 +16,8 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(Qt6 COMPONENTS SerialPort Multimedia MultimediaWidgets REQUIRED)
 
+set(MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/Info.plist)
+
 set(PROJECT_SOURCES
     main.cpp
     mainwindow.cpp
@@ -74,13 +76,30 @@ set(PROJECT_SOURCES
     PropertyChangeListener.h
     ECUFirmwareUpload.h ECUFirmwareUpload.cpp
     FindSerialPortTest.h FindSerialPortTest.cpp
+    RCWebcam.h
+    JigaView.h JigaView.cpp
+    MainMenu.h MainMenu.cpp
+    AnalogOutputMenu.h AnalogOutputMenu.cpp
+    CAN1NetworkMenu.h CAN1NetworkMenu.cpp
+    CAN2NetworkMenu.h CAN2NetworkMenu.cpp
+    CANInitMenu.h CANInitMenu.cpp
+    CANLoopbackMenu.h CANLoopbackMenu.cpp
+    CommunicationMenu.h CommunicationMenu.cpp
+    DigitalInputMenu.h DigitalInputMenu.cpp
+    EcuUploadMenu.h EcuUploadMenu.cpp
+    LINNetworkMenu.h LINNetworkMenu.cpp
+    LoadSerialPortsMenu.h LoadSerialPortsMenu.cpp
+    MCUInterfaceMenu.h MCUInterfaceMenu.cpp
+    McuUploadMenu.h McuUploadMenu.cpp
+    ReportTestMenus.h ReportTestMenus.cpp
+    AnalogInputMenu.h AnalogInputMenu.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ANEB_2
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        RCWebcam.h
+
     )
 
 set(BUILD
@@ -159,6 +178,28 @@ set(MODEL_BOARD
     Mcu1Board.h Mcu1Board.cpp
 )
 
+set(VIEW
+    JigaView.h JigaView.cpp
+)
+
+set(VIEW_MENUS
+    MainMenu.h MainMenu.cpp
+    AnalogOutputMenu.h AnalogOutputMenu.cpp
+    CAN1NetworkMenu.h CAN1NetworkMenu.cpp
+    CAN2NetworkMenu.h CAN2NetworkMenu.cpp
+    CANInitMenu.h CANInitMenu.cpp
+    CANLoopbackMenu.h CANLoopbackMenu.cpp
+    CommunicationMenu.h CommunicationMenu.cpp
+    DigitalInputMenu.h DigitalInputMenu.cpp
+    EcuUploadMenu.h EcuUploadMenu.cpp
+    LINNetworkMenu.h LINNetworkMenu.cpp
+    LoadSerialPortsMenu.h LoadSerialPortsMenu.cpp
+    MCUInterfaceMenu.h MCUInterfaceMenu.cpp
+    McuUploadMenu.h McuUploadMenu.cpp
+    ReportTestMenus.h ReportTestMenus.cpp
+    AnalogInputMenu.h AnalogInputMenu.cpp
+)
+
 source_group("Constants" FILES ${CONSTANTS_HEADERS})
 source_group("Model" FILES ${MODEL})
 source_group("Model_test" FILES ${MODEL_TEST})
@@ -168,6 +209,8 @@ source_group("Controller_persistence" FILES ${CONTROLLER_PERSISTENCE})
 source_group("Interface" FILES ${INTERFACE})
 source_group("Model_board" FILES ${MODEL_BOARD})
 source_group("Build" FILES ${BUILD})
+source_group("View" FILES ${VIEW})
+source_group("View_Menus" FILES ${VIEW_MENUS})
 
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ANEB_2 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

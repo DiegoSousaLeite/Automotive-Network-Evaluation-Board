@@ -187,16 +187,68 @@ void MainWindow::updateComboBoxCommPortList() {
 
 
 void MainWindow::onFirmwareUpdateButtonClicked() {
-    QString fileName = QFileDialog::getOpenFileName(this,
-                                                    tr("Open Firmware File"), "",
-                                                    tr("Firmware Files (*.hex)"));
-    if (!fileName.isEmpty()) {
-        QFile file(fileName);
-        if (!file.open(QIODevice::ReadOnly)) {
-            QMessageBox::warning(this, tr("Error"), tr("Cannot open the file."));
-            return;
-        }
-        qDebug() << "Arquivo selecionado:" << fileName;
+    // Verifica se o cursor atual é um cursor de espera
+    if (this->cursor().shape() == Qt::WaitCursor) {
+        QApplication::beep();  // Emite um beep sonoro
+        return;
+    }
+
+    // Abre o diálogo para seleção de arquivo
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Select Firmware File"),
+                                                    QString(), tr("Hex files (*.hex)"));
+
+    // Se o usuário não selecionar nenhum arquivo, sai da função
+    if (filePath.isEmpty()) {
+        return;
+    }
+
+    // Obtém o nome do arquivo selecionado
+    QFileInfo fileInfo(filePath);
+    QString fileName = fileInfo.fileName();
+
+    // Obtém a descrição da porta de comunicação selecionada
+    QString commPortDesc = ui->comboBox->currentText();
+
+    // Mostra uma caixa de diálogo para confirmar a ação
+    int option = QMessageBox::question(this, tr(qgetenv("SYSTEM_APP_NAME").constData()),
+                                       tr("Are you sure you want to send %1 file to \n%2 serial port?")
+                                           .arg(fileName, commPortDesc),
+                                       QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+
+    if (option == QMessageBox::Yes) {
+        // Obtém o índice da porta de comunicação selecionada
+        int port_id = ui->comboBox->currentIndex();
+
+        // Define o cursor para o estado de espera
+        this->setCursor(Qt::WaitCursor);
+        ui->comboBox->setEnabled(false);
+
+        // Cria uma nova thread para executar o upload do firmware de forma assíncrona
+        QThread* workerThread = QThread::create([=] {
+            QString line = ">> Firmware update initialized...";
+            if (staticConsole) {
+                staticConsole->append(line);  // Adiciona a linha ao console
+            }
+
+            // Executa o upload do firmware
+            //ecuFmController->executeFirmwareUpload(port_id, filePath);
+
+            emit firmwareUploadFinished();
+        });
+
+        // Conecta o fim da execução da thread com um slot que retorna o cursor ao normal
+        connect(workerThread, &QThread::finished, this, [=] {
+            ui->comboBox->setEnabled(true);
+            this->setCursor(Qt::ArrowCursor);
+            QString line = ">> Firmware update finished.";
+            if (staticConsole) {
+                staticConsole->append(line);  // Adiciona a linha ao console
+            }
+            workerThread->deleteLater();  // Deleta a thread após a execução
+        });
+
+        // Inicia a execução da thread
+        workerThread->start();
     }
 }
 

@@ -6,6 +6,8 @@
 #include <QMediaCaptureSession>
 #include <QVideoWidget>
 #include <QDebug>
+#include <QApplication>
+#include <QPermission>
 
 class RCWebcam : public QObject {
     Q_OBJECT
@@ -17,6 +19,22 @@ public:
 public slots:
     void run() {
         qDebug() << "Webcam operation started...";
+
+#if QT_CONFIG(permissions)
+        // Verificar permissão para usar a câmera
+        QCameraPermission cameraPermission;
+        switch (qApp->checkPermission(cameraPermission)) {
+        case Qt::PermissionStatus::Undetermined:
+            qApp->requestPermission(cameraPermission, this, &RCWebcam::run);
+            return;
+        case Qt::PermissionStatus::Denied:
+            qWarning("Camera permission is not granted!");
+            emit finished();
+            return;
+        case Qt::PermissionStatus::Granted:
+            break;
+        }
+#endif
 
         // Inicializa a câmera
         m_camera = new QCamera(this);
