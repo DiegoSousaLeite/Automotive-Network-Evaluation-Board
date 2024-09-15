@@ -262,6 +262,30 @@ TestPersistenceController_autogen/fast:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/TestPersistenceController_autogen.dir/build.make tests/CMakeFiles/TestPersistenceController_autogen.dir/build
 .PHONY : TestPersistenceController_autogen/fast
 
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.o: ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o
+.PHONY : ANEB_2_autogen/EWIEGA46WW/qrc_resources.o
+
+# target to build an object file
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o
+.PHONY : ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o
+
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.i: ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.i
+.PHONY : ANEB_2_autogen/EWIEGA46WW/qrc_resources.i
+
+# target to preprocess a source file
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.i
+.PHONY : ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.i
+
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.s: ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.s
+.PHONY : ANEB_2_autogen/EWIEGA46WW/qrc_resources.s
+
+# target to generate assembly for a file
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.s
+.PHONY : ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.s
+
 ANEB_2_autogen/mocs_compilation.o: ANEB_2_autogen/mocs_compilation.cpp.o
 .PHONY : ANEB_2_autogen/mocs_compilation.o
 
@@ -286,6 +310,30 @@ ANEB_2_autogen/mocs_compilation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.s
 .PHONY : ANEB_2_autogen/mocs_compilation.cpp.s
 
+AnalogInputMenu.o: AnalogInputMenu.cpp.o
+.PHONY : AnalogInputMenu.o
+
+# target to build an object file
+AnalogInputMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.o
+.PHONY : AnalogInputMenu.cpp.o
+
+AnalogInputMenu.i: AnalogInputMenu.cpp.i
+.PHONY : AnalogInputMenu.i
+
+# target to preprocess a source file
+AnalogInputMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.i
+.PHONY : AnalogInputMenu.cpp.i
+
+AnalogInputMenu.s: AnalogInputMenu.cpp.s
+.PHONY : AnalogInputMenu.s
+
+# target to generate assembly for a file
+AnalogInputMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.s
+.PHONY : AnalogInputMenu.cpp.s
+
 AnalogInputTest.o: AnalogInputTest.cpp.o
 .PHONY : AnalogInputTest.o
 
@@ -309,6 +357,30 @@ AnalogInputTest.s: AnalogInputTest.cpp.s
 AnalogInputTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/AnalogInputTest.cpp.s
 .PHONY : AnalogInputTest.cpp.s
+
+AnalogOutputMenu.o: AnalogOutputMenu.cpp.o
+.PHONY : AnalogOutputMenu.o
+
+# target to build an object file
+AnalogOutputMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.o
+.PHONY : AnalogOutputMenu.cpp.o
+
+AnalogOutputMenu.i: AnalogOutputMenu.cpp.i
+.PHONY : AnalogOutputMenu.i
+
+# target to preprocess a source file
+AnalogOutputMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.i
+.PHONY : AnalogOutputMenu.cpp.i
+
+AnalogOutputMenu.s: AnalogOutputMenu.cpp.s
+.PHONY : AnalogOutputMenu.s
+
+# target to generate assembly for a file
+AnalogOutputMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.s
+.PHONY : AnalogOutputMenu.cpp.s
 
 AnalogOutputTest.o: AnalogOutputTest.cpp.o
 .PHONY : AnalogOutputTest.o
@@ -382,6 +454,30 @@ BusinessController.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/BusinessController.cpp.s
 .PHONY : BusinessController.cpp.s
 
+CAN1NetworkMenu.o: CAN1NetworkMenu.cpp.o
+.PHONY : CAN1NetworkMenu.o
+
+# target to build an object file
+CAN1NetworkMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.o
+.PHONY : CAN1NetworkMenu.cpp.o
+
+CAN1NetworkMenu.i: CAN1NetworkMenu.cpp.i
+.PHONY : CAN1NetworkMenu.i
+
+# target to preprocess a source file
+CAN1NetworkMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.i
+.PHONY : CAN1NetworkMenu.cpp.i
+
+CAN1NetworkMenu.s: CAN1NetworkMenu.cpp.s
+.PHONY : CAN1NetworkMenu.s
+
+# target to generate assembly for a file
+CAN1NetworkMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.s
+.PHONY : CAN1NetworkMenu.cpp.s
+
 CAN1NetworkTest.o: CAN1NetworkTest.cpp.o
 .PHONY : CAN1NetworkTest.o
 
@@ -405,6 +501,30 @@ CAN1NetworkTest.s: CAN1NetworkTest.cpp.s
 CAN1NetworkTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CAN1NetworkTest.cpp.s
 .PHONY : CAN1NetworkTest.cpp.s
+
+CAN2NetworkMenu.o: CAN2NetworkMenu.cpp.o
+.PHONY : CAN2NetworkMenu.o
+
+# target to build an object file
+CAN2NetworkMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.o
+.PHONY : CAN2NetworkMenu.cpp.o
+
+CAN2NetworkMenu.i: CAN2NetworkMenu.cpp.i
+.PHONY : CAN2NetworkMenu.i
+
+# target to preprocess a source file
+CAN2NetworkMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.i
+.PHONY : CAN2NetworkMenu.cpp.i
+
+CAN2NetworkMenu.s: CAN2NetworkMenu.cpp.s
+.PHONY : CAN2NetworkMenu.s
+
+# target to generate assembly for a file
+CAN2NetworkMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.s
+.PHONY : CAN2NetworkMenu.cpp.s
 
 CAN2NetworkTest.o: CAN2NetworkTest.cpp.o
 .PHONY : CAN2NetworkTest.o
@@ -430,6 +550,30 @@ CAN2NetworkTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CAN2NetworkTest.cpp.s
 .PHONY : CAN2NetworkTest.cpp.s
 
+CANInitMenu.o: CANInitMenu.cpp.o
+.PHONY : CANInitMenu.o
+
+# target to build an object file
+CANInitMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.o
+.PHONY : CANInitMenu.cpp.o
+
+CANInitMenu.i: CANInitMenu.cpp.i
+.PHONY : CANInitMenu.i
+
+# target to preprocess a source file
+CANInitMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.i
+.PHONY : CANInitMenu.cpp.i
+
+CANInitMenu.s: CANInitMenu.cpp.s
+.PHONY : CANInitMenu.s
+
+# target to generate assembly for a file
+CANInitMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.s
+.PHONY : CANInitMenu.cpp.s
+
 CANInitTest.o: CANInitTest.cpp.o
 .PHONY : CANInitTest.o
 
@@ -453,6 +597,30 @@ CANInitTest.s: CANInitTest.cpp.s
 CANInitTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CANInitTest.cpp.s
 .PHONY : CANInitTest.cpp.s
+
+CANLoopbackMenu.o: CANLoopbackMenu.cpp.o
+.PHONY : CANLoopbackMenu.o
+
+# target to build an object file
+CANLoopbackMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.o
+.PHONY : CANLoopbackMenu.cpp.o
+
+CANLoopbackMenu.i: CANLoopbackMenu.cpp.i
+.PHONY : CANLoopbackMenu.i
+
+# target to preprocess a source file
+CANLoopbackMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.i
+.PHONY : CANLoopbackMenu.cpp.i
+
+CANLoopbackMenu.s: CANLoopbackMenu.cpp.s
+.PHONY : CANLoopbackMenu.s
+
+# target to generate assembly for a file
+CANLoopbackMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.s
+.PHONY : CANLoopbackMenu.cpp.s
 
 CANLoopbackTest.o: CANLoopbackTest.cpp.o
 .PHONY : CANLoopbackTest.o
@@ -478,6 +646,30 @@ CANLoopbackTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CANLoopbackTest.cpp.s
 .PHONY : CANLoopbackTest.cpp.s
 
+CommunicationMenu.o: CommunicationMenu.cpp.o
+.PHONY : CommunicationMenu.o
+
+# target to build an object file
+CommunicationMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.o
+.PHONY : CommunicationMenu.cpp.o
+
+CommunicationMenu.i: CommunicationMenu.cpp.i
+.PHONY : CommunicationMenu.i
+
+# target to preprocess a source file
+CommunicationMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.i
+.PHONY : CommunicationMenu.cpp.i
+
+CommunicationMenu.s: CommunicationMenu.cpp.s
+.PHONY : CommunicationMenu.s
+
+# target to generate assembly for a file
+CommunicationMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.s
+.PHONY : CommunicationMenu.cpp.s
+
 CommunicationTest.o: CommunicationTest.cpp.o
 .PHONY : CommunicationTest.o
 
@@ -501,6 +693,30 @@ CommunicationTest.s: CommunicationTest.cpp.s
 CommunicationTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/CommunicationTest.cpp.s
 .PHONY : CommunicationTest.cpp.s
+
+DigitalInputMenu.o: DigitalInputMenu.cpp.o
+.PHONY : DigitalInputMenu.o
+
+# target to build an object file
+DigitalInputMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.o
+.PHONY : DigitalInputMenu.cpp.o
+
+DigitalInputMenu.i: DigitalInputMenu.cpp.i
+.PHONY : DigitalInputMenu.i
+
+# target to preprocess a source file
+DigitalInputMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.i
+.PHONY : DigitalInputMenu.cpp.i
+
+DigitalInputMenu.s: DigitalInputMenu.cpp.s
+.PHONY : DigitalInputMenu.s
+
+# target to generate assembly for a file
+DigitalInputMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.s
+.PHONY : DigitalInputMenu.cpp.s
 
 DigitalInputTest.o: DigitalInputTest.cpp.o
 .PHONY : DigitalInputTest.o
@@ -694,6 +910,30 @@ EcuFrameController.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/EcuFrameController.cpp.s
 .PHONY : EcuFrameController.cpp.s
 
+EcuUploadMenu.o: EcuUploadMenu.cpp.o
+.PHONY : EcuUploadMenu.o
+
+# target to build an object file
+EcuUploadMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.o
+.PHONY : EcuUploadMenu.cpp.o
+
+EcuUploadMenu.i: EcuUploadMenu.cpp.i
+.PHONY : EcuUploadMenu.i
+
+# target to preprocess a source file
+EcuUploadMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.i
+.PHONY : EcuUploadMenu.cpp.i
+
+EcuUploadMenu.s: EcuUploadMenu.cpp.s
+.PHONY : EcuUploadMenu.s
+
+# target to generate assembly for a file
+EcuUploadMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.s
+.PHONY : EcuUploadMenu.cpp.s
+
 FindSerialPortTest.o: FindSerialPortTest.cpp.o
 .PHONY : FindSerialPortTest.o
 
@@ -814,6 +1054,54 @@ IndividualTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/IndividualTest.cpp.s
 .PHONY : IndividualTest.cpp.s
 
+JigaView.o: JigaView.cpp.o
+.PHONY : JigaView.o
+
+# target to build an object file
+JigaView.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/JigaView.cpp.o
+.PHONY : JigaView.cpp.o
+
+JigaView.i: JigaView.cpp.i
+.PHONY : JigaView.i
+
+# target to preprocess a source file
+JigaView.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/JigaView.cpp.i
+.PHONY : JigaView.cpp.i
+
+JigaView.s: JigaView.cpp.s
+.PHONY : JigaView.s
+
+# target to generate assembly for a file
+JigaView.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/JigaView.cpp.s
+.PHONY : JigaView.cpp.s
+
+LINNetworkMenu.o: LINNetworkMenu.cpp.o
+.PHONY : LINNetworkMenu.o
+
+# target to build an object file
+LINNetworkMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.o
+.PHONY : LINNetworkMenu.cpp.o
+
+LINNetworkMenu.i: LINNetworkMenu.cpp.i
+.PHONY : LINNetworkMenu.i
+
+# target to preprocess a source file
+LINNetworkMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.i
+.PHONY : LINNetworkMenu.cpp.i
+
+LINNetworkMenu.s: LINNetworkMenu.cpp.s
+.PHONY : LINNetworkMenu.s
+
+# target to generate assembly for a file
+LINNetworkMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.s
+.PHONY : LINNetworkMenu.cpp.s
+
 LinNetworkTest.o: LinNetworkTest.cpp.o
 .PHONY : LinNetworkTest.o
 
@@ -837,6 +1125,30 @@ LinNetworkTest.s: LinNetworkTest.cpp.s
 LinNetworkTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/LinNetworkTest.cpp.s
 .PHONY : LinNetworkTest.cpp.s
+
+LoadSerialPortsMenu.o: LoadSerialPortsMenu.cpp.o
+.PHONY : LoadSerialPortsMenu.o
+
+# target to build an object file
+LoadSerialPortsMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.o
+.PHONY : LoadSerialPortsMenu.cpp.o
+
+LoadSerialPortsMenu.i: LoadSerialPortsMenu.cpp.i
+.PHONY : LoadSerialPortsMenu.i
+
+# target to preprocess a source file
+LoadSerialPortsMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.i
+.PHONY : LoadSerialPortsMenu.cpp.i
+
+LoadSerialPortsMenu.s: LoadSerialPortsMenu.cpp.s
+.PHONY : LoadSerialPortsMenu.s
+
+# target to generate assembly for a file
+LoadSerialPortsMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.s
+.PHONY : LoadSerialPortsMenu.cpp.s
 
 MCUFirmwareUpload.o: MCUFirmwareUpload.cpp.o
 .PHONY : MCUFirmwareUpload.o
@@ -862,6 +1174,30 @@ MCUFirmwareUpload.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/MCUFirmwareUpload.cpp.s
 .PHONY : MCUFirmwareUpload.cpp.s
 
+MCUInterfaceMenu.o: MCUInterfaceMenu.cpp.o
+.PHONY : MCUInterfaceMenu.o
+
+# target to build an object file
+MCUInterfaceMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.o
+.PHONY : MCUInterfaceMenu.cpp.o
+
+MCUInterfaceMenu.i: MCUInterfaceMenu.cpp.i
+.PHONY : MCUInterfaceMenu.i
+
+# target to preprocess a source file
+MCUInterfaceMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.i
+.PHONY : MCUInterfaceMenu.cpp.i
+
+MCUInterfaceMenu.s: MCUInterfaceMenu.cpp.s
+.PHONY : MCUInterfaceMenu.s
+
+# target to generate assembly for a file
+MCUInterfaceMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.s
+.PHONY : MCUInterfaceMenu.cpp.s
+
 MCUInterfaceTest.o: MCUInterfaceTest.cpp.o
 .PHONY : MCUInterfaceTest.o
 
@@ -885,6 +1221,30 @@ MCUInterfaceTest.s: MCUInterfaceTest.cpp.s
 MCUInterfaceTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/MCUInterfaceTest.cpp.s
 .PHONY : MCUInterfaceTest.cpp.s
+
+MainMenu.o: MainMenu.cpp.o
+.PHONY : MainMenu.o
+
+# target to build an object file
+MainMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/MainMenu.cpp.o
+.PHONY : MainMenu.cpp.o
+
+MainMenu.i: MainMenu.cpp.i
+.PHONY : MainMenu.i
+
+# target to preprocess a source file
+MainMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/MainMenu.cpp.i
+.PHONY : MainMenu.cpp.i
+
+MainMenu.s: MainMenu.cpp.s
+.PHONY : MainMenu.s
+
+# target to generate assembly for a file
+MainMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/MainMenu.cpp.s
+.PHONY : MainMenu.cpp.s
 
 Mcu1Board.o: Mcu1Board.cpp.o
 .PHONY : Mcu1Board.o
@@ -958,6 +1318,30 @@ McuFrameController.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/McuFrameController.cpp.s
 .PHONY : McuFrameController.cpp.s
 
+McuUploadMenu.o: McuUploadMenu.cpp.o
+.PHONY : McuUploadMenu.o
+
+# target to build an object file
+McuUploadMenu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.o
+.PHONY : McuUploadMenu.cpp.o
+
+McuUploadMenu.i: McuUploadMenu.cpp.i
+.PHONY : McuUploadMenu.i
+
+# target to preprocess a source file
+McuUploadMenu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.i
+.PHONY : McuUploadMenu.cpp.i
+
+McuUploadMenu.s: McuUploadMenu.cpp.s
+.PHONY : McuUploadMenu.s
+
+# target to generate assembly for a file
+McuUploadMenu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.s
+.PHONY : McuUploadMenu.cpp.s
+
 PersistenceController.o: PersistenceController.cpp.o
 .PHONY : PersistenceController.o
 
@@ -1005,6 +1389,30 @@ RepBusinessController.s: RepBusinessController.cpp.s
 RepBusinessController.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/RepBusinessController.cpp.s
 .PHONY : RepBusinessController.cpp.s
+
+ReportTestMenus.o: ReportTestMenus.cpp.o
+.PHONY : ReportTestMenus.o
+
+# target to build an object file
+ReportTestMenus.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.o
+.PHONY : ReportTestMenus.cpp.o
+
+ReportTestMenus.i: ReportTestMenus.cpp.i
+.PHONY : ReportTestMenus.i
+
+# target to preprocess a source file
+ReportTestMenus.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.i
+.PHONY : ReportTestMenus.cpp.i
+
+ReportTestMenus.s: ReportTestMenus.cpp.s
+.PHONY : ReportTestMenus.s
+
+# target to generate assembly for a file
+ReportTestMenus.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.s
+.PHONY : ReportTestMenus.cpp.s
 
 SerialCommPort.o: SerialCommPort.cpp.o
 .PHONY : SerialCommPort.o
@@ -1077,6 +1485,30 @@ TimeOutMonitor.s: TimeOutMonitor.cpp.s
 TimeOutMonitor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/TimeOutMonitor.cpp.s
 .PHONY : TimeOutMonitor.cpp.s
+
+aneb.o: aneb.cpp.o
+.PHONY : aneb.o
+
+# target to build an object file
+aneb.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/aneb.cpp.o
+.PHONY : aneb.cpp.o
+
+aneb.i: aneb.cpp.i
+.PHONY : aneb.i
+
+# target to preprocess a source file
+aneb.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/aneb.cpp.i
+.PHONY : aneb.cpp.i
+
+aneb.s: aneb.cpp.s
+.PHONY : aneb.s
+
+# target to generate assembly for a file
+aneb.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ANEB_2.dir/build.make CMakeFiles/ANEB_2.dir/aneb.cpp.s
+.PHONY : aneb.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -1170,12 +1602,21 @@ help:
 	@echo "... valgrind_test"
 	@echo "... ANEB_2"
 	@echo "... TestPersistenceController"
+	@echo "... ANEB_2_autogen/EWIEGA46WW/qrc_resources.o"
+	@echo "... ANEB_2_autogen/EWIEGA46WW/qrc_resources.i"
+	@echo "... ANEB_2_autogen/EWIEGA46WW/qrc_resources.s"
 	@echo "... ANEB_2_autogen/mocs_compilation.o"
 	@echo "... ANEB_2_autogen/mocs_compilation.i"
 	@echo "... ANEB_2_autogen/mocs_compilation.s"
+	@echo "... AnalogInputMenu.o"
+	@echo "... AnalogInputMenu.i"
+	@echo "... AnalogInputMenu.s"
 	@echo "... AnalogInputTest.o"
 	@echo "... AnalogInputTest.i"
 	@echo "... AnalogInputTest.s"
+	@echo "... AnalogOutputMenu.o"
+	@echo "... AnalogOutputMenu.i"
+	@echo "... AnalogOutputMenu.s"
 	@echo "... AnalogOutputTest.o"
 	@echo "... AnalogOutputTest.i"
 	@echo "... AnalogOutputTest.s"
@@ -1185,21 +1626,39 @@ help:
 	@echo "... BusinessController.o"
 	@echo "... BusinessController.i"
 	@echo "... BusinessController.s"
+	@echo "... CAN1NetworkMenu.o"
+	@echo "... CAN1NetworkMenu.i"
+	@echo "... CAN1NetworkMenu.s"
 	@echo "... CAN1NetworkTest.o"
 	@echo "... CAN1NetworkTest.i"
 	@echo "... CAN1NetworkTest.s"
+	@echo "... CAN2NetworkMenu.o"
+	@echo "... CAN2NetworkMenu.i"
+	@echo "... CAN2NetworkMenu.s"
 	@echo "... CAN2NetworkTest.o"
 	@echo "... CAN2NetworkTest.i"
 	@echo "... CAN2NetworkTest.s"
+	@echo "... CANInitMenu.o"
+	@echo "... CANInitMenu.i"
+	@echo "... CANInitMenu.s"
 	@echo "... CANInitTest.o"
 	@echo "... CANInitTest.i"
 	@echo "... CANInitTest.s"
+	@echo "... CANLoopbackMenu.o"
+	@echo "... CANLoopbackMenu.i"
+	@echo "... CANLoopbackMenu.s"
 	@echo "... CANLoopbackTest.o"
 	@echo "... CANLoopbackTest.i"
 	@echo "... CANLoopbackTest.s"
+	@echo "... CommunicationMenu.o"
+	@echo "... CommunicationMenu.i"
+	@echo "... CommunicationMenu.s"
 	@echo "... CommunicationTest.o"
 	@echo "... CommunicationTest.i"
 	@echo "... CommunicationTest.s"
+	@echo "... DigitalInputMenu.o"
+	@echo "... DigitalInputMenu.i"
+	@echo "... DigitalInputMenu.s"
 	@echo "... DigitalInputTest.o"
 	@echo "... DigitalInputTest.i"
 	@echo "... DigitalInputTest.s"
@@ -1224,6 +1683,9 @@ help:
 	@echo "... EcuFrameController.o"
 	@echo "... EcuFrameController.i"
 	@echo "... EcuFrameController.s"
+	@echo "... EcuUploadMenu.o"
+	@echo "... EcuUploadMenu.i"
+	@echo "... EcuUploadMenu.s"
 	@echo "... FindSerialPortTest.o"
 	@echo "... FindSerialPortTest.i"
 	@echo "... FindSerialPortTest.s"
@@ -1239,15 +1701,30 @@ help:
 	@echo "... IndividualTest.o"
 	@echo "... IndividualTest.i"
 	@echo "... IndividualTest.s"
+	@echo "... JigaView.o"
+	@echo "... JigaView.i"
+	@echo "... JigaView.s"
+	@echo "... LINNetworkMenu.o"
+	@echo "... LINNetworkMenu.i"
+	@echo "... LINNetworkMenu.s"
 	@echo "... LinNetworkTest.o"
 	@echo "... LinNetworkTest.i"
 	@echo "... LinNetworkTest.s"
+	@echo "... LoadSerialPortsMenu.o"
+	@echo "... LoadSerialPortsMenu.i"
+	@echo "... LoadSerialPortsMenu.s"
 	@echo "... MCUFirmwareUpload.o"
 	@echo "... MCUFirmwareUpload.i"
 	@echo "... MCUFirmwareUpload.s"
+	@echo "... MCUInterfaceMenu.o"
+	@echo "... MCUInterfaceMenu.i"
+	@echo "... MCUInterfaceMenu.s"
 	@echo "... MCUInterfaceTest.o"
 	@echo "... MCUInterfaceTest.i"
 	@echo "... MCUInterfaceTest.s"
+	@echo "... MainMenu.o"
+	@echo "... MainMenu.i"
+	@echo "... MainMenu.s"
 	@echo "... Mcu1Board.o"
 	@echo "... Mcu1Board.i"
 	@echo "... Mcu1Board.s"
@@ -1257,12 +1734,18 @@ help:
 	@echo "... McuFrameController.o"
 	@echo "... McuFrameController.i"
 	@echo "... McuFrameController.s"
+	@echo "... McuUploadMenu.o"
+	@echo "... McuUploadMenu.i"
+	@echo "... McuUploadMenu.s"
 	@echo "... PersistenceController.o"
 	@echo "... PersistenceController.i"
 	@echo "... PersistenceController.s"
 	@echo "... RepBusinessController.o"
 	@echo "... RepBusinessController.i"
 	@echo "... RepBusinessController.s"
+	@echo "... ReportTestMenus.o"
+	@echo "... ReportTestMenus.i"
+	@echo "... ReportTestMenus.s"
 	@echo "... SerialCommPort.o"
 	@echo "... SerialCommPort.i"
 	@echo "... SerialCommPort.s"
@@ -1272,6 +1755,9 @@ help:
 	@echo "... TimeOutMonitor.o"
 	@echo "... TimeOutMonitor.i"
 	@echo "... TimeOutMonitor.s"
+	@echo "... aneb.o"
+	@echo "... aneb.i"
+	@echo "... aneb.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

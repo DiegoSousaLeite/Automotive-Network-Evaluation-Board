@@ -123,9 +123,9 @@ void JigaView::selectCommunicationTest()
 {
     char opt;
     while (true) {
+        commMenu->printOptionMenu();
         opt = getchar();
         switch (opt) {
-        commMenu->printOptionMenu();
         case MenuOptionsInterface::OPT_ECU1_SEL:
             qDebug() << "Communication with ECU1 selected!";
             startCommunicationTest(JigaTestInterface::ECU1_BOARD_ID);

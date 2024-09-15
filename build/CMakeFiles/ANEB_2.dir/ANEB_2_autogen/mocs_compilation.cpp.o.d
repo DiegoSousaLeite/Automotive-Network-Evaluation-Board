@@ -1054,43 +1054,71 @@ CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.o: \
   /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_GenericTest.cpp \
   /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_GetTestReport.cpp \
   /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../GetTestReport.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_JigaView.cpp \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../JigaView.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/QTextStream \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../McuFrameController.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../MainMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../AnalogOutputMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../CAN1NetworkMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../CAN2NetworkMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../CANInitMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../CANLoopbackMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../CommunicationMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../DigitalInputMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../EcuUploadMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../LINNetworkMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../LoadSerialPortsMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../MCUInterfaceMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../McuUploadMenu.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../ReportTestMenus.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../AnalogInputMenu.h \
   /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_McuBusinessController.cpp \
   /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_McuFrameController.cpp \
-  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../McuFrameController.h \
   /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_PersistenceController.cpp \
-  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_RepBusinessController.cpp \
-  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_TestReportModel.cpp \
-  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_TimeOutMonitor.cpp \
-  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_mainwindow.cpp \
-  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../mainwindow.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_RCWebcam.cpp \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../RCWebcam.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Headers/QCamera \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Headers/qcamera.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/qsize.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/qmargins.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/qpoint.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/qrect.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Headers/qcameradevice.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Headers/qtvideo.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Headers/qtmultimediaexports.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Headers/qvideoframe.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Headers/qtmultimediaglobal.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qtguiglobal.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qtgui-config.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qtguiexports.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qtwidgets-config.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qtwidgetsexports.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qwindowdefs.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/qmargins.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qaction.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qkeysequence.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qicon.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/qsize.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qpixmap.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qpaintdevice.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/qrect.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/qpoint.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Headers/qtmultimedia-config.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Headers/qvideoframeformat.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qimage.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qcolor.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qrgb.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qrgba64.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qimage.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qpaintdevice.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qwindowdefs.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qpixelformat.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qtransform.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qpolygon.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qregion.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/qline.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Headers/qmediaenumdebug.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/qmetaobject.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Headers/QMediaCaptureSession \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Headers/qmediacapturesession.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Headers/QVideoWidget \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Headers/qvideowidget.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qwidget.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qtwidgets-config.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qtwidgetsexports.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qaction.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qkeysequence.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qicon.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qpixmap.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qpalette.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qbrush.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qfont.h \
@@ -1100,13 +1128,27 @@ CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.o: \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qsizepolicy.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qcursor.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qbitmap.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qtabwidget.h \
-  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../ui_mainwindow.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Headers/qtmultimediawidgetsglobal.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Headers/qtmultimediawidgetsexports.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/QApplication \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qapplication.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qguiapplication.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qinputmethod.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qguiapplication_platform.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/QPermission \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Headers/qpermissions.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_RepBusinessController.cpp \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_TestReportModel.cpp \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_TimeOutMonitor.cpp \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_aneb.cpp \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../aneb.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/QWidget \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/moc_mainwindow.cpp \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../mainwindow.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qmainwindow.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qtabwidget.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/../../../ui_mainwindow.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/QComboBox \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qcombobox.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
@@ -1141,7 +1183,6 @@ CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.o: \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qtextcursor.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qtextformat.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/qpen.h \
-  /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/QWidget \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Headers/QIcon \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/QLabel \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Headers/qlabel.h \

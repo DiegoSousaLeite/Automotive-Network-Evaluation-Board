@@ -769,8 +769,12 @@ ANEB_2_autogen/timestamp: \
 	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/xlocale.h \
 	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/xlocale/_time.h \
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdarg.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogInputMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogInputMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogInputTest.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogInputTest.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogOutputMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogOutputMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogOutputTest.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogOutputTest.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/AtCommandConstants.h \
@@ -778,18 +782,30 @@ ANEB_2_autogen/timestamp: \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/Board.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/BusinessController.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/BusinessController.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN1NetworkMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN1NetworkMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN1NetworkTest.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN1NetworkTest.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN2NetworkMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN2NetworkMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN2NetworkTest.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN2NetworkTest.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CANInitMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CANInitMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CANInitTest.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CANInitTest.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CANLoopbackMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CANLoopbackMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CANLoopbackTest.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CANLoopbackTest.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CMakeLists.txt \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CmdMessageConstants.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CommunicationMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CommunicationMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CommunicationTest.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/CommunicationTest.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/DigitalInputMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/DigitalInputMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/DigitalInputTest.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/DigitalInputTest.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/ECUFirmwareUpload.cpp \
@@ -807,6 +823,8 @@ ANEB_2_autogen/timestamp: \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuBusinessInterface.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuFrameController.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuFrameController.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuUploadMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuUploadMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/Environment.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/ErrorCodeInterface.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/FindSerialPortTest.cpp \
@@ -821,12 +839,22 @@ ANEB_2_autogen/timestamp: \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/IndividualTest.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/IndividualTest.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/JigaTestInterface.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/JigaView.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/JigaView.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/LINNetworkMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/LINNetworkMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/LinNetworkTest.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/LinNetworkTest.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/LoadSerialPortsMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/LoadSerialPortsMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUFirmwareUpload.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUFirmwareUpload.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUInterfaceMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUInterfaceMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUInterfaceTest.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUInterfaceTest.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/MainMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/MainMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/Mcu1Board.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/Mcu1Board.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/McuBusinessController.cpp \
@@ -834,13 +862,18 @@ ANEB_2_autogen/timestamp: \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/McuBusinessInterface.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/McuFrameController.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/McuFrameController.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/McuUploadMenu.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/McuUploadMenu.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/MenuOptionsInterface.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/PersistenceController.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/PersistenceController.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/PropertyChangeListener.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/RCWebcam.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/RepBusinessController.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/RepBusinessController.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/ReportControllerInterface.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/ReportTestMenus.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/ReportTestMenus.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/SerialCommPort.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/SerialCommPort.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/SystemBuilder.h \
@@ -853,6 +886,8 @@ ANEB_2_autogen/timestamp: \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/TimeOutMonitor.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/TimeOutMonitor.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/UtilsConversion.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/aneb.cpp \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/aneb.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/atCommandConstants.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/moc_predefs.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles/3.29.6/CMakeCXXCompiler.cmake \
@@ -862,6 +897,7 @@ ANEB_2_autogen/timestamp: \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/main.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/mainwindow.cpp \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/mainwindow.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/resources.qrc \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/ui_mainwindow.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/ui_virtual_io.h \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/virtual_io.cpp \
@@ -874,6 +910,7 @@ ANEB_2_autogen/timestamp: \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QList \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QMap \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QObject \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QPermission \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QProcess \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QRegularExpression \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QSettings \
@@ -881,6 +918,7 @@ ANEB_2_autogen/timestamp: \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QStandardPaths \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QString \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QStringView \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QTextStream \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QThread \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QTimer \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QVariant \
@@ -958,6 +996,7 @@ ANEB_2_autogen/timestamp: \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qmargins.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qmath.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qmetacontainer.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qmetaobject.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qmetatype.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qminmax.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qnamespace.h \
@@ -969,6 +1008,7 @@ ANEB_2_autogen/timestamp: \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qobjectdefs_impl.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qoverload.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qpair.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qpermissions.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qpoint.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qprocess.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qprocessordetection.h \
@@ -1067,6 +1107,22 @@ ANEB_2_autogen/timestamp: \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Versions/A/Headers/qtransform.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Versions/A/Headers/qvalidator.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Versions/A/Headers/qwindowdefs.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/QCamera \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/QMediaCaptureSession \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qcamera.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qcameradevice.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qmediacapturesession.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qmediaenumdebug.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qtmultimedia-config.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qtmultimediaexports.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qtmultimediaglobal.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qtvideo.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qvideoframe.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qvideoframeformat.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Versions/A/Headers/QVideoWidget \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Versions/A/Headers/qtmultimediawidgetsexports.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Versions/A/Headers/qtmultimediawidgetsglobal.h \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Versions/A/Headers/qvideowidget.h \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtSerialPort.framework/Versions/A/Headers/QSerialPort \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtSerialPort.framework/Versions/A/Headers/QSerialPortInfo \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/QtSerialPort.framework/Versions/A/Headers/qserialport.h \
@@ -1305,6 +1361,56 @@ ANEB_2_autogen/timestamp: \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6GuiTools/Qt6GuiToolsTargets-relwithdebinfo.cmake \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6GuiTools/Qt6GuiToolsTargets.cmake \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6GuiTools/Qt6GuiToolsVersionlessTargets.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6MultimediaAdditionalTargetInfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6MultimediaConfig.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6MultimediaConfigVersion.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6MultimediaConfigVersionImpl.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6MultimediaDependencies.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6MultimediaPlugins.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6MultimediaTargets-relwithdebinfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6MultimediaTargets.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6MultimediaVersionlessTargets.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6QDarwinMediaPluginAdditionalTargetInfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6QDarwinMediaPluginConfig.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6QDarwinMediaPluginTargets-relwithdebinfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6QDarwinMediaPluginTargets.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6QFFmpegMediaPluginAdditionalTargetInfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6QFFmpegMediaPluginConfig.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6QFFmpegMediaPluginTargets-relwithdebinfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Multimedia/Qt6QFFmpegMediaPluginTargets.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6MultimediaWidgets/Qt6MultimediaWidgetsAdditionalTargetInfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6MultimediaWidgets/Qt6MultimediaWidgetsConfig.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6MultimediaWidgets/Qt6MultimediaWidgetsConfigVersion.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6MultimediaWidgets/Qt6MultimediaWidgetsConfigVersionImpl.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6MultimediaWidgets/Qt6MultimediaWidgetsDependencies.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6MultimediaWidgets/Qt6MultimediaWidgetsTargets-relwithdebinfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6MultimediaWidgets/Qt6MultimediaWidgetsTargets.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6MultimediaWidgets/Qt6MultimediaWidgetsVersionlessTargets.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6NetworkAdditionalTargetInfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6NetworkConfig.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6NetworkConfigVersion.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6NetworkConfigVersionImpl.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6NetworkDependencies.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6NetworkPlugins.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6NetworkTargets-relwithdebinfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6NetworkTargets.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6NetworkVersionlessTargets.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QSCNetworkReachabilityNetworkInformationPluginAdditionalTargetInfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QSCNetworkReachabilityNetworkInformationPluginConfig.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QSCNetworkReachabilityNetworkInformationPluginTargets-relwithdebinfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QSCNetworkReachabilityNetworkInformationPluginTargets.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QSecureTransportBackendPluginAdditionalTargetInfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QSecureTransportBackendPluginConfig.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QSecureTransportBackendPluginTargets-relwithdebinfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QSecureTransportBackendPluginTargets.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QTlsBackendCertOnlyPluginAdditionalTargetInfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QTlsBackendCertOnlyPluginConfig.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QTlsBackendCertOnlyPluginTargets-relwithdebinfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QTlsBackendCertOnlyPluginTargets.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginAdditionalTargetInfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginConfig.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginTargets-relwithdebinfo.cmake \
+	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6Network/Qt6QTlsBackendOpenSSLPluginTargets.cmake \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6SerialPort/Qt6SerialPortAdditionalTargetInfo.cmake \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6SerialPort/Qt6SerialPortConfig.cmake \
 	/Users/sousadiego/Qt/6.7.0/macos/lib/cmake/Qt6SerialPort/Qt6SerialPortConfigVersion.cmake \
@@ -1368,6 +1474,7 @@ ANEB_2_autogen/timestamp: \
 	/opt/homebrew/Cellar/cmake/3.29.6/share/cmake/Modules/Platform/Darwin.cmake \
 	/opt/homebrew/Cellar/cmake/3.29.6/share/cmake/Modules/Platform/UnixPaths.cmake \
 	/opt/homebrew/Cellar/libusb/1.0.27/include/libusb-1.0/libusb.h \
+	/Users/sousadiego/Documents/ws-Qt/ANEB_2/aneb.ui \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/mainwindow.ui \
 	/Users/sousadiego/Documents/ws-Qt/ANEB_2/virtual_io.ui \
 	/opt/homebrew/Cellar/cmake/3.29.6/bin/cmake

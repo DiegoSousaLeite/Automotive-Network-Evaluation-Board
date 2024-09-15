@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>anebLogo.png</file>
+        <file>close-window-64.ico</file>
+        <file>dashboard-5-32.ico</file>
+        <file>dashboard-5-48.ico</file>
+        <file>home-4-32.ico</file>
+        <file>home-4-48.ico</file>
+        <file>user-48.ico</file>
+        <file>ANEBW.png</file>
+        <file>menuW.png</file>
+        <file>antenna-3-32.ico</file>
+        <file>antenna-3-48.ico</file>
+        <file>plug-32.ico</file>
+        <file>plug-48.ico</file>
+        <file>test-tube-2-32.ico</file>
+        <file>test-tube-2-48.ico</file>
+        <file>wrench-2-32.ico</file>
+        <file>wrench-2-48.ico</file>
+    </qresource>
+    <qresource prefix="/style">
+        <file>styles.qss</file>
+    </qresource>
+</RCC>

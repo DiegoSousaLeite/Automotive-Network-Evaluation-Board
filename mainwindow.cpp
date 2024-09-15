@@ -499,3 +499,4 @@ void MainWindow::myMessageOutput(QtMsgType type, const QMessageLogContext &conte
     }
 }
 
+

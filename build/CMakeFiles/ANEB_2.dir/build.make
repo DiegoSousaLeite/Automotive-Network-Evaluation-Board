@@ -76,10 +76,30 @@ ANEB_2_autogen/timestamp: CMakeFiles/ANEB_2.dir/compiler_depend.ts
 	/opt/homebrew/Cellar/cmake/3.29.6/bin/cmake -E cmake_autogen /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles/ANEB_2_autogen.dir/AutogenInfo.json ""
 	/opt/homebrew/Cellar/cmake/3.29.6/bin/cmake -E touch /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/timestamp
 
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/resources.qrc
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: CMakeFiles/ANEB_2_autogen.dir/AutoRcc_resources_EWIEGA46WW_Info.json
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/styles.qss
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/borcelle.png
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/search-13-48.ico
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/dashboard-5-48.ico
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/dashboard-5-32.ico
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/anebLogo.png
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/home-4-32.ico
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/menu-4-32.ico
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/activity-feed-48.ico
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/home-4-48.ico
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/activity-feed-32.ico
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/close-window-64.ico
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Documents/ws-Qt/ANEB_2/user-48.ico
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Qt/6.7.0/macos/./libexec/rcc
+ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp: /Users/sousadiego/Qt/6.7.0/macos/./libexec/rcc
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Automatic RCC for resources.qrc"
+	/opt/homebrew/Cellar/cmake/3.29.6/bin/cmake -E cmake_autorcc /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles/ANEB_2_autogen.dir/AutoRcc_resources_EWIEGA46WW_Info.json 
+
 CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.o: ANEB_2_autogen/mocs_compilation.cpp
 CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.o -MF CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/mocs_compilation.cpp
 
 CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.i: cmake_force
@@ -93,7 +113,7 @@ CMakeFiles/ANEB_2.dir/ANEB_2_autogen/mocs_compilation.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/main.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/main.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/main.cpp
 CMakeFiles/ANEB_2.dir/main.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ANEB_2.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ANEB_2.dir/main.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/main.cpp.o -MF CMakeFiles/ANEB_2.dir/main.cpp.o.d -o CMakeFiles/ANEB_2.dir/main.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/main.cpp
 
 CMakeFiles/ANEB_2.dir/main.cpp.i: cmake_force
@@ -107,7 +127,7 @@ CMakeFiles/ANEB_2.dir/main.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/mainwindow.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/mainwindow.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/mainwindow.cpp
 CMakeFiles/ANEB_2.dir/mainwindow.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ANEB_2.dir/mainwindow.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ANEB_2.dir/mainwindow.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/mainwindow.cpp.o -MF CMakeFiles/ANEB_2.dir/mainwindow.cpp.o.d -o CMakeFiles/ANEB_2.dir/mainwindow.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/mainwindow.cpp
 
 CMakeFiles/ANEB_2.dir/mainwindow.cpp.i: cmake_force
@@ -121,7 +141,7 @@ CMakeFiles/ANEB_2.dir/mainwindow.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/virtual_io.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/virtual_io.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/virtual_io.cpp
 CMakeFiles/ANEB_2.dir/virtual_io.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ANEB_2.dir/virtual_io.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/ANEB_2.dir/virtual_io.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/virtual_io.cpp.o -MF CMakeFiles/ANEB_2.dir/virtual_io.cpp.o.d -o CMakeFiles/ANEB_2.dir/virtual_io.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/virtual_io.cpp
 
 CMakeFiles/ANEB_2.dir/virtual_io.cpp.i: cmake_force
@@ -135,7 +155,7 @@ CMakeFiles/ANEB_2.dir/virtual_io.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/IndividualTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/IndividualTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/IndividualTest.cpp
 CMakeFiles/ANEB_2.dir/IndividualTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/ANEB_2.dir/IndividualTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/ANEB_2.dir/IndividualTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/IndividualTest.cpp.o -MF CMakeFiles/ANEB_2.dir/IndividualTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/IndividualTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/IndividualTest.cpp
 
 CMakeFiles/ANEB_2.dir/IndividualTest.cpp.i: cmake_force
@@ -149,7 +169,7 @@ CMakeFiles/ANEB_2.dir/IndividualTest.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/TestReportModel.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/TestReportModel.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/TestReportModel.cpp
 CMakeFiles/ANEB_2.dir/TestReportModel.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/ANEB_2.dir/TestReportModel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/ANEB_2.dir/TestReportModel.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/TestReportModel.cpp.o -MF CMakeFiles/ANEB_2.dir/TestReportModel.cpp.o.d -o CMakeFiles/ANEB_2.dir/TestReportModel.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/TestReportModel.cpp
 
 CMakeFiles/ANEB_2.dir/TestReportModel.cpp.i: cmake_force
@@ -163,7 +183,7 @@ CMakeFiles/ANEB_2.dir/TestReportModel.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/GenericTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/GenericTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/GenericTest.cpp
 CMakeFiles/ANEB_2.dir/GenericTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/ANEB_2.dir/GenericTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/ANEB_2.dir/GenericTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/GenericTest.cpp.o -MF CMakeFiles/ANEB_2.dir/GenericTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/GenericTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/GenericTest.cpp
 
 CMakeFiles/ANEB_2.dir/GenericTest.cpp.i: cmake_force
@@ -177,7 +197,7 @@ CMakeFiles/ANEB_2.dir/GenericTest.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/MCUFirmwareUpload.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/MCUFirmwareUpload.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUFirmwareUpload.cpp
 CMakeFiles/ANEB_2.dir/MCUFirmwareUpload.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/ANEB_2.dir/MCUFirmwareUpload.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/ANEB_2.dir/MCUFirmwareUpload.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/MCUFirmwareUpload.cpp.o -MF CMakeFiles/ANEB_2.dir/MCUFirmwareUpload.cpp.o.d -o CMakeFiles/ANEB_2.dir/MCUFirmwareUpload.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUFirmwareUpload.cpp
 
 CMakeFiles/ANEB_2.dir/MCUFirmwareUpload.cpp.i: cmake_force
@@ -191,7 +211,7 @@ CMakeFiles/ANEB_2.dir/MCUFirmwareUpload.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/EcuFrameController.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/EcuFrameController.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuFrameController.cpp
 CMakeFiles/ANEB_2.dir/EcuFrameController.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/ANEB_2.dir/EcuFrameController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/ANEB_2.dir/EcuFrameController.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/EcuFrameController.cpp.o -MF CMakeFiles/ANEB_2.dir/EcuFrameController.cpp.o.d -o CMakeFiles/ANEB_2.dir/EcuFrameController.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuFrameController.cpp
 
 CMakeFiles/ANEB_2.dir/EcuFrameController.cpp.i: cmake_force
@@ -205,7 +225,7 @@ CMakeFiles/ANEB_2.dir/EcuFrameController.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/SerialCommPort.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/SerialCommPort.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/SerialCommPort.cpp
 CMakeFiles/ANEB_2.dir/SerialCommPort.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/ANEB_2.dir/SerialCommPort.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/ANEB_2.dir/SerialCommPort.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/SerialCommPort.cpp.o -MF CMakeFiles/ANEB_2.dir/SerialCommPort.cpp.o.d -o CMakeFiles/ANEB_2.dir/SerialCommPort.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/SerialCommPort.cpp
 
 CMakeFiles/ANEB_2.dir/SerialCommPort.cpp.i: cmake_force
@@ -219,7 +239,7 @@ CMakeFiles/ANEB_2.dir/SerialCommPort.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/Board.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/Board.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/Board.cpp
 CMakeFiles/ANEB_2.dir/Board.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/ANEB_2.dir/Board.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/ANEB_2.dir/Board.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/Board.cpp.o -MF CMakeFiles/ANEB_2.dir/Board.cpp.o.d -o CMakeFiles/ANEB_2.dir/Board.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/Board.cpp
 
 CMakeFiles/ANEB_2.dir/Board.cpp.i: cmake_force
@@ -233,7 +253,7 @@ CMakeFiles/ANEB_2.dir/Board.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/Ecu1Board.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/Ecu1Board.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/Ecu1Board.cpp
 CMakeFiles/ANEB_2.dir/Ecu1Board.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/ANEB_2.dir/Ecu1Board.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/ANEB_2.dir/Ecu1Board.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/Ecu1Board.cpp.o -MF CMakeFiles/ANEB_2.dir/Ecu1Board.cpp.o.d -o CMakeFiles/ANEB_2.dir/Ecu1Board.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/Ecu1Board.cpp
 
 CMakeFiles/ANEB_2.dir/Ecu1Board.cpp.i: cmake_force
@@ -247,7 +267,7 @@ CMakeFiles/ANEB_2.dir/Ecu1Board.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/Ecu2Board.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/Ecu2Board.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/Ecu2Board.cpp
 CMakeFiles/ANEB_2.dir/Ecu2Board.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/ANEB_2.dir/Ecu2Board.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/ANEB_2.dir/Ecu2Board.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/Ecu2Board.cpp.o -MF CMakeFiles/ANEB_2.dir/Ecu2Board.cpp.o.d -o CMakeFiles/ANEB_2.dir/Ecu2Board.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/Ecu2Board.cpp
 
 CMakeFiles/ANEB_2.dir/Ecu2Board.cpp.i: cmake_force
@@ -261,7 +281,7 @@ CMakeFiles/ANEB_2.dir/Ecu2Board.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/Ecu3Board.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/Ecu3Board.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/Ecu3Board.cpp
 CMakeFiles/ANEB_2.dir/Ecu3Board.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/ANEB_2.dir/Ecu3Board.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/ANEB_2.dir/Ecu3Board.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/Ecu3Board.cpp.o -MF CMakeFiles/ANEB_2.dir/Ecu3Board.cpp.o.d -o CMakeFiles/ANEB_2.dir/Ecu3Board.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/Ecu3Board.cpp
 
 CMakeFiles/ANEB_2.dir/Ecu3Board.cpp.i: cmake_force
@@ -275,7 +295,7 @@ CMakeFiles/ANEB_2.dir/Ecu3Board.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/Ecu4Board.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/Ecu4Board.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/Ecu4Board.cpp
 CMakeFiles/ANEB_2.dir/Ecu4Board.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/ANEB_2.dir/Ecu4Board.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/ANEB_2.dir/Ecu4Board.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/Ecu4Board.cpp.o -MF CMakeFiles/ANEB_2.dir/Ecu4Board.cpp.o.d -o CMakeFiles/ANEB_2.dir/Ecu4Board.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/Ecu4Board.cpp
 
 CMakeFiles/ANEB_2.dir/Ecu4Board.cpp.i: cmake_force
@@ -289,7 +309,7 @@ CMakeFiles/ANEB_2.dir/Ecu4Board.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/Mcu1Board.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/Mcu1Board.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/Mcu1Board.cpp
 CMakeFiles/ANEB_2.dir/Mcu1Board.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/ANEB_2.dir/Mcu1Board.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/ANEB_2.dir/Mcu1Board.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/Mcu1Board.cpp.o -MF CMakeFiles/ANEB_2.dir/Mcu1Board.cpp.o.d -o CMakeFiles/ANEB_2.dir/Mcu1Board.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/Mcu1Board.cpp
 
 CMakeFiles/ANEB_2.dir/Mcu1Board.cpp.i: cmake_force
@@ -303,7 +323,7 @@ CMakeFiles/ANEB_2.dir/Mcu1Board.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/AnalogInputTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/AnalogInputTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogInputTest.cpp
 CMakeFiles/ANEB_2.dir/AnalogInputTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/ANEB_2.dir/AnalogInputTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/ANEB_2.dir/AnalogInputTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/AnalogInputTest.cpp.o -MF CMakeFiles/ANEB_2.dir/AnalogInputTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/AnalogInputTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogInputTest.cpp
 
 CMakeFiles/ANEB_2.dir/AnalogInputTest.cpp.i: cmake_force
@@ -317,7 +337,7 @@ CMakeFiles/ANEB_2.dir/AnalogInputTest.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/AnalogOutputTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/AnalogOutputTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogOutputTest.cpp
 CMakeFiles/ANEB_2.dir/AnalogOutputTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/ANEB_2.dir/AnalogOutputTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/ANEB_2.dir/AnalogOutputTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/AnalogOutputTest.cpp.o -MF CMakeFiles/ANEB_2.dir/AnalogOutputTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/AnalogOutputTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogOutputTest.cpp
 
 CMakeFiles/ANEB_2.dir/AnalogOutputTest.cpp.i: cmake_force
@@ -331,7 +351,7 @@ CMakeFiles/ANEB_2.dir/AnalogOutputTest.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/CAN1NetworkTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/CAN1NetworkTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN1NetworkTest.cpp
 CMakeFiles/ANEB_2.dir/CAN1NetworkTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/ANEB_2.dir/CAN1NetworkTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/ANEB_2.dir/CAN1NetworkTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/CAN1NetworkTest.cpp.o -MF CMakeFiles/ANEB_2.dir/CAN1NetworkTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/CAN1NetworkTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN1NetworkTest.cpp
 
 CMakeFiles/ANEB_2.dir/CAN1NetworkTest.cpp.i: cmake_force
@@ -345,7 +365,7 @@ CMakeFiles/ANEB_2.dir/CAN1NetworkTest.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/CAN2NetworkTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/CAN2NetworkTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN2NetworkTest.cpp
 CMakeFiles/ANEB_2.dir/CAN2NetworkTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/ANEB_2.dir/CAN2NetworkTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/ANEB_2.dir/CAN2NetworkTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/CAN2NetworkTest.cpp.o -MF CMakeFiles/ANEB_2.dir/CAN2NetworkTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/CAN2NetworkTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN2NetworkTest.cpp
 
 CMakeFiles/ANEB_2.dir/CAN2NetworkTest.cpp.i: cmake_force
@@ -359,7 +379,7 @@ CMakeFiles/ANEB_2.dir/CAN2NetworkTest.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/CANInitTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/CANInitTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/CANInitTest.cpp
 CMakeFiles/ANEB_2.dir/CANInitTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/ANEB_2.dir/CANInitTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/ANEB_2.dir/CANInitTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/CANInitTest.cpp.o -MF CMakeFiles/ANEB_2.dir/CANInitTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/CANInitTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/CANInitTest.cpp
 
 CMakeFiles/ANEB_2.dir/CANInitTest.cpp.i: cmake_force
@@ -373,7 +393,7 @@ CMakeFiles/ANEB_2.dir/CANInitTest.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/CommunicationTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/CommunicationTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/CommunicationTest.cpp
 CMakeFiles/ANEB_2.dir/CommunicationTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/ANEB_2.dir/CommunicationTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/ANEB_2.dir/CommunicationTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/CommunicationTest.cpp.o -MF CMakeFiles/ANEB_2.dir/CommunicationTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/CommunicationTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/CommunicationTest.cpp
 
 CMakeFiles/ANEB_2.dir/CommunicationTest.cpp.i: cmake_force
@@ -387,7 +407,7 @@ CMakeFiles/ANEB_2.dir/CommunicationTest.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/DigitalInputTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/DigitalInputTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/DigitalInputTest.cpp
 CMakeFiles/ANEB_2.dir/DigitalInputTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/ANEB_2.dir/DigitalInputTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/ANEB_2.dir/DigitalInputTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/DigitalInputTest.cpp.o -MF CMakeFiles/ANEB_2.dir/DigitalInputTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/DigitalInputTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/DigitalInputTest.cpp
 
 CMakeFiles/ANEB_2.dir/DigitalInputTest.cpp.i: cmake_force
@@ -401,7 +421,7 @@ CMakeFiles/ANEB_2.dir/DigitalInputTest.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/LinNetworkTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/LinNetworkTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/LinNetworkTest.cpp
 CMakeFiles/ANEB_2.dir/LinNetworkTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/ANEB_2.dir/LinNetworkTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/ANEB_2.dir/LinNetworkTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/LinNetworkTest.cpp.o -MF CMakeFiles/ANEB_2.dir/LinNetworkTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/LinNetworkTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/LinNetworkTest.cpp
 
 CMakeFiles/ANEB_2.dir/LinNetworkTest.cpp.i: cmake_force
@@ -415,7 +435,7 @@ CMakeFiles/ANEB_2.dir/LinNetworkTest.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/CANLoopbackTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/CANLoopbackTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/CANLoopbackTest.cpp
 CMakeFiles/ANEB_2.dir/CANLoopbackTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/ANEB_2.dir/CANLoopbackTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/ANEB_2.dir/CANLoopbackTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/CANLoopbackTest.cpp.o -MF CMakeFiles/ANEB_2.dir/CANLoopbackTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/CANLoopbackTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/CANLoopbackTest.cpp
 
 CMakeFiles/ANEB_2.dir/CANLoopbackTest.cpp.i: cmake_force
@@ -429,7 +449,7 @@ CMakeFiles/ANEB_2.dir/CANLoopbackTest.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/MCUInterfaceTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/MCUInterfaceTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUInterfaceTest.cpp
 CMakeFiles/ANEB_2.dir/MCUInterfaceTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/ANEB_2.dir/MCUInterfaceTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/ANEB_2.dir/MCUInterfaceTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/MCUInterfaceTest.cpp.o -MF CMakeFiles/ANEB_2.dir/MCUInterfaceTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/MCUInterfaceTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUInterfaceTest.cpp
 
 CMakeFiles/ANEB_2.dir/MCUInterfaceTest.cpp.i: cmake_force
@@ -443,7 +463,7 @@ CMakeFiles/ANEB_2.dir/MCUInterfaceTest.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/FrameController.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/FrameController.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/FrameController.cpp
 CMakeFiles/ANEB_2.dir/FrameController.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/ANEB_2.dir/FrameController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/ANEB_2.dir/FrameController.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/FrameController.cpp.o -MF CMakeFiles/ANEB_2.dir/FrameController.cpp.o.d -o CMakeFiles/ANEB_2.dir/FrameController.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/FrameController.cpp
 
 CMakeFiles/ANEB_2.dir/FrameController.cpp.i: cmake_force
@@ -457,7 +477,7 @@ CMakeFiles/ANEB_2.dir/FrameController.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/McuFrameController.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/McuFrameController.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/McuFrameController.cpp
 CMakeFiles/ANEB_2.dir/McuFrameController.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/ANEB_2.dir/McuFrameController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/ANEB_2.dir/McuFrameController.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/McuFrameController.cpp.o -MF CMakeFiles/ANEB_2.dir/McuFrameController.cpp.o.d -o CMakeFiles/ANEB_2.dir/McuFrameController.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/McuFrameController.cpp
 
 CMakeFiles/ANEB_2.dir/McuFrameController.cpp.i: cmake_force
@@ -471,7 +491,7 @@ CMakeFiles/ANEB_2.dir/McuFrameController.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/PersistenceController.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/PersistenceController.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/PersistenceController.cpp
 CMakeFiles/ANEB_2.dir/PersistenceController.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/ANEB_2.dir/PersistenceController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/ANEB_2.dir/PersistenceController.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/PersistenceController.cpp.o -MF CMakeFiles/ANEB_2.dir/PersistenceController.cpp.o.d -o CMakeFiles/ANEB_2.dir/PersistenceController.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/PersistenceController.cpp
 
 CMakeFiles/ANEB_2.dir/PersistenceController.cpp.i: cmake_force
@@ -485,7 +505,7 @@ CMakeFiles/ANEB_2.dir/PersistenceController.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/BusinessController.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/BusinessController.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/BusinessController.cpp
 CMakeFiles/ANEB_2.dir/BusinessController.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/ANEB_2.dir/BusinessController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/ANEB_2.dir/BusinessController.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/BusinessController.cpp.o -MF CMakeFiles/ANEB_2.dir/BusinessController.cpp.o.d -o CMakeFiles/ANEB_2.dir/BusinessController.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/BusinessController.cpp
 
 CMakeFiles/ANEB_2.dir/BusinessController.cpp.i: cmake_force
@@ -499,7 +519,7 @@ CMakeFiles/ANEB_2.dir/BusinessController.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/RepBusinessController.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/RepBusinessController.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/RepBusinessController.cpp
 CMakeFiles/ANEB_2.dir/RepBusinessController.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/ANEB_2.dir/RepBusinessController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/ANEB_2.dir/RepBusinessController.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/RepBusinessController.cpp.o -MF CMakeFiles/ANEB_2.dir/RepBusinessController.cpp.o.d -o CMakeFiles/ANEB_2.dir/RepBusinessController.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/RepBusinessController.cpp
 
 CMakeFiles/ANEB_2.dir/RepBusinessController.cpp.i: cmake_force
@@ -513,7 +533,7 @@ CMakeFiles/ANEB_2.dir/RepBusinessController.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/TimeOutMonitor.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/TimeOutMonitor.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/TimeOutMonitor.cpp
 CMakeFiles/ANEB_2.dir/TimeOutMonitor.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/ANEB_2.dir/TimeOutMonitor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/ANEB_2.dir/TimeOutMonitor.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/TimeOutMonitor.cpp.o -MF CMakeFiles/ANEB_2.dir/TimeOutMonitor.cpp.o.d -o CMakeFiles/ANEB_2.dir/TimeOutMonitor.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/TimeOutMonitor.cpp
 
 CMakeFiles/ANEB_2.dir/TimeOutMonitor.cpp.i: cmake_force
@@ -527,7 +547,7 @@ CMakeFiles/ANEB_2.dir/TimeOutMonitor.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/McuBusinessController.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/McuBusinessController.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/McuBusinessController.cpp
 CMakeFiles/ANEB_2.dir/McuBusinessController.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/ANEB_2.dir/McuBusinessController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/ANEB_2.dir/McuBusinessController.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/McuBusinessController.cpp.o -MF CMakeFiles/ANEB_2.dir/McuBusinessController.cpp.o.d -o CMakeFiles/ANEB_2.dir/McuBusinessController.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/McuBusinessController.cpp
 
 CMakeFiles/ANEB_2.dir/McuBusinessController.cpp.i: cmake_force
@@ -541,7 +561,7 @@ CMakeFiles/ANEB_2.dir/McuBusinessController.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/GetTestReport.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/GetTestReport.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/GetTestReport.cpp
 CMakeFiles/ANEB_2.dir/GetTestReport.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/ANEB_2.dir/GetTestReport.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/ANEB_2.dir/GetTestReport.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/GetTestReport.cpp.o -MF CMakeFiles/ANEB_2.dir/GetTestReport.cpp.o.d -o CMakeFiles/ANEB_2.dir/GetTestReport.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/GetTestReport.cpp
 
 CMakeFiles/ANEB_2.dir/GetTestReport.cpp.i: cmake_force
@@ -555,7 +575,7 @@ CMakeFiles/ANEB_2.dir/GetTestReport.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/EcuBusinessController.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/EcuBusinessController.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuBusinessController.cpp
 CMakeFiles/ANEB_2.dir/EcuBusinessController.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/ANEB_2.dir/EcuBusinessController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/ANEB_2.dir/EcuBusinessController.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/EcuBusinessController.cpp.o -MF CMakeFiles/ANEB_2.dir/EcuBusinessController.cpp.o.d -o CMakeFiles/ANEB_2.dir/EcuBusinessController.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuBusinessController.cpp
 
 CMakeFiles/ANEB_2.dir/EcuBusinessController.cpp.i: cmake_force
@@ -569,7 +589,7 @@ CMakeFiles/ANEB_2.dir/EcuBusinessController.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/ECUFirmwareUpload.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/ECUFirmwareUpload.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/ECUFirmwareUpload.cpp
 CMakeFiles/ANEB_2.dir/ECUFirmwareUpload.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/ANEB_2.dir/ECUFirmwareUpload.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/ANEB_2.dir/ECUFirmwareUpload.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/ECUFirmwareUpload.cpp.o -MF CMakeFiles/ANEB_2.dir/ECUFirmwareUpload.cpp.o.d -o CMakeFiles/ANEB_2.dir/ECUFirmwareUpload.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/ECUFirmwareUpload.cpp
 
 CMakeFiles/ANEB_2.dir/ECUFirmwareUpload.cpp.i: cmake_force
@@ -583,7 +603,7 @@ CMakeFiles/ANEB_2.dir/ECUFirmwareUpload.cpp.s: cmake_force
 CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
 CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/FindSerialPortTest.cpp
 CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.o -MF CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.o.d -o CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/FindSerialPortTest.cpp
 
 CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.i: cmake_force
@@ -593,6 +613,258 @@ CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.i: cmake_force
 CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/FindSerialPortTest.cpp -o CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.s
+
+CMakeFiles/ANEB_2.dir/JigaView.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/JigaView.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/JigaView.cpp
+CMakeFiles/ANEB_2.dir/JigaView.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/ANEB_2.dir/JigaView.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/JigaView.cpp.o -MF CMakeFiles/ANEB_2.dir/JigaView.cpp.o.d -o CMakeFiles/ANEB_2.dir/JigaView.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/JigaView.cpp
+
+CMakeFiles/ANEB_2.dir/JigaView.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/JigaView.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/JigaView.cpp > CMakeFiles/ANEB_2.dir/JigaView.cpp.i
+
+CMakeFiles/ANEB_2.dir/JigaView.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/JigaView.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/JigaView.cpp -o CMakeFiles/ANEB_2.dir/JigaView.cpp.s
+
+CMakeFiles/ANEB_2.dir/MainMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/MainMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/MainMenu.cpp
+CMakeFiles/ANEB_2.dir/MainMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/ANEB_2.dir/MainMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/MainMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/MainMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/MainMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/MainMenu.cpp
+
+CMakeFiles/ANEB_2.dir/MainMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/MainMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/MainMenu.cpp > CMakeFiles/ANEB_2.dir/MainMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/MainMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/MainMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/MainMenu.cpp -o CMakeFiles/ANEB_2.dir/MainMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogOutputMenu.cpp
+CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogOutputMenu.cpp
+
+CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogOutputMenu.cpp > CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogOutputMenu.cpp -o CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN1NetworkMenu.cpp
+CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CXX object CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN1NetworkMenu.cpp
+
+CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN1NetworkMenu.cpp > CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN1NetworkMenu.cpp -o CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN2NetworkMenu.cpp
+CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building CXX object CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN2NetworkMenu.cpp
+
+CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN2NetworkMenu.cpp > CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/CAN2NetworkMenu.cpp -o CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/CANInitMenu.cpp
+CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building CXX object CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/CANInitMenu.cpp
+
+CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/CANInitMenu.cpp > CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/CANInitMenu.cpp -o CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/CANLoopbackMenu.cpp
+CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building CXX object CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/CANLoopbackMenu.cpp
+
+CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/CANLoopbackMenu.cpp > CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/CANLoopbackMenu.cpp -o CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/CommunicationMenu.cpp
+CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CXX object CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/CommunicationMenu.cpp
+
+CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/CommunicationMenu.cpp > CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/CommunicationMenu.cpp -o CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/DigitalInputMenu.cpp
+CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CXX object CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/DigitalInputMenu.cpp
+
+CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/DigitalInputMenu.cpp > CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/DigitalInputMenu.cpp -o CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuUploadMenu.cpp
+CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building CXX object CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuUploadMenu.cpp
+
+CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuUploadMenu.cpp > CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/EcuUploadMenu.cpp -o CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/LINNetworkMenu.cpp
+CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building CXX object CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/LINNetworkMenu.cpp
+
+CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/LINNetworkMenu.cpp > CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/LINNetworkMenu.cpp -o CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/LoadSerialPortsMenu.cpp
+CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/LoadSerialPortsMenu.cpp
+
+CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/LoadSerialPortsMenu.cpp > CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/LoadSerialPortsMenu.cpp -o CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUInterfaceMenu.cpp
+CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building CXX object CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUInterfaceMenu.cpp
+
+CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUInterfaceMenu.cpp > CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/MCUInterfaceMenu.cpp -o CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/McuUploadMenu.cpp
+CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building CXX object CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/McuUploadMenu.cpp
+
+CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/McuUploadMenu.cpp > CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/McuUploadMenu.cpp -o CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/ReportTestMenus.cpp
+CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building CXX object CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.o -MF CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.o.d -o CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/ReportTestMenus.cpp
+
+CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/ReportTestMenus.cpp > CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.i
+
+CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/ReportTestMenus.cpp -o CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.s
+
+CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogInputMenu.cpp
+CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building CXX object CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.o -MF CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.o.d -o CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogInputMenu.cpp
+
+CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogInputMenu.cpp > CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.i
+
+CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/AnalogInputMenu.cpp -o CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.s
+
+CMakeFiles/ANEB_2.dir/aneb.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/aneb.cpp.o: /Users/sousadiego/Documents/ws-Qt/ANEB_2/aneb.cpp
+CMakeFiles/ANEB_2.dir/aneb.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building CXX object CMakeFiles/ANEB_2.dir/aneb.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/aneb.cpp.o -MF CMakeFiles/ANEB_2.dir/aneb.cpp.o.d -o CMakeFiles/ANEB_2.dir/aneb.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/aneb.cpp
+
+CMakeFiles/ANEB_2.dir/aneb.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/aneb.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/aneb.cpp > CMakeFiles/ANEB_2.dir/aneb.cpp.i
+
+CMakeFiles/ANEB_2.dir/aneb.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/aneb.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/aneb.cpp -o CMakeFiles/ANEB_2.dir/aneb.cpp.s
+
+CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o: CMakeFiles/ANEB_2.dir/flags.make
+CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o: ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp
+CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o: CMakeFiles/ANEB_2.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building CXX object CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o -MF CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o.d -o CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o -c /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp
+
+CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp > CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.i
+
+CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp -o CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.s
 
 # Object files for target ANEB_2
 ANEB_2_OBJECTS = \
@@ -632,7 +904,25 @@ ANEB_2_OBJECTS = \
 "CMakeFiles/ANEB_2.dir/GetTestReport.cpp.o" \
 "CMakeFiles/ANEB_2.dir/EcuBusinessController.cpp.o" \
 "CMakeFiles/ANEB_2.dir/ECUFirmwareUpload.cpp.o" \
-"CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.o"
+"CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.o" \
+"CMakeFiles/ANEB_2.dir/JigaView.cpp.o" \
+"CMakeFiles/ANEB_2.dir/MainMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.o" \
+"CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.o" \
+"CMakeFiles/ANEB_2.dir/aneb.cpp.o" \
+"CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o"
 
 # External object files for target ANEB_2
 ANEB_2_EXTERNAL_OBJECTS =
@@ -674,14 +964,35 @@ ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/GetTestReport.cpp.o
 ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/EcuBusinessController.cpp.o
 ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/ECUFirmwareUpload.cpp.o
 ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/FindSerialPortTest.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/JigaView.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/MainMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/AnalogOutputMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/CAN1NetworkMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/CAN2NetworkMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/CANInitMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/CANLoopbackMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/CommunicationMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/DigitalInputMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/EcuUploadMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/LINNetworkMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/LoadSerialPortsMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/MCUInterfaceMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/McuUploadMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/ReportTestMenus.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/AnalogInputMenu.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/aneb.cpp.o
+ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp.o
 ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/build.make
-ANEB_2.app/Contents/MacOS/ANEB_2: /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Versions/A/QtWidgets
 ANEB_2.app/Contents/MacOS/ANEB_2: /Users/sousadiego/Qt/6.7.0/macos/lib/QtSerialPort.framework/Versions/A/QtSerialPort
 ANEB_2.app/Contents/MacOS/ANEB_2: /opt/homebrew/lib/libusb-1.0.dylib
+ANEB_2.app/Contents/MacOS/ANEB_2: /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Versions/A/QtMultimediaWidgets
+ANEB_2.app/Contents/MacOS/ANEB_2: /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/QtMultimedia
+ANEB_2.app/Contents/MacOS/ANEB_2: /Users/sousadiego/Qt/6.7.0/macos/lib/QtNetwork.framework/Versions/A/QtNetwork
+ANEB_2.app/Contents/MacOS/ANEB_2: /Users/sousadiego/Qt/6.7.0/macos/lib/QtWidgets.framework/Versions/A/QtWidgets
 ANEB_2.app/Contents/MacOS/ANEB_2: /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Versions/A/QtGui
 ANEB_2.app/Contents/MacOS/ANEB_2: /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/QtCore
 ANEB_2.app/Contents/MacOS/ANEB_2: CMakeFiles/ANEB_2.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Linking CXX executable ANEB_2.app/Contents/MacOS/ANEB_2"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Linking CXX executable ANEB_2.app/Contents/MacOS/ANEB_2"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ANEB_2.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -692,6 +1003,7 @@ CMakeFiles/ANEB_2.dir/clean:
 	$(CMAKE_COMMAND) -P CMakeFiles/ANEB_2.dir/cmake_clean.cmake
 .PHONY : CMakeFiles/ANEB_2.dir/clean
 
+CMakeFiles/ANEB_2.dir/depend: ANEB_2_autogen/EWIEGA46WW/qrc_resources.cpp
 CMakeFiles/ANEB_2.dir/depend: ANEB_2_autogen/timestamp
 	cd /Users/sousadiego/Documents/ws-Qt/ANEB_2/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/sousadiego/Documents/ws-Qt/ANEB_2 /Users/sousadiego/Documents/ws-Qt/ANEB_2 /Users/sousadiego/Documents/ws-Qt/ANEB_2/build /Users/sousadiego/Documents/ws-Qt/ANEB_2/build /Users/sousadiego/Documents/ws-Qt/ANEB_2/build/CMakeFiles/ANEB_2.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/ANEB_2.dir/depend

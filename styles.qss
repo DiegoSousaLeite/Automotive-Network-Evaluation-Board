@@ -1,0 +1,126 @@
+/*= Style for mainwindow START
+  ==================================================== */
+        #ANEB {
+                background-color: #1e1e2f;
+        }
+/*= END
+  ==================================================== */
+
+/*= Style for button to change menu style START
+  ==================================================== */
+        #changeButton {
+                padding: 5px;
+                border: none;
+                width: 30px;
+                height: 30px;
+                background-color: #2d2d44;
+        }
+        #changeButton:hover {
+            background-color: #3d3d5c;
+        }
+/*= END
+  ==================================================== */
+
+
+/*= Style for header widget START
+  ==================================================== */
+        #widgetTeste {
+                background-color: #2d2d44;
+                color: #5a5a5a;
+        }
+/*= END
+  ==================================================== */
+
+/*= Style for menu with icon only START
+  ==================================================== */
+        /* style for widget */
+        #iconOnlyWidget {
+                background-color: #2d2d44;
+                width:50px;
+        }
+
+    /* style for QPushButton and QLabel */
+        #iconOnlyWidget QPushButton, QLabel {
+                height:50px;
+                border:none;
+                color: #cfcfcf;
+                /* border-bottom: 1px solid #b0b0b0; */
+        }
+
+        #iconOnlyWidget QPushButton:hover {
+                background-color: rgba( 86, 101, 115, 0.5);
+        }
+
+        /* style for logo image */
+        #logo_label_1 {
+                padding: 5px
+
+        }
+/*= END
+  ==================================================== */
+
+/*= Style for menu with icon and text START
+  ==================================================== */
+        /* style for widget */
+        #fullMenuWidget {
+                background-color: #2d2d44;
+        }
+
+        /* style for QPushButton */
+        #fullMenuWidget QPushButton {
+                border:none;
+                border-radius: 3px;
+                text-align: left;
+                padding: 8px 0 8px 15px;
+                color: #788596;
+        }
+
+        #fullMenuWidget QPushButton:hover {
+                background-color: rgba( 86, 101, 115, 0.5);
+        }
+
+        #fullMenuWidget QPushButton:checked {
+                color: #ffffff; /* Texto branco para o botão selecionado */
+                background-color: #4da6ff; /* Destaque em azul claro */
+
+        }
+
+        /* style for logo image */
+        #logo_label_2 {
+                padding: 5px;
+                color: #ffffff;
+        }
+
+        /* style for APP title */
+        #logo_label_3 {
+                padding-right: 10px;
+                color: #ffffff; /* Texto branco */
+        }
+/*= END
+  ==================================================== */
+
+
+/*= Style for stackedWidgetMainPagess
+  ==================================================== */
+        #stackedWidgetMainPages QPushButton{
+              height:25px;
+              border: 2px solid #b0b0b0;
+              border-radius: 10px; /* Bordas arredondadas com raio de 5px */
+              color: #cfcfcf;
+        }
+
+        #stackedWidgetMainPages QPushButton:hover {
+              background-color: rgba( 86, 101, 115, 0.5);
+              border-color: #4da6ff; /* Muda a cor da borda quando em hover */
+        }
+
+        #stackedWidgetMainPages QPushButton:checked {
+                color: #ffffff; /* Texto branco para o botão selecionado */
+                background-color: #4da6ff; /* Destaque em azul claro */
+
+                border: 2px solid #4da6ff; /* Borda azul clara para o botão selecionado */
+        }
+
+
+/*= END
+  ==================================================== */

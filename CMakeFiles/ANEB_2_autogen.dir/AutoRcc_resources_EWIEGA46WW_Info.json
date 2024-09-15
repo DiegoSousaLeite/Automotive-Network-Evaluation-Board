@@ -1,0 +1,37 @@
+{
+	"BUILD_DIR" : "/Users/sousadiego/Documents/ws-Qt/ANEB_2/ANEB_2_autogen",
+	"CMAKE_BINARY_DIR" : "/Users/sousadiego/Documents/ws-Qt/ANEB_2",
+	"CMAKE_CURRENT_BINARY_DIR" : "/Users/sousadiego/Documents/ws-Qt/ANEB_2",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/Users/sousadiego/Documents/ws-Qt/ANEB_2",
+	"CMAKE_SOURCE_DIR" : "/Users/sousadiego/Documents/ws-Qt/ANEB_2",
+	"CROSS_CONFIG" : false,
+	"GENERATOR" : "Unix Makefiles",
+	"INCLUDE_DIR" : "/Users/sousadiego/Documents/ws-Qt/ANEB_2/ANEB_2_autogen/include",
+	"INPUTS" : 
+	[
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/styles.qss",
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/borcelle.png",
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/search-13-48.ico",
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/dashboard-5-48.ico",
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/dashboard-5-32.ico",
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/anebLogo.png",
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/home-4-32.ico",
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/menu-4-32.ico",
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/activity-feed-48.ico",
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/home-4-48.ico",
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/activity-feed-32.ico",
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/close-window-64.ico",
+		"/Users/sousadiego/Documents/ws-Qt/ANEB_2/user-48.ico"
+	],
+	"LOCK_FILE" : "/Users/sousadiego/Documents/ws-Qt/ANEB_2/CMakeFiles/ANEB_2_autogen.dir/AutoRcc_resources_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "--no-zstd", "-name", "resources" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_resources.cpp",
+	"RCC_EXECUTABLE" : "/Users/sousadiego/Qt/6.7.0/macos/./libexec/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/Users/sousadiego/Documents/ws-Qt/ANEB_2/CMakeFiles/ANEB_2_autogen.dir/AutoRcc_resources_EWIEGA46WW_Used.txt",
+	"SOURCE" : "/Users/sousadiego/Documents/ws-Qt/ANEB_2/resources.qrc",
+	"USE_BETTER_GRAPH" : false,
+	"VERBOSITY" : 0
+}

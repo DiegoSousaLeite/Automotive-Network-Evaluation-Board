@@ -14,9 +14,10 @@ set(CMAKE_PREFIX_PATH "/Users/sousadiego/Qt/6.7.0/macos/lib/cmake")
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
-find_package(Qt6 COMPONENTS SerialPort Multimedia MultimediaWidgets REQUIRED)
+find_package(Qt6 COMPONENTS SerialPort Multimedia MultimediaWidgets Quick Qml QuickWidgets REQUIRED)
 
 set(MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/Info.plist)
+
 
 set(PROJECT_SOURCES
     main.cpp
@@ -99,6 +100,16 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ANEB_2
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        aneb.h aneb.cpp aneb.ui ui_aneb.h
+        resources.qrc
+        qml.qrc
+        styles.qss
+        radialbar.h radialbar.cpp
+        DashboardWidget.h DashboardWidget.cpp
+
+
+
+
 
     )
 
@@ -200,6 +211,11 @@ set(VIEW_MENUS
     AnalogInputMenu.h AnalogInputMenu.cpp
 )
 
+set(DASHBOARD
+    radialbar.h radialbar.cpp
+    DashboardWidget.h DashboardWidget.cpp
+)
+
 source_group("Constants" FILES ${CONSTANTS_HEADERS})
 source_group("Model" FILES ${MODEL})
 source_group("Model_test" FILES ${MODEL_TEST})
@@ -211,6 +227,7 @@ source_group("Model_board" FILES ${MODEL_BOARD})
 source_group("Build" FILES ${BUILD})
 source_group("View" FILES ${VIEW})
 source_group("View_Menus" FILES ${VIEW_MENUS})
+source_group("DashBoard" FILES ${DASHBOARD})
 
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ANEB_2 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -237,7 +254,8 @@ find_library(LIBUSB_LIBRARY NAMES usb-1.0 libusb-1.0 PATHS /opt/homebrew/opt/lib
 include_directories(SYSTEM /opt/homebrew/opt/libusb/include/libusb-1.0)
 
 # Linkando as bibliotecas ao executável
-target_link_libraries(ANEB_2 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt6::SerialPort ${LIBUSB_LIBRARY} Qt6::Multimedia Qt6::MultimediaWidgets)
+target_link_libraries(ANEB_2 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt6::SerialPort ${LIBUSB_LIBRARY} Qt6::Multimedia Qt6::MultimediaWidgets
+Qt6::Quick Qt6::Qml Qt6::QuickWidgets)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

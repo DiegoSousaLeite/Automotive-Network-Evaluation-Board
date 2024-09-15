@@ -33,7 +33,6 @@ void EcuFrameController::executeTest(int testId, int boardId) {
         qDebug() << "Erro: bsController não inicializado";
         return;
     }
-
     // Verifica se o modelo de teste de comunicação 'commTestModel' foi inicializado
     if (commTestModel == nullptr) {
         qDebug() << "Erro: commTestModel não inicializado";

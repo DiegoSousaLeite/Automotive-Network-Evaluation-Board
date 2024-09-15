@@ -804,6 +804,7 @@
   /Users/sousadiego/Documents/ws-Qt/ANEB_2/McuFrameController.h \
   /Users/sousadiego/Documents/ws-Qt/ANEB_2/PersistenceController.h \
   /Users/sousadiego/Documents/ws-Qt/ANEB_2/PropertyChangeListener.h \
+  /Users/sousadiego/Documents/ws-Qt/ANEB_2/RCWebcam.h \
   /Users/sousadiego/Documents/ws-Qt/ANEB_2/RepBusinessController.h \
   /Users/sousadiego/Documents/ws-Qt/ANEB_2/ReportControllerInterface.h \
   /Users/sousadiego/Documents/ws-Qt/ANEB_2/SerialCommPort.h \
@@ -828,6 +829,7 @@
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QList \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QMap \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QObject \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QPermission \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QProcess \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QRegularExpression \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/QSettings \
@@ -912,6 +914,7 @@
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qmargins.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qmath.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qmetacontainer.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qmetaobject.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qmetatype.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qminmax.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qnamespace.h \
@@ -923,6 +926,7 @@
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qobjectdefs_impl.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qoverload.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qpair.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qpermissions.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qpoint.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qprocess.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtCore.framework/Versions/A/Headers/qprocessordetection.h \
@@ -1021,6 +1025,22 @@
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Versions/A/Headers/qtransform.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Versions/A/Headers/qvalidator.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtGui.framework/Versions/A/Headers/qwindowdefs.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/QCamera \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/QMediaCaptureSession \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qcamera.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qcameradevice.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qmediacapturesession.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qmediaenumdebug.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qtmultimedia-config.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qtmultimediaexports.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qtmultimediaglobal.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qtvideo.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qvideoframe.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimedia.framework/Versions/A/Headers/qvideoframeformat.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Versions/A/Headers/QVideoWidget \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Versions/A/Headers/qtmultimediawidgetsexports.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Versions/A/Headers/qtmultimediawidgetsglobal.h \
+  /Users/sousadiego/Qt/6.7.0/macos/lib/QtMultimediaWidgets.framework/Versions/A/Headers/qvideowidget.h \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtSerialPort.framework/Versions/A/Headers/QSerialPort \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtSerialPort.framework/Versions/A/Headers/QSerialPortInfo \
   /Users/sousadiego/Qt/6.7.0/macos/lib/QtSerialPort.framework/Versions/A/Headers/qserialport.h \

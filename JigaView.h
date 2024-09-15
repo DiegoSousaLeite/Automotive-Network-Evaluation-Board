@@ -51,7 +51,6 @@ public:
     McuUploadMenu *mcuUploadMenu;
     ReportTestMenus *repTestMenu;
 
-private:
     void selectCommunicationTest();
     void selectMcuInterfaceTest();
     void selectDigitalInputTest();
@@ -81,6 +80,9 @@ private:
 
     EcuFrameController *ecuFmController;
     McuFrameController *mcuFmController;
+//private:
+//    EcuFrameController *ecuFmController;
+//    McuFrameController *mcuFmController;
 };
 
 #endif // JIGAVIEW_H
