@@ -4,9 +4,9 @@
 
 Q_LOGGING_CATEGORY(lcFrameController, "controller.frame")
 
+// Construtor da classe FrameController
 FrameController::FrameController(QObject *parent) : QObject(parent) {
-    // Inicialização dos modelos
-
+    // Inicialização dos modelos de teste
     commTestModel   = CommunicationTest::getInstance();
     diInputModel    = DigitalInputTest::getInstance();
     anInputModel    = AnalogInputTest::getInstance();
@@ -20,13 +20,13 @@ FrameController::FrameController(QObject *parent) : QObject(parent) {
     mcuFwUpModel    = MCUFirmwareUpload::getInstance();
     mcu1TestModel   = MCUInterfaceTest::getInstance();
     findSerialModel = FindSerialPortTest::getInstance();
-
 }
 
 FrameController::~FrameController() {
     // Destruição apropriada, se necessário
 }
 
+// Adiciona um listener para mudanças nos testes
 void FrameController::addChangeListener(IFrameListener *listener)
 {
     if (!listeners.contains(listener)) {
@@ -34,12 +34,13 @@ void FrameController::addChangeListener(IFrameListener *listener)
     }
 }
 
+// Remove um listener para mudanças nos testes
 void FrameController::removeChangeListener(IFrameListener *listener)
 {
     listeners.removeAll(listener);
 }
 
-
+// Reseta o modelo de teste baseado no ID do teste
 void FrameController::resetTestModel(int test_id) {
     qDebug() << "resetTest rodou";
     switch (test_id) {
@@ -80,7 +81,7 @@ void FrameController::resetTestModel(int test_id) {
     case JigaTestInterface::MCU_RST_DAC_TEST:
     case JigaTestInterface::MCU_IDENT_PORT_TEST:
     case JigaTestInterface::MCU_SEL_CANBUS1_TEST:
-    case JigaTestInterface::MCU_SEL_CANBUS2_TEST:{
+    case JigaTestInterface::MCU_SEL_CANBUS2_TEST: {
         mcu1TestModel->resetTestModel();
         break;
     }
@@ -92,6 +93,7 @@ void FrameController::resetTestModel(int test_id) {
     }
 }
 
+// Adiciona uma mensagem de cabeçalho ao relatório de teste com base no ID do teste e da placa
 void FrameController::addHeaderTestMessage(int test_id, int board_id, const QString &testMessage) {
     QString strMessage;
 
@@ -194,14 +196,16 @@ void FrameController::addHeaderTestMessage(int test_id, int board_id, const QStr
     }
 }
 
-
+// Aguarda o tempo limite para relatórios de teste com base no ID do teste e offset
 void FrameController::waitReportTestTimeout(int test_id, int offset) {
     int timeOut = 0;
 
+    // Alguns testes específicos não precisam de timeout, saindo imediatamente
     if (test_id == JigaTestInterface::COMMUNICATION_TEST || test_id == JigaTestInterface::CAN_INIT_TEST) {
         return;
     }
 
+    // Define o tempo limite com base no tipo de teste
     switch(test_id) {
     case JigaTestInterface::DIGITAL_INPUT_TEST:
         timeOut = JigaTestInterface::DIGITAL_INPUT_TEST_TIMEOUT + offset;
@@ -215,7 +219,7 @@ void FrameController::waitReportTestTimeout(int test_id, int offset) {
     case JigaTestInterface::CAN_INIT_TEST:
     case JigaTestInterface::CAN_LOOPBACK_TEST:
     case JigaTestInterface::CAN1_NETWORK_TEST:
-    case JigaTestInterface::CAN2_NETWORK_TEST:{
+    case JigaTestInterface::CAN2_NETWORK_TEST: {
         timeOut = JigaTestInterface::CAN_NETWORK_TEST_TIMEOUT + offset;
         break;
     }
@@ -230,31 +234,31 @@ void FrameController::waitReportTestTimeout(int test_id, int offset) {
         return;
     }
 
+    // Configura um timer para disparar uma ação após o tempo limite
     if (timeOut > 0) {
         QTimer::singleShot(timeOut * 1000, this, SLOT(handleTimeout()));
     }
 }
 
+// Slot chamado quando ocorre um timeout
 void FrameController::handleTimeout()
 {
     qDebug() << "Timeout occurred";
 }
 
-/*
-void FrameController::addFrameView(RCFrame *jigaFrame) {
-    this->jigaFrame = jigaFrame;
-}
-*/
-void FrameController::setReportController(ReportControllerInterface *rpController) {
+// Define o controlador de relatórios
+void FrameController::setReportController(RepBusinessController *rpController) {
     this->rpController = rpController;
 }
 
+// Adiciona modelos de relatório de teste e conecta seus sinais de atualização
 void FrameController::addTestReportModels(const QList<TestReportModel*>& models) {
     for (TestReportModel* model : models) {
         connect(model, &TestReportModel::reportUpdated, this, &FrameController::onReportUpdated);
     }
 }
 
+// Slot chamado quando um relatório de teste é atualizado
 void FrameController::onReportUpdated(const QString &message) {
     qDebug() << "Received update from TestReportModel:" << message;
 }

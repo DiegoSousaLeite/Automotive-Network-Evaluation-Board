@@ -4,9 +4,12 @@
 McuBusinessController::McuBusinessController(QObject *parent) :
     BusinessController(parent)
 {
+    // Construtor padrão inicializa o BusinessController com o pai especificado.
 }
 
 bool McuBusinessController::loadProgrammer(int programmerId) {
+    // Carrega o programador com base no ID fornecido.
+    // Retorna true se o carregamento foi bem-sucedido, caso contrário, false.
     switch (programmerId) {
     case JigaTestInterface::SERIAL_PROG_ID:
         return loadSerialProgrammer();
@@ -18,12 +21,13 @@ bool McuBusinessController::loadProgrammer(int programmerId) {
 }
 
 bool McuBusinessController::loadUsbProgrammer() {
+    // Tenta carregar um programador USB.
     QString testMessage = tr(CmdMessageConstants::MSG_TRY_LOAD_PROGRAMMER);
     addCmdTestMessage(JigaTestInterface::MCU_FIRMWARE_UPLOAD, JigaTestInterface::MCU1_BOARD_ID, testMessage, false);
 
     bool retVal = psController->loadUsbProgrammer();
 
-    // QTimer is used to handle the delay asynchronously
+    // Usando QTimer para lidar com o atraso de forma assíncrona.
     QTimer::singleShot(1000, this, [this, retVal]() {
         QString testMessage;
         if (retVal) {
@@ -38,13 +42,9 @@ bool McuBusinessController::loadUsbProgrammer() {
 }
 
 bool McuBusinessController::loadSerialProgrammer() {
+    // Carrega um programador serial.
     int serialPorts = psController->getTotalNumberOfPorts();
-    /*
-     * QSettings settings("path/to/config.ini", QSettings::IniFormat);
-     * int baudrate = settings.value(SystemProperties::MCU_PROG_BAUDRATE).toInt();
-    */
     int baudrate = QSettings().value(SystemProperties::MCU_PROG_BAUDRATE).toInt();
-
     qDebug() << "baudrate: " << baudrate;
 
     if (serialPorts > 0) {
@@ -99,19 +99,18 @@ bool McuBusinessController::loadSerialProgrammer() {
 }
 
 int McuBusinessController::getSerialProgrammerMode() {
+    // Obtém o modo do programador serial atual.
     QString recvStr;
     bool retVal;
     QString commPort;
     QString testMessage;
 
-    // Abrindo conexão com a porta serial para o modo programador
     retVal = psController->openBoardConnection(JigaTestInterface::PROG_BOARD_ID, 19200);
     if (retVal) {
         commPort = psController->getBoardCommPort(JigaTestInterface::PROG_BOARD_ID);
         testMessage = commPort + ": " + tr(CmdMessageConstants::MSG_SUCCESS_OPEN_SERIAL_PORT);
         addCmdTestMessage(JigaTestInterface::MCU_FIRMWARE_UPLOAD, JigaTestInterface::PROG_BOARD_ID, testMessage, false);
 
-        // Verificando o modo do programador
         for (int i = 0; i < EcuBusinessInterface::MAX_NUMBER_ATTEMPTS; i++) {
             testMessage = commPort + tr(CmdMessageConstants::MSG_SEPARATOR) + tr(CmdMessageConstants::MSG_SEND_AT_COMMAND);
             addCmdTestMessage(JigaTestInterface::MCU_FIRMWARE_UPLOAD, JigaTestInterface::PROG_BOARD_ID, testMessage, false);
@@ -148,19 +147,18 @@ int McuBusinessController::getSerialProgrammerMode() {
 }
 
 void McuBusinessController::setSerialProgrammerMode(int progMode) {
+    // Define o modo do programador serial.
     QString recvStr;
     bool retVal;
     QString commPort;
     QString testMessage;
 
-    // Abre a conexão com o board especificado
     retVal = psController->openBoardConnection(JigaTestInterface::PROG_BOARD_ID, 19200);
     if (retVal) {
         commPort = psController->getBoardCommPort(JigaTestInterface::PROG_BOARD_ID);
         testMessage = commPort + ": " + tr(CmdMessageConstants::MSG_SUCCESS_OPEN_SERIAL_PORT);
         addCmdTestMessage(JigaTestInterface::MCU_FIRMWARE_UPLOAD, JigaTestInterface::PROG_BOARD_ID, testMessage, false);
 
-        // Configura o modo do programador
         for (int i = 0; i < EcuBusinessInterface::MAX_NUMBER_ATTEMPTS; i++) {
             testMessage = commPort + tr(CmdMessageConstants::MSG_SEPARATOR) + tr(CmdMessageConstants::MSG_SEND_AT_COMMAND);
             addCmdTestMessage(JigaTestInterface::MCU_FIRMWARE_UPLOAD, JigaTestInterface::PROG_BOARD_ID, testMessage, false);
@@ -173,7 +171,6 @@ void McuBusinessController::setSerialProgrammerMode(int progMode) {
 
             QThread::msleep(500);
 
-            // Leitura da resposta
             recvStr = psController->serialBoardRead(JigaTestInterface::PROG_BOARD_ID);
             testMessage = commPort + ": " + recvStr;
             addCmdTestMessage(JigaTestInterface::MCU_FIRMWARE_UPLOAD, JigaTestInterface::PROG_BOARD_ID, testMessage, false);
@@ -199,6 +196,7 @@ void McuBusinessController::setSerialProgrammerMode(int progMode) {
 }
 
 int McuBusinessController::uploadFirmware(int programmerId) {
+    // Faz o upload do firmware para o MCU.
     QString basePath = QDir(SystemProperties::USER_DIRECTORY).absolutePath();
     QDir mcuDir(basePath);
     mcuDir.cd(SystemProperties::MCU_DIRECTORY);
@@ -209,7 +207,6 @@ int McuBusinessController::uploadFirmware(int programmerId) {
     QDir avrDir(basePath);
     QString avrdudeExe = avrDir.filePath(SystemProperties::AVRDUDE_PROGRAM);
     QString avrdudeConf = avrDir.filePath(SystemProperties::AVRDUDE_CONFIG);
-
 
     QString optFUSE = tr(SystemProperties::MCU_OPT_FUSE);
     QString optBOOT1 = tr(SystemProperties::MCU_OPT_BOOT1);
@@ -252,18 +249,19 @@ int McuBusinessController::uploadFirmware(int programmerId) {
 }
 
 bool McuBusinessController::setCanBus1Network() {
+    // Configura a rede CAN Bus 1 para o MCU.
     bool retVal = false;
     int resVal;
     QString testMessage;
     int stateMachine;
 
-    // 1 - Abrindo conexão com o programador
+    // Abre conexão com o programador
     retVal = psController->openBoardConnection(JigaTestInterface::MCU1_BOARD_ID, 19200);
     if (!retVal) {
         return false;
     }
 
-    // 3 - Verificar configuração de rede CAN para ECU3 e ECU4
+    // Verifica a configuração de rede CAN para ECU3 e ECU4
     resVal = checkCanBus1Network(JigaTestInterface::CAN1_NETWORK_TEST);
     switch (resVal) {
     case EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE:
@@ -324,6 +322,7 @@ bool McuBusinessController::setCanBus1Network() {
 }
 
 int McuBusinessController::checkCanBus1Network(int testId) {
+    // Verifica a configuração da rede CAN Bus 1.
     QString recvStr = "";
     QString testMessage;
     QString commPort;
@@ -331,7 +330,7 @@ int McuBusinessController::checkCanBus1Network(int testId) {
 
     commPort = psController->getBoardCommPort(JigaTestInterface::MCU1_BOARD_ID);
 
-    // 1 - Send AT command to MCU1
+    // Envia comando AT para MCU1
     for (int i = 0; i < EcuBusinessInterface::MAX_NUMBER_ATTEMPTS; i++) {
         testMessage = commPort + CmdMessageConstants::MSG_SEPARATOR + CmdMessageConstants::MSG_SEND_AT_COMMAND;
         addCmdTestMessage(JigaTestInterface::MCU_FIRMWARE_UPLOAD, JigaTestInterface::MCU1_BOARD_ID, testMessage, false);
@@ -341,15 +340,15 @@ int McuBusinessController::checkCanBus1Network(int testId) {
         testMessage = commPort + CmdMessageConstants::MSG_SEPARATOR + AtCommandConstants::AT_SB_CMD;
         addCmdTestMessage(JigaTestInterface::MCU_FIRMWARE_UPLOAD, JigaTestInterface::MCU1_BOARD_ID, testMessage, false);
 
-        // 2 - Waiting a while
-        QThread::msleep(500);  // Delay in seconds
+        // Aguardar um momento
+        QThread::msleep(500);  // Atraso em milissegundos
 
-        // 3 - Getting test result
+        // Obtendo resultado do teste
         recvStr = psController->serialBoardRead(JigaTestInterface::MCU1_BOARD_ID);
         testMessage = commPort + ": " + recvStr;
         addCmdTestMessage(testId, JigaTestInterface::MCU1_BOARD_ID, testMessage, false);
 
-        // 4 - Checking returned code
+        // Verifica o código retornado
         if (!recvStr.isEmpty()) {
             code = getTestReportCode(recvStr);
             if (code != EcuBusinessInterface::ERROR_RETRIEVE_REPORT_CODE) {

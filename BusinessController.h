@@ -24,13 +24,16 @@
 #include <QStringView>
 #include "ecufirmwareupload.h"
 
-class BusinessController : public QObject,public virtual McuBusinessInterface, public virtual EcuBusinessInterface {
+// BusinessController é responsável por gerenciar a lógica de negócios para operações relacionadas a ECUs e MCUs.
+// Ele herda das interfaces McuBusinessInterface e EcuBusinessInterface, fornecendo a implementação dessas interfaces.
+class BusinessController : public QObject, public virtual McuBusinessInterface, public virtual EcuBusinessInterface {
     Q_OBJECT
 
 public:
-    explicit BusinessController(QObject *parent = nullptr);
-    void setPersistenceController(PersistenceController *controller);
+    explicit BusinessController(QObject *parent = nullptr); // Construtor que inicializa o controlador
+    void setPersistenceController(PersistenceController *controller); // Define o controlador de persistência
 
+    // Modelos de teste utilizados pelo controlador
     CommunicationTest *commTestModel;
     ECUFirmwareUpload *ecuFwUpModel;
     DigitalInputTest *diInputModel;
@@ -42,18 +45,20 @@ public:
     CAN2NetworkTest *c2NetworkModel;
     LinNetworkTest *lnNetworkModel;
     MCUInterfaceTest *mcu1InterModel;
-    QList<Board *> boardList;
-    PersistenceController *psController;
 
+    QList<Board *> boardList; // Lista de placas sob controle
+    PersistenceController *psController; // Controlador de persistência
+
+    // Adiciona uma mensagem de comando ao teste, implementando o método da interface
     void addCmdTestMessage(int testId, int boardId, const QString &testMessage, bool header) override;
-private:
 
 protected:
+    // Envia um comando AT para a placa especificada
     void sendAtCommand(int testId, int boardId, const QString &atCommand);
+    // Aguarda e verifica a resposta para um comando AT enviado
     bool acknowledgeAtCommand(int testId, int boardId);
+    // Extrai e obtém o código do relatório de teste da string recebida
     int getTestReportCode(const QString &recvStr);
-
-
 };
 
 #endif // BUSINESSCONTROLLER_H

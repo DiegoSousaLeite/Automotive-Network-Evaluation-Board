@@ -37,7 +37,7 @@ Item {
         repeat: true
         onTriggered: {
             totalTimeElapsed += 1.5;  // Incrementa o tempo total decorrido (exemplo: a cada 1.5 segundos)
-//            updateSpeed();
+            updateSpeed();
         }
     }
 

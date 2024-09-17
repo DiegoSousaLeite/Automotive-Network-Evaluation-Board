@@ -21,24 +21,38 @@ class McuBusinessController : public BusinessController{
 
 public:
     explicit McuBusinessController(QObject *parent = nullptr);
-    bool loadProgrammer(int programmerId) ;
-    int getSerialProgrammerMode() ;
-    void setSerialProgrammerMode(int progMode) ;
-    int uploadFirmware(int programmerId) ;
+
+    // Carrega o programador baseado no ID fornecido (serial ou USB).
+    bool loadProgrammer(int programmerId);
+
+    // Obtém o modo do programador serial.
+    int getSerialProgrammerMode();
+
+    // Define o modo do programador serial (programação ou serial).
+    void setSerialProgrammerMode(int progMode);
+
+    // Realiza o upload do firmware para o MCU utilizando o programador especificado.
+    int uploadFirmware(int programmerId);
+
+    // Configura a rede CAN Bus 1 para o MCU.
     bool setCanBus1Network();
+
+    // Configura a rede CAN Bus 2 para o MCU (ainda não suportada).
     bool setCanBus2Network();
 
 private:
-    QSerialPort serialPort;
-    QTimer delayTimer;
+    QSerialPort serialPort;  // Objeto para manipulação da porta serial.
+    QTimer delayTimer;       // Temporizador para atrasos assíncronos.
 
+    // Tenta carregar um programador USB.
     bool loadUsbProgrammer();
+
+    // Tenta carregar um programador serial.
     bool loadSerialProgrammer();
 
-
 protected:
+    // Verifica a configuração da rede CAN Bus 1 para o teste especificado.
     int checkCanBus1Network(int testId);
-
 };
 
 #endif // MCUBUSINESSCONTROLLER_H

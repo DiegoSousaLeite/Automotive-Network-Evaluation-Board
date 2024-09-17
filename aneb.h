@@ -11,6 +11,7 @@
 #include "EcuFrameController.h"
 #include "McuFrameController.h"
 #include "DashboardWidget.h"
+#include "MenuOptionsInterface.h"
 
 namespace Ui {
 class ANEB;
@@ -39,13 +40,28 @@ private slots:
     // Slot para troca de página no QStackedWidget
     void onChangePage(int page, int pageIndex);
 
-    // Slot para execução de testes de comunicação
+    // Slot para execução de testes
     void onExecuteTest(int tipo, int id);
+
+    // Slot para execução de testes
+    void onReportTest(int tipo);
 
 private:
     Ui::ANEB *ui; // Ponteiro para a interface de usuário gerada pelo Qt Designer
-    QTextBrowser* console1; // Ponteiro para o primeiro console de log
-    QTextBrowser* console2; // Ponteiro para o segundo console de log
+    QTextBrowser* console1; // Ponteiro para o primeiro console de log (Teste de comunicação)
+    QTextBrowser* console2; // Ponteiro para o segundo console de log (Teste de rede can1)
+    QTextBrowser* console3; // Ponteiro para o terceiro console de log (Teste de rede can2)
+    QTextBrowser* console4; // Ponteiro para o quarto console de log (Teste de Inicialização)
+    QTextBrowser* console5; // Ponteiro para o quinto console de log (Teste de rede lin)
+    QTextBrowser* console6; // Ponteiro para o sexto console de log (Teste de loopback)
+    QTextBrowser* console7; // Ponteiro para o sétimo console de log (Teste de entrada digital)
+    QTextBrowser* console8; // Ponteiro para o oitavo console de log (Teste de entrada analógica)
+    QTextBrowser* console9; // Ponteiro para o nono console de log (Teste de saída analógica)
+    QTextBrowser* console10; // Ponteiro para o décimo console de log (Teste de interface)
+    QTextBrowser* console11; // Ponteiro para o décimo primeiro console de log (Teste automático)
+    QTextBrowser* console12; // Ponteiro para o décimo segundo console de log (Relatórios)
+
+
 
     EcuFrameController *ecuFmController; // Ponteiro para o controlador de frame ECU
     McuFrameController *mcuFmController; // Ponteiro para o controlador de frame MCU

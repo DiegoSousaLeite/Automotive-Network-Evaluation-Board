@@ -99,7 +99,7 @@ void JigaView::start()
             qDebug() << "Execução automática dos testes!";
             selectExecuteAllTests();
             break;
-        case MenuOptionsInterface::OPT_REPORT_ALL_TEST:
+        case MenuOptionsInterface::OPT_REPORT_TEST:
             qDebug() << "Emissão de relatório dos testes!";
             selectReportTest();
             break;
